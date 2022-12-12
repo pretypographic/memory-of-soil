@@ -4,8 +4,34 @@ document.addEventListener('click', (event) => {
 
 const memoryTree = {
     rings: Array.from(document.querySelectorAll('.memory-ring')), 
+    ringsShine: Array.from(document.querySelectorAll('.memory-ring__shine')),
     wavesLit: Array.from(document.querySelectorAll('.memory-wave__lit')),
-    wavesShine: Array.from(document.querySelectorAll('.memory-wave__shine'))
+    wavesShine: Array.from(document.querySelectorAll('.memory-wave__shine')),
+    animation: (t, delay, step, iterations, key) => {
+        animationType = `shine ${t}s ${delay + step}s ease-in ${iterations} alternate ${key}`;
+        return animationType;
+    }
+}
+
+const shiningWaveBreath = () => {
+    let step = 0;
+    memoryTree.wavesShine.forEach((wave) => {
+        wave.style.animation = memoryTree.animation(1, 0, step, 'infinite', 'forwards');
+        step = step + 0.1;
+    })
+}
+
+const shiningWaveExhale = () => {
+    memoryTree.wavesShine.forEach((wave) => {
+        wave.style.animation = 'none';
+    })
+}
+
+const shiningWave = (memoryTree) => {
+    memoryTree.rings.forEach((ring) => {
+        ring.addEventListener('mouseover', shiningWaveBreath)
+        ring.addEventListener('mouseout', shiningWaveExhale)
+    })
 }
 
 const makeRings = (memoryTree) => {
@@ -42,29 +68,21 @@ const makeRings = (memoryTree) => {
     })
 }
 
-makeRings(memoryTree);
-
-const shiningWaveBreath = () => {
+const memoryBlast = () => {
+    const shining = memoryTree.ringsShine.reverse().concat(memoryTree.wavesShine);
     let step = 0;
-    // memoryTree.wavesLit.forEach((wave) => {wave.style.opacity = 0.9;})
-    memoryTree.wavesShine.forEach((wave) => {
-        wave.style.animation = `shine 1s ${0.6 + step}s ease-out infinite alternate forwards`;
-        step = step + 0.2;
+    shining.forEach((wave) => {
+        wave.style.animation = memoryTree.animation(0.5, 0.1, step, 2, 'backwards');
+        step = step + 0.05;
     })
+    makeRings(memoryTree);
 }
 
-const shiningWaveExhale = () => {
-    // memoryTree.wavesLit.forEach((wave) => {wave.style.opacity = 0;})
-    memoryTree.wavesShine.forEach((wave) => {
-        wave.style.animation = 'none';
-    })
+const closeYourEyes = (memoryTree) => {
+    window.addEventListener('load', memoryBlast);
+    setTimeout(() => {shiningWave(memoryTree)}, 2000);
 }
 
-const shiningWave = (memoryTree) => {
-    memoryTree.rings.forEach((ring) => {
-        ring.addEventListener('mouseover', shiningWaveBreath)
-        ring.addEventListener('mouseout', shiningWaveExhale)
-    })
-}
+closeYourEyes(memoryTree);
 
-shiningWave(memoryTree);
+console.log(parseInt('1'));

@@ -10,10 +10,6 @@
     opacity: 0.9;
 }
 
-.memory-ring:hover .memory-ring__shine {
-    animation: shine 1s 0.4s ease-out infinite alternate forwards;
-}
-
 @keyframes shine {
     0% {
         opacity: 0;
