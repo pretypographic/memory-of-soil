@@ -7,7 +7,7 @@
 }
 
 .memory-ring:hover .memory-ring__lit {
-    opacity: 0.9;
+    opacity: 1;
 }
 
 @keyframes shine {

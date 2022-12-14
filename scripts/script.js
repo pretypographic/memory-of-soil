@@ -13,12 +13,20 @@ const memoryTree = {
     }
 }
 
+const shiningRingBreath = (ring) => {
+    ring.lastElementChild.style.animation = memoryTree.animation(1, 0, 0, 'infinite', 'forwards');
+}
+
 const shiningWaveBreath = () => {
     let step = 0;
     memoryTree.wavesShine.forEach((wave) => {
         wave.style.animation = memoryTree.animation(1, 0, step, 'infinite', 'forwards');
         step = step + 0.1;
     })
+}
+
+const shiningRingExhale = (ring) => {
+    ring.lastElementChild.style.animation = 'none';
 }
 
 const shiningWaveExhale = () => {
@@ -29,8 +37,10 @@ const shiningWaveExhale = () => {
 
 const shiningWave = (memoryTree) => {
     memoryTree.rings.forEach((ring) => {
-        ring.addEventListener('mouseover', shiningWaveBreath)
-        ring.addEventListener('mouseout', shiningWaveExhale)
+        ring.addEventListener('mouseover', shiningWaveBreath);
+        ring.addEventListener('mouseout', shiningWaveExhale);
+        ring.addEventListener('mouseover', () => {shiningRingBreath(ring)});
+        ring.addEventListener('mouseout', () => {shiningRingExhale(ring)});
     })
 }
 
@@ -80,9 +90,7 @@ const memoryBlast = () => {
 
 const closeYourEyes = (memoryTree) => {
     window.addEventListener('load', memoryBlast);
-    setTimeout(() => {shiningWave(memoryTree)}, 2000);
+    setTimeout(() => {shiningWave(memoryTree)}, 1800);
 }
 
 closeYourEyes(memoryTree);
-
-console.log(parseInt('1'));
