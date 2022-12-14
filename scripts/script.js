@@ -15,6 +15,7 @@ const memoryTree = {
 
 const shiningRingBreath = (ring) => {
     ring.lastElementChild.style.animation = memoryTree.animation(1, 0, 0, 'infinite', 'forwards');
+    ring.style.cursor = 'pointer';
 }
 
 const shiningWaveBreath = () => {
@@ -27,6 +28,7 @@ const shiningWaveBreath = () => {
 
 const shiningRingExhale = (ring) => {
     ring.lastElementChild.style.animation = 'none';
+    ring.style.cursor = 'default';
 }
 
 const shiningWaveExhale = () => {

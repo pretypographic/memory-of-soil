@@ -3,7 +3,6 @@
     position: absolute;
     right: 0;
     left: -4vh;
-    cursor: pointer;
 }
 
 .memory-ring:hover .memory-ring__lit {
