@@ -9,6 +9,10 @@
     opacity: 1;
 }
 
+.memory-ring:hover .memory-ring__title {
+    opacity: 1;
+}
+
 @keyframes shine {
     0% {
         opacity: 0;

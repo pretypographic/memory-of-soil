@@ -1,0 +1,9 @@
+.cosmos-trajectories {    
+    max-height: 100vh;
+    width: 100%;
+    max-width: 100vw;
+    object-fit: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
