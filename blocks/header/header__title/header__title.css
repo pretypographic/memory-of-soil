@@ -1,0 +1,10 @@
+.header__title {
+    margin: 0 0 0 1em;
+    text-transform: uppercase;
+    font-family: var(--font-family);
+    font-size: 6em;
+    letter-spacing: 1em;
+    color: #fff;
+    opacity: 1;
+    transition: opacity 0.4s;
+}

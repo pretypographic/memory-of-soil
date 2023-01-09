@@ -1,0 +1,14 @@
+.popup_condition_opened {
+    animation: opening 1s forwards;
+}
+
+@keyframes opening {
+    0% {
+        z-index: 1;
+        opacity: o;
+    }
+    100% {
+        z-index: 1;
+        opacity: 1;
+    }
+}

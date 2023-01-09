@@ -1,0 +1,23 @@
+@import url(../vendor/normalize.css);
+@import url(../blocks/root/root.css);
+@import url(../blocks/header/header.css);
+@import url(../blocks/header/header__title/header__title.css);
+@import url(../blocks/header/header__title/_disappeared/header__title_disappeared.css);
+@import url(../blocks/main/main.css);
+@import url(../blocks/visual/visual.css);
+@import url(../blocks/visual/__block/visual__block.css);
+@import url(../blocks/visual/__block/_open/visual__block_open.css);
+@import url(../blocks/visual/__image/visual__image.css);
+@import url(../blocks/visual/__image/_in-color/visual__image__in-color.css);
+@import url(../blocks/visual/__mark/visual__mark.css);
+@import url(../blocks/journals/journals.css);
+@import url(../blocks/journals/__block/journals__block.css);
+@import url(../blocks/journals/__mark/journals__mark.css);
+@import url(../blocks/journal/journal.css);
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_condition/popup_condition_opened.css);
+@import url(../blocks/popup/_condition/popup_condition_closed.css);
+@import url(../blocks/popup/__image/popup__image.css);
+@import url(../blocks/popup/__text/popup__text.css);
+
+@import url(../blocks/tech/tech.css);

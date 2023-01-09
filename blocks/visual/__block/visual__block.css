@@ -1,0 +1,13 @@
+.visual__block {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    flex-shrink: 10;
+    transition: flex-shrink 0.4s;
+    overflow: hidden;
+}
+
+.visual__block:hover .visual__mark {    
+    background-color: var(--yellow);
+}

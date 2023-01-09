@@ -1,0 +1,20 @@
+.journal {
+    width: 45vw;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    text-transform: uppercase;
+    font-family: var(--font-family);
+    font-size: 2em;
+    color: aliceblue;
+    animation: move-text 20s linear infinite alternate forwards;
+}
+
+@keyframes move-text {
+    0% {
+        transform: translate(0vh, 0);
+    }
+    100% {
+        transform: translate(-5vh, 0);
+    }
+}

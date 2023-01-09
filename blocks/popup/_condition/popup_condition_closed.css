@@ -1,0 +1,14 @@
+.popup_condition_closed {
+    animation: closing 1s forwards;
+}
+
+@keyframes closing {
+    0% {
+        opacity: 1;
+        z-index: 1;
+    }
+    100% {
+        opacity: 0;
+        z-index: -1;
+    }
+}

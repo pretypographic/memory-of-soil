@@ -1,0 +1,7 @@
+.header {
+    height: calc(100vh / 6);
+    display: flex;
+    align-items: center;
+    position: fixed;
+    z-index: 2;
+}

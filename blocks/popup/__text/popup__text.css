@@ -1,0 +1,13 @@
+.popup__text {
+    width: calc(100vw / 5 * 3);
+    height: calc(100vh / 3 * 2);
+    padding: 2em;
+    box-sizing: border-box;
+    position: absolute;
+    top: calc(100vh / 6);
+    left: calc(100vw / 5);
+    font-family: var(--font-family);
+    font-size: 2em;
+    color: #fff;
+    text-align: center;
+}

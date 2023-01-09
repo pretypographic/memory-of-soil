@@ -1,0 +1,19 @@
+.journals__block {
+    width: 100%;
+    height: calc(100% / 4);
+    background-color: black;
+    position: relative;
+    overflow: hidden;
+}
+
+.journals__block:hover {
+    background-color: aliceblue;
+}
+
+.journals__block:hover .journal {
+    color: black;
+}
+
+.journals__block:hover .journals__mark {    
+    background-color: var(--pink);
+}
