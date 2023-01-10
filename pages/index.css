@@ -4,7 +4,10 @@
 @import url(../blocks/memory-rings/memory-rings.css);
 @import url(../blocks/memory-ring/memory-ring.css);
 @import url(../blocks/memory-ring/__lit/memory-ring__lit.css);
+@import url(../blocks/memory-ring/__lit/_fade/memory-ring__lit_fade.css);
 @import url(../blocks/memory-ring/__title/memory-ring__title.css);
 @import url(../blocks/memory-ring/__shine/memory-ring__shine.css);
-@import url(../blocks/memory-wave/memory-wave__lit/memory-wave__lit.css);
+@import url(../blocks/memory-wave/memory-wave.css);
 @import url(../blocks/memory-wave/memory-wave__shine/memory-wave__shine.css);
+@import url(../blocks/blackout/blackout.css);
+@import url(../blocks/blackout/_go/blackout_go.css);

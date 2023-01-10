@@ -1,7 +1,9 @@
 .memory-rings {
     width: 100vh;
     height: 100vh;
+    overflow: hidden;
     justify-content: center;
     align-items: center;
     position: relative;
+    z-index: 2;
 }

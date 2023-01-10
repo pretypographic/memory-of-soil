@@ -1,17 +1,23 @@
-document.addEventListener('click', (event) => {
-    console.log(event.target)
-})
+let a = 0;
+let map = new Map();
 
 const memoryTree = {
+    step: 0,
     rings: Array.from(document.querySelectorAll('.memory-ring')), 
     ringsShine: Array.from(document.querySelectorAll('.memory-ring__shine')),
-    wavesLit: Array.from(document.querySelectorAll('.memory-wave__lit')),
     wavesShine: Array.from(document.querySelectorAll('.memory-wave__shine')),
+    blackout: document.querySelector('.blackout'),
     animation: (t, delay, step, iterations, key) => {
         animationType = `shine ${t}s ${delay + step}s ease-in ${iterations} alternate ${key}`;
         return animationType;
     }
 }
+
+const shining = memoryTree.ringsShine.reverse().concat(memoryTree.wavesShine);
+shining.forEach((ring) => {
+    map.set(a, ring);
+    a++;
+});
 
 const shiningRingBreath = (ring) => {
     ring.lastElementChild.style.animation = memoryTree.animation(1, 0, 0, 'infinite', 'forwards');
@@ -39,60 +45,80 @@ const shiningWaveExhale = () => {
 
 const shiningWave = (memoryTree) => {
     memoryTree.rings.forEach((ring) => {
-        ring.addEventListener('mouseover', shiningWaveBreath);
-        ring.addEventListener('mouseout', shiningWaveExhale);
         ring.addEventListener('mouseover', () => {shiningRingBreath(ring)});
         ring.addEventListener('mouseout', () => {shiningRingExhale(ring)});
+        ring.addEventListener('mouseover', shiningWaveBreath);
+        ring.addEventListener('mouseout', shiningWaveExhale);
     })
 }
 
 const makeRings = (memoryTree) => {
-    let step = 0;
+    memoryTree.step = 0;
     memoryTree.rings.forEach((ring) => {
-        ring.style.width = `${99 - step}vh`;
-        ring.style.height = `${99 - step}vh`;
-        ring.style.top = `${step/2}vh`;
-        if (step === 0) {
+        ring.style.width = `${99 - memoryTree.step}vh`;
+        ring.style.height = `${99 - memoryTree.step}vh`;
+        ring.style.top = `${memoryTree.step/2}vh`;
+        if (memoryTree.step === 0) {
             // второе кольцо
-            step = step + 13;
-        } else if (step === 13) {
+            memoryTree.step = memoryTree.step + 13;
+        } else if (memoryTree.step === 13) {
             // третье кольцо
-            step = step + 11;
-        } else if (step === 24) {
+            memoryTree.step = memoryTree.step + 11;
+        } else if (memoryTree.step === 24) {
             // четвёртое кольцо
-            step = step + 5;
-        } else if (step === 29) {
+            memoryTree.step = memoryTree.step + 5;
+        } else if (memoryTree.step === 29) {
             // пятое кольцо
-            step = step + 7;
-        } else if (step === 36) {
+            memoryTree.step = memoryTree.step + 7;
+        } else if (memoryTree.step === 36) {
             // шестое кольцо
-            step = step + 14;
-        } else if (step === 50) {
+            memoryTree.step = memoryTree.step + 14;
+        } else if (memoryTree.step === 50) {
             // седьмое кольцо
-            step = step + 13;
-        } else if (step === 63) {
+            memoryTree.step = memoryTree.step + 13;
+        } else if (memoryTree.step === 63) {
             // восьмое кольцо
-            step = step + 9;
+            memoryTree.step = memoryTree.step + 9;
         } else {
             // девятое кольцо
-            step = step + 12;
+            memoryTree.step = memoryTree.step + 12;
         }
+        ring.addEventListener('click', (event) => {
+            event.preventDefault();
+            ring.firstElementChild.classList.add('memory-ring__lit_fade');
+            memoryTree.blackout.classList.add('blackout_go');
+            map.forEach((ring) => {
+                ring.style.animation = 'none';
+            })
+            setTimeout(() => {memoryCollapse(memoryTree)}, 50);
+            setTimeout(() => {
+                location.href = ring.getAttribute('href');
+                console.log(ring);
+            }, 3200);
+        })
     })
 }
 
-const memoryBlast = () => {
-    const shining = memoryTree.ringsShine.reverse().concat(memoryTree.wavesShine);
-    let step = 0;
-    shining.forEach((wave) => {
-        wave.style.animation = memoryTree.animation(0.5, 0.1, step, 2, 'backwards');
-        step = step + 0.05;
+const memoryBlast = (memoryTree) => {
+    memoryTree.step = 0;
+    map.forEach((wave) => {
+        wave.style.animation = memoryTree.animation(0.5, 0.1, memoryTree.step, 2, 'backwards');
+        memoryTree.step = memoryTree.step + 0.05;
     })
     makeRings(memoryTree);
 }
 
+const memoryCollapse = (memoryTree) => {
+    memoryTree.step = 0;
+    map.forEach((wave) => {
+        wave.style.animation = memoryTree.animation(0.5, 0.1, memoryTree.step, 2, 'backwards');
+        memoryTree.step = memoryTree.step + 0.1;
+    })
+}
+
 const closeYourEyes = (memoryTree) => {
-    window.addEventListener('load', memoryBlast);
-    setTimeout(() => {shiningWave(memoryTree)}, 1800);
+    window.addEventListener('load', () => memoryBlast(memoryTree));
+    setTimeout(() => {shiningWave(memoryTree)}, 1900);
 }
 
 closeYourEyes(memoryTree);
