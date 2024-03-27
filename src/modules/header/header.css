@@ -1,0 +1,27 @@
+.header {
+  padding: 4vh 3vw 0;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.header__aside_type_left:last-child {
+  margin: 0;
+}
+
+.header__aside_type_right:last-child {
+  margin: 0;
+}
+
+.header__button {
+  color: white;
+  margin-right: 2vw;
+  font-size: 3vh;
+  text-transform: uppercase;
+}
+
+.header__button_active {
+  text-decoration-line: underline;
+  pointer-events: none;
+}
