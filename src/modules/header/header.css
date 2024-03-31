@@ -1,13 +1,24 @@
 .header {
-  padding: 4vh 3vw 0;
   display: flex;
   justify-content: space-between;
   position: relative;
-  z-index: 2;
+  z-index: 1;
+}
+
+.header__aside_type_left {
+  position: absolute;
+  top: 4vh;
+  left: 3vw;
 }
 
 .header__aside_type_left:last-child {
   margin: 0;
+}
+
+.header__aside_type_right {
+  position: absolute;
+  top: 4vh;
+  right: 3vw;
 }
 
 .header__aside_type_right:last-child {
@@ -19,6 +30,10 @@
   margin-right: 2vw;
   font-size: 3vh;
   text-transform: uppercase;
+}
+
+.header__button:hover {
+  opacity: 0.7;
 }
 
 .header__button_active {

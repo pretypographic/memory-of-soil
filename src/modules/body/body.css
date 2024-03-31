@@ -15,10 +15,6 @@ button {
   transition: all 0.3s;
 }
 
-button:hover {
-  opacity: 0.7;
-}
-
 .loader {
   padding: 0 50%;
   color: white;

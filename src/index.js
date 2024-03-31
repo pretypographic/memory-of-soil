@@ -1,3 +1,5 @@
+"use strict";
+
 import "./index.css";
 import settings from "./utils/settings.js";
 
@@ -8,10 +10,24 @@ loader.textContent = "загрузка...";
 loader.classList.add("loader");
 page.append(loader);
 
+function handleDecorLight() {
+  const decor = document.querySelector(".figure__section_type_decor");
+  decor.classList.toggle("figure__section_lightOn");
+}
+
 function handleMouseOver(event) {
-  console.log(event.target);
-  if (event.target.classList.contains("figure__img_type_title")) {
-    event.target.classList.add("figure__img_visible");
+  if (event.target.classList.contains("figure__button")) {
+    const button = event.target;
+    button.classList.add("figure__button_focused");
+    handleDecorLight();
+  }
+}
+
+function handleMouseOut(event) {
+  if (event.target.classList.contains("figure__button")) {
+    const button = event.target;
+    button.classList.remove("figure__button_focused");
+    handleDecorLight();
   }
 }
 
@@ -69,7 +85,7 @@ const renderFigure = new Promise((resolve, reject) => {
     const button = document.createElement("button");
     button.setAttribute("type", "button");
     button.setAttribute("aria-label", `Кольцо №${[i]}`);
-    button.setAttribute("style", settings.figure.ringsStyle[i])
+    button.setAttribute("style", settings.figure.navStyle[i])
     button.classList.add("figure__button");
 
     const title = document.createElement("img");
@@ -101,10 +117,12 @@ const renderFigure = new Promise((resolve, reject) => {
     return button;
   });
 
-  const decor = settings.figure.decor().map((string) => {
+  const decor = settings.figure.decor().map((string, i) => {
     const lit = document.createElement("img");
+    const style = settings.figure.decorStyle();
     lit.setAttribute("src", string);
     lit.setAttribute("alt", `${string}`);
+    lit.setAttribute("style", style[i]);
     lit.classList.add(
       "figure__img",
       "figure__img_type_lit"
@@ -117,6 +135,7 @@ const renderFigure = new Promise((resolve, reject) => {
   figureSectionDecor.append(...decor);
 
   figureSectionNav.addEventListener('mouseover', handleMouseOver);
+  figureSectionNav.addEventListener('mouseout', handleMouseOut);
   resolve(figure);
 })
 

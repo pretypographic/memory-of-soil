@@ -35,7 +35,7 @@ const settings = {
       }
       return arrey;
     },
-    ringsStyle: [
+    navStyle: [
       "width: 15vh; height: 15vh; top: 42vh; z-index: 9;",
       "width: 27vh; height: 27vh; top: 36vh; z-index: 8;",
       "width: 36vh; height: 36vh; top: 31.5vh; z-index: 7;",
@@ -45,7 +45,15 @@ const settings = {
       "width: 75vh; height: 75vh; top: 12vh; z-index: 3;",
       "width: 86vh; height: 86vh; top: 6.5vh; z-index: 2;",
       "width: 99vh; height: 99vh; top: 0vh; z-index: 1;"
-    ]
+    ],
+    decorStyle: function () {
+      let array = [];
+      for (let i = 0.2; i <= 0.8; i = i + 0.1) {
+        array.push(`animation-delay: ${i}s`)
+      };
+      console.log(array);
+      return array;
+    }
   }
 } 
 

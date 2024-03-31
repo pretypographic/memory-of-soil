@@ -5,8 +5,8 @@
   background: url(../../media/images/__memory.jpg) center / cover no-repeat fixed;
   position: absolute;
   top: 0;
-  left: 0;
-  z-index: 1;
+  left: 50%;
+  transform: translateX(-50%);
   overflow: hidden;
 }
 
@@ -21,25 +21,82 @@
 
 .figure__section_type_decor {
   z-index: 0;
+  transform: translate(-1px, -3px);
 }
 
 .figure__button {
-  position: fixed;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, 0);
 }
 
 .figure__img {
-  position: fixed;
+  position: absolute;
   left: 50%;
   height: 100vh;
   object-fit: cover;
   transform: translateX(-50%);
   opacity: 0;
   will-change: opacity;
-  z-index: -1;
+  pointer-events: none;
+  transition: opacity 0.4s;
 }
 
-.figure__img_visible {
+.figure__img_type_title {
+  z-index: 2;
+}
+
+.figure__img_type_lit {
+  z-index: 1;
+}
+
+.figure__img_type_shine {
+  z-index: 0;
+  animation: "";
+  animation-play-state: paused;
+}
+
+.figure__button_focused .figure__img_type_title {
   opacity: 1;
+}
+
+.figure__button_focused .figure__img_type_lit {
+  opacity: 0.8;
+}
+
+.figure__button_focused .figure__img_type_shine {
+  animation: shining ease-out 0.6s infinite alternate backwards;
+  animation-play-state: running;
+}
+
+.figure__section_lightOn .figure__img_type_lit {
+  animation: shiningWawe ease-out 1.2s infinite alternate forwards;
+  animation-play-state: running;
+}
+
+@keyframes shining {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes shiningWawe {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
