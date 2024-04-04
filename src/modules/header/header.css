@@ -33,10 +33,19 @@
 }
 
 .header__button:hover {
-  opacity: 0.7;
+  animation: triger 0.4s linear 0s 1 forwards;
 }
 
 .header__button_active {
   text-decoration-line: underline;
   pointer-events: none;
+}
+
+@keyframes triger {
+  0% {
+    text-shadow: -2px -2px 2px yellow;
+  }
+  100% {
+    opacity: 0.7;
+  }
 }

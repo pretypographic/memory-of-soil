@@ -1,7 +1,12 @@
 "use strict";
 
 import "./index.css";
-import settings from "./utils/settings.js";
+import { BlockIIK } from "./modules/components/Block.js";
+import { ElementIIK } from "./modules/components/Element.js";
+import { ButtonIIK } from "./modules/components/Button.js";
+import { ImageIIK } from "./modules/components/Image.js";
+import plan from "./utils/plan.js";
+console.log("plan: ", plan);
 
 const page = document.querySelector("body");
 
@@ -10,7 +15,40 @@ loader.textContent = "загрузка...";
 loader.classList.add("loader");
 page.append(loader);
 
+const languagesContext = {
+  currentOption: "eng",
+  setSwitch: function (element) {
+    if (this.switch) {
+      this.switch.classList.remove("header__button_active");
+    };
+    element.classList.add("header__button_active");
+    this.switch = element;
+  },
+  handleSwitch: function (element) {
+    this.setSwitch(element);
+    this.currentOption = element.textContent;
+  },
+  getIndex: function () {
+    console.log("getIndex");
+    // return plan.header.languages.indexOf(this.currentOption);
+  }
+}
+function addProcessor(event, callback, plan) {
+  plan.class._processor[event] = callback;
+  plan.class.leaders.push(event);
+}
+
+function switchLanguage(event) {
+  if (event.target.classList.contains("header__button")) {
+    languagesContext.handleSwitch(event.target);
+  }
+}
+
 function handleDecorLight() {
+  // найти способ лучше: 
+  // функция снижает производительность. 
+  // декор надо передать снаружи.
+  // console.log(x.element)
   const decor = document.querySelector(".figure__section_type_decor");
   decor.classList.toggle("figure__section_lightOn");
 }
@@ -32,119 +70,77 @@ function handleMouseOut(event) {
 }
 
 const renderHeader = new Promise((resolve, reject) => {
-  const header = document.createElement("header");
-  header.classList.add("header");
-  const headerAsideLeft = document.createElement("aside");
-  headerAsideLeft.classList.add(
-    "header__aside", 
-    "header__aside_type_left"
-  );
-  const headerAsideRight = document.createElement("aside");
-  headerAsideRight.classList.add(
-    "header__aside", 
-    "header__aside_type_right"
-  );
-
-  settings.header.languages.forEach((string) => {
-    const button = document.createElement("button");
-    button.setAttribute("type", "button");
-    button.setAttribute("aria-label", string);
-    button.classList.add("header__button");
-    button.textContent = string;
-    headerAsideLeft.append(button);
+  const planHeader = plan.header;
+  const Header = new BlockIIK({ plan: planHeader });
+  const newBlock = Header.createElement();
+  
+  const planHeaderAsideLeft = plan.header.asideLeft;
+  addProcessor("click", switchLanguage, planHeaderAsideLeft);
+  const HeaderAsideLeft = new ElementIIK ({ 
+    plan: planHeaderAsideLeft,
+    addSubElement: function (plan) {
+      const HeaderButton = new ButtonIIK({ plan });
+      return HeaderButton.createElement();
+    }
   });
+  const elementHeaderAsideLeft = HeaderAsideLeft.createElement();
 
-  settings.header.nav.forEach((arrey) => {
-    const button = document.createElement("button");
-    button.setAttribute("type", "button");
-    button.setAttribute("aria-label", arrey[0]);
-    button.classList.add("header__button");
-    button.textContent = arrey[0];
-    headerAsideRight.append(button);
-  });
+  const planHeaderAsideRight = plan.header.asideRight;
+  const HeaderAsideRight = new ElementIIK ({ 
+    plan: planHeaderAsideRight,
+    addSubElement: function (plan) {
+      const HeaderButton = new ButtonIIK({ plan });
+      return HeaderButton.createElement();
+    }
+  })
+  const elementHeaderAsideRight = HeaderAsideRight.createElement()
+  
+  newBlock.append(elementHeaderAsideLeft, elementHeaderAsideRight);
 
-  header.append(headerAsideLeft, headerAsideRight);
-  resolve(header);
+  resolve(newBlock);
 });
 
 const renderFigure = new Promise((resolve, reject) => {
-  const figure = document.createElement("figure");
-  figure.classList.add("figure");
-  const figureSectionNav = document.createElement("section");
-  figureSectionNav.classList.add(
-    "figure__section",
-    "figure__section_type_nav"
-  );
-  const figureSectionDecor = document.createElement("section");
-  figureSectionDecor.classList.add(
-    "figure__section",
-    "figure__section_type_decor"
-  );
+  const planFigure = plan.figure;
+  const Figure = new BlockIIK({ plan: planFigure });
+  const newBlock = Figure.createElement();
 
-  const nav = settings.figure.nav().map((arrey, i) => {
-    const button = document.createElement("button");
-    button.setAttribute("type", "button");
-    button.setAttribute("aria-label", `Кольцо №${[i]}`);
-    button.setAttribute("style", settings.figure.navStyle[i])
-    button.classList.add("figure__button");
-
-    const title = document.createElement("img");
-    title.setAttribute("src", arrey[0]);
-    title.setAttribute("alt", `${arrey[0]}`);
-    title.classList.add(
-      "figure__img",
-      "figure__img_type_title"
-    );
-    button.append(title);
-
-    const lit = document.createElement("img");
-    lit.setAttribute("src", arrey[1]);
-    lit.setAttribute("alt", `${arrey[1]}`);
-    lit.classList.add(
-      "figure__img",
-      "figure__img_type_lit"
-    );
-    button.append(lit);
-
-    const shine = document.createElement("img");
-    shine.setAttribute("src", arrey[2]);
-    shine.setAttribute("alt", `${arrey[2]}`);
-    shine.classList.add(
-      "figure__img",
-      "figure__img_type_shine"
-    );
-    button.append(shine);
-    return button;
+  const planSectionNav = plan.figure.sectionNav;
+  addProcessor("mouseover", handleMouseOver, planSectionNav);
+  addProcessor("mouseout", handleMouseOut, planSectionNav);
+  const SectionNav = new ElementIIK({
+    plan: planSectionNav,
+    addSubElement: function (plan) {
+      const FugureButton = new ButtonIIK({
+        plan,
+        addSubElement: function (plan) {
+          const FigureImg = new ImageIIK({ plan });
+          return FigureImg.createElement();
+        }
+      });
+      return FugureButton.createElement();
+    }
   });
+  const elementSectionNav = SectionNav.createElement();
 
-  const decor = settings.figure.decor().map((string, i) => {
-    const lit = document.createElement("img");
-    const style = settings.figure.decorStyle();
-    lit.setAttribute("src", string);
-    lit.setAttribute("alt", `${string}`);
-    lit.setAttribute("style", style[i]);
-    lit.classList.add(
-      "figure__img",
-      "figure__img_type_lit"
-    );
-    return lit;
+  const planSectionDecor = plan.figure.sectionDecor;
+  const SectionDecor = new ElementIIK({
+    plan: planSectionDecor,
+    addSubElement: function (plan) {
+      const FigureImg = new ImageIIK({ plan });
+      return FigureImg.createElement();
+    }
   });
+  const elementSectionDecor = SectionDecor.createElement();
   
-  figure.append(figureSectionNav, figureSectionDecor);  
-  figureSectionNav.append(...nav);
-  figureSectionDecor.append(...decor);
+  newBlock.append(elementSectionNav, elementSectionDecor);
 
-  figureSectionNav.addEventListener('mouseover', handleMouseOver);
-  figureSectionNav.addEventListener('mouseout', handleMouseOut);
-  resolve(figure);
+  resolve(newBlock);
 })
 
 Promise.all([renderHeader, renderFigure])
   .then((values) => {
-    const [header, figure, navButtons, decorImages] = values;
-    page.append(header);
-    page.append(figure);
-    return [navButtons, decorImages];
+    page.append(...values);
   })
   .then(() => {
     loader.remove();

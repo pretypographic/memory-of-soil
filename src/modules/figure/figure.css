@@ -55,7 +55,7 @@
 
 .figure__img_type_shine {
   z-index: 0;
-  animation: "";
+  animation: none;
   animation-play-state: paused;
 }
 
