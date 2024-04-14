@@ -1,5 +1,3 @@
-import { BlockIIK } from "./Block";
-
 function planElement() {
   return {
     class: {
@@ -12,38 +10,59 @@ function planElement() {
   }
 };
 
-class ElementIIK extends BlockIIK {
-  constructor({ plan, addSubElement }) {
-    super({ plan });
+class ElementIIK {
+  constructor({ plan, addSubElement, switchLocalization }) {
+    this.plan = plan;
+    this.class = plan.class;
     this.addSubElement = addSubElement;
+    this.switchLocalization = switchLocalization;
+  }
+
+  _addStructure() {
+    if (!this.plan) {
+      console.log("_addStructure", this)
+    }
+    const { 
+      tag, 
+      styleClasses
+    } = this.class;
+    const structure = document.createElement(tag);
+    structure.classList.add(...styleClasses);
+    return structure;
   }
 
   _addMatter() {
     const { matter } = this.plan;
-    if (!matter) {
+    if (!matter || !Array.isArray(matter)) {
       console.log("_addMatter, ElementIIK", matter);
-      return;
-    } else if (typeof matter[0] === "string") {
-      this.element.textContent = matter.join("");
-    } else if (typeof matter[0] === "object") {
-      if (this.addSubElement) {
-        matter.map((plan) => {
-          const subStructure = this.addSubElement(plan);
-          this.element.append(subStructure);
-        })
-      }
+    } else {
+      matter.map((item) => {
+        if (typeof item === "string") {
+          this.element.textContent = matter.join("");
+        } else if (Array.isArray(item)) {
+          if (this.switchLocalization) {
+            this.switchLocalization(item);
+          }
+        } else if (typeof item === "object") {
+          if (this.addSubElement) {
+            const subStructure = this.addSubElement(item);
+            this.element.append(subStructure);
+          }
+        }
+      })
     }
+    return;
   }
 
   _addTime() {
-    const { leaders, _processor } = this.plan.class;
+    const { leaders, _processor } = this.class;
     leaders.forEach((leader) => {
       this.element.addEventListener(leader, _processor[leader])
     })
   }
 
   _stop() {
-    const { leaders, _processor } = this.plan.class;
+    const { leaders, _processor } = this.class;
     leaders.forEach((leader) => {
       this.element.removeEventListener(leader, _processor[leader])
     })
@@ -51,14 +70,16 @@ class ElementIIK extends BlockIIK {
 
   createElement() {
     this.element = this._addStructure();
-    if (this.plan.matter) {
-      this._addMatter();
-    } 
-    if (this.plan.class.leaders) {
-      this._addTime();
-    }
+    const { matter } = this.plan;
+    const { leaders } = this.class;
     if (!this.element) {
       console.log("createElement, ElementIIK", this);
+    }
+    if (matter) {
+      this._addMatter();
+    } 
+    if (leaders) {
+      this._addTime();
     }
     return this.element;
   }

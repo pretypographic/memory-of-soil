@@ -15,12 +15,12 @@ function planButton() {
 };
 
 class ButtonIIK extends ElementIIK {
-  constructor({ plan, addSubElement }) {
-    super({ plan, addSubElement });
+  constructor({ plan, addSubElement, switchLocalization }) {
+    super({ plan, addSubElement, switchLocalization });
   }
 
   _addStructure() {
-    if (!this.plan.class) {
+    if (!this.class) {
       console.log("_addStructure, ButtonIIK", this.plan);
     } else {
       const {
@@ -29,7 +29,7 @@ class ButtonIIK extends ElementIIK {
         _style, 
         _type, 
         _ariaLabel
-      } = this.plan.class;
+      } = this.class;
       const structure = document.createElement(tag);
       structure.classList.add(...styleClasses);
       structure.setAttribute("type", _type);

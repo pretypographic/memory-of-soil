@@ -1,22 +1,22 @@
 "use strict";
 
+let CURRENT_LANGUAGE = 0;
+
 import "./index.css";
-import { BlockIIK } from "./modules/components/Block.js";
 import { ElementIIK } from "./modules/components/Element.js";
 import { ButtonIIK } from "./modules/components/Button.js";
 import { ImageIIK } from "./modules/components/Image.js";
 import plan from "./utils/plan.js";
-console.log("plan: ", plan);
+console.log(plan);
 
 const page = document.querySelector("body");
-
 const loader = document.createElement("div");
 loader.textContent = "загрузка...";
 loader.classList.add("loader");
 page.append(loader);
 
 const languagesContext = {
-  currentOption: "eng",
+  currentOption: 0,
   setSwitch: function (element) {
     if (this.switch) {
       this.switch.classList.remove("header__button_active");
@@ -33,6 +33,7 @@ const languagesContext = {
     // return plan.header.languages.indexOf(this.currentOption);
   }
 }
+
 function addProcessor(event, callback, plan) {
   plan.class._processor[event] = callback;
   plan.class.leaders.push(event);
@@ -71,7 +72,7 @@ function handleMouseOut(event) {
 
 const renderHeader = new Promise((resolve, reject) => {
   const planHeader = plan.header;
-  const Header = new BlockIIK({ plan: planHeader });
+  const Header = new ElementIIK({ plan: planHeader });
   const newBlock = Header.createElement();
   
   const planHeaderAsideLeft = plan.header.asideLeft;
@@ -89,7 +90,12 @@ const renderHeader = new Promise((resolve, reject) => {
   const HeaderAsideRight = new ElementIIK ({ 
     plan: planHeaderAsideRight,
     addSubElement: function (plan) {
-      const HeaderButton = new ButtonIIK({ plan });
+      const HeaderButton = new ButtonIIK({ 
+        plan: plan,
+        switchLocalization: function (array) {
+          this.element.textContent = array[CURRENT_LANGUAGE];
+        }
+      });
       return HeaderButton.createElement();
     }
   })
@@ -102,7 +108,7 @@ const renderHeader = new Promise((resolve, reject) => {
 
 const renderFigure = new Promise((resolve, reject) => {
   const planFigure = plan.figure;
-  const Figure = new BlockIIK({ plan: planFigure });
+  const Figure = new ElementIIK({ plan: planFigure });
   const newBlock = Figure.createElement();
 
   const planSectionNav = plan.figure.sectionNav;
@@ -114,7 +120,12 @@ const renderFigure = new Promise((resolve, reject) => {
       const FugureButton = new ButtonIIK({
         plan,
         addSubElement: function (plan) {
-          const FigureImg = new ImageIIK({ plan });
+          const FigureImg = new ImageIIK({ 
+            plan,
+            switchLocalization: function (array) {
+              this.element.setAttribute("src", array[CURRENT_LANGUAGE]);
+            }
+          });
           return FigureImg.createElement();
         }
       });

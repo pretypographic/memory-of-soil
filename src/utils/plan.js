@@ -1,54 +1,8 @@
 "use strict";
-import images from "../media/images/images.js";
-import { planBlock } from "../modules/components/Block.js";
+import parameters from "./parameters.js";
 import { planElement } from "../modules/components/Element.js";
 import { planButton } from "../modules/components/Button.js";
 import { planImage } from "../modules/components/Image.js";
-
-let CURRENT_LANGUAGE = "eng";
-
-const parameters = {
-  _languages: ["eng", "rus"],
-  _nav: [
-    ["about", "о проекте"]
-  ],
-  _navRingStyles: [
-    "width: 15vh; height: 15vh; top: 42vh; z-index: 9;",
-    "width: 27vh; height: 27vh; top: 36vh; z-index: 8;",
-    "width: 36vh; height: 36vh; top: 31.5vh; z-index: 7;",
-    "width: 49vh; height: 49vh; top: 25vh; z-index: 6;",
-    "width: 63vh; height: 63vh; top: 18vh; z-index: 5;",
-    "width: 70vh; height: 70vh; top: 14.5vh; z-index: 4;",
-    "width: 75vh; height: 75vh; top: 12vh; z-index: 3;",
-    "width: 86vh; height: 86vh; top: 6.5vh; z-index: 2;",
-    "width: 99vh; height: 99vh; top: 0vh; z-index: 1;"
-  ],
-  _navRingsImg: function () {
-    const array = [];
-    for (let i = 0; i <= 8; i++) {
-      array.push([
-        Object.values(images.title[CURRENT_LANGUAGE])[i],
-        Object.values(images.lit)[i], 
-        Object.values(images.shine)[i]
-      ]);
-    }
-    return array;
-  },
-  _decorRingsImg: function () {
-    const arrey = [];
-    for (let i = 9; i <= 14; i++) {
-      arrey.push(Object.values(images.shine)[i]);
-    }
-    return arrey;
-  },
-  _decorRingsStyles: function () {
-    let array = [];
-    for (let i = 0.2; i <= 0.8; i = i + 0.1) {
-      array.push(`animation-delay: ${i}s`)
-    };
-    return array;
-  }
-};
 
 function _addAsideLeft() {
   const asideLeft = planElement();
@@ -76,14 +30,14 @@ function _addAsideRight() {
   asideRight.matter = parameters._nav.map((arrey) => {
     const languageButton = planButton();
     languageButton.class.styleClasses = ["header__button"];
-    languageButton.matter = [arrey[0]];
+    languageButton.matter = [arrey];
     return languageButton;
   })
   return asideRight;
 }
 
 function _addHeader() {
-  const header = planBlock();
+  const header = planElement();
   header.class.tag = "header";
   header.class.styleClasses = ["header"];
   header["asideLeft"] = _addAsideLeft();
@@ -102,15 +56,15 @@ function _addSectionNav() {
     const button = planButton();
     button.class.styleClasses = ["figure__button"];
     button.class._style = parameters._navRingStyles[i];
-    button.matter = arrey.map((string, i) => {
+    button.matter = arrey.map((item, i) => {
       const image = planImage();
-      const mode = [
+      const modes = [
         "figure__img_type_title", 
         "figure__img_type_shine", 
         "figure__img_type_lit"
       ];
-      image.class.styleClasses = ["figure__img", `${mode[i]}`];
-      image.class._src = string;
+      image.class.styleClasses = ["figure__img", `${modes[i]}`];
+      image.class._src = item;
       return image;
     })
     return button;
@@ -139,7 +93,7 @@ function _addSectionDecor() {
 }
 
 function _addFigure() {
-  const figure = planBlock();
+  const figure = planElement();
   figure.class.tag = "figure";
   figure.class.styleClasses = ["figure"];
   figure["sectionNav"] = _addSectionNav();
