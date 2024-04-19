@@ -13,12 +13,12 @@ function planImage() {
 };
 
 class ImageIIK extends ElementIIK {
-  constructor({ plan, addElement, switchLocalization }) {
-    super({ plan, addElement, switchLocalization });
+  constructor({ configuration, plan }) {
+    super({ configuration, plan });
   }
 
   _addStructure() {
-    if (!this.class) {
+    if (!this._plan.class) {
       console.log("_addStructure, ImageIIK", this.plan);
     } else {
       const {
@@ -26,7 +26,7 @@ class ImageIIK extends ElementIIK {
         styleClasses,
         _alt, 
         _style
-      } = this.class;
+      } = this._plan.class;
       const structure = document.createElement(tag);
       structure.classList.add(...styleClasses);
       structure.setAttribute("alt", _alt);
@@ -39,11 +39,10 @@ class ImageIIK extends ElementIIK {
 
   createElement() {
     this.element = this._addStructure();
-    const { _src } = this.class;
+    const { _src } = this._plan.class;
     if (Array.isArray(_src)) {
-      if (this.switchLocalization) {
-        this.switchLocalization(_src);
-      }
+      const src = this._switchLocalization(_src);
+      this.element.setAttribute("src", src);
     } else {
       this.element.setAttribute("src", _src);
     }

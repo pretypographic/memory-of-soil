@@ -1,55 +1,45 @@
 "use strict";
 
-let CURRENT_LANGUAGE = 0;
-
 import "./index.css";
+import { LoaderIIK } from "./modules/components/Loader.js";
 import { ElementIIK } from "./modules/components/Element.js";
 import { ButtonIIK } from "./modules/components/Button.js";
 import { ImageIIK } from "./modules/components/Image.js";
 import plan from "./utils/plan.js";
-console.log(plan);
 
-const page = document.querySelector("body");
-const loader = document.createElement("div");
-loader.textContent = "загрузка...";
-loader.classList.add("loader");
-page.append(loader);
-
-const languagesContext = {
-  currentOption: 0,
-  setSwitch: function (element) {
-    if (this.switch) {
-      this.switch.classList.remove("header__button_active");
-    };
-    element.classList.add("header__button_active");
-    this.switch = element;
+const configuration = {
+  current: {
+    lang: 0,
+  },
+  _languages: ["eng", "rus"],
+  initiate: function ({ element }) {
+    _setSwitch(element);
   },
   handleSwitch: function (element) {
-    this.setSwitch(element);
-    this.currentOption = element.textContent;
+    this._setSwitch(element);
+    this.current.lang = this.getIndex(element.textContent);
   },
-  getIndex: function () {
-    console.log("getIndex");
-    // return plan.header.languages.indexOf(this.currentOption);
+  _setSwitch: function (element) {
+    if (this.switcher) {
+      this.switcher.classList.remove("header__button_active");
+    }
+    element.classList.add("header__button_active");
+    this.switcher = element;
+  },
+  getIndex: function (string) {
+    return this._languages.indexOf(string);
   }
-}
-
-function addProcessor(event, callback, plan) {
-  plan.class._processor[event] = callback;
-  plan.class.leaders.push(event);
 }
 
 function switchLanguage(event) {
   if (event.target.classList.contains("header__button")) {
-    languagesContext.handleSwitch(event.target);
+    configuration.handleSwitch(event.target);
+    Header.element.append(HeaderAsideRight.updateElement());
+    Figure.element.append(SectionNav.updateElement());
   }
 }
 
 function handleDecorLight() {
-  // найти способ лучше: 
-  // функция снижает производительность. 
-  // декор надо передать снаружи.
-  // console.log(x.element)
   const decor = document.querySelector(".figure__section_type_decor");
   decor.classList.toggle("figure__section_lightOn");
 }
@@ -70,83 +60,77 @@ function handleMouseOut(event) {
   }
 }
 
+const page = document.querySelector("body");
+
+const loaderPlan = plan.loader;
+const Loader = new LoaderIIK({ configuration, plan: loaderPlan });
+const planHeader = plan.header;
+const Header = new ElementIIK({ configuration, plan: planHeader });
+const planHeaderAsideLeft = plan.header.asideLeft;
+planHeaderAsideLeft.class.addProcessor("click", switchLanguage);
+const HeaderAsideLeft = new ElementIIK ({ 
+  configuration,
+  plan: planHeaderAsideLeft,
+  addSubElement: function (plan) {
+    const HeaderButton = new ButtonIIK({ 
+      configuration, 
+      plan
+    });
+    return HeaderButton;
+  }
+});
+const planHeaderAsideRight = plan.header.asideRight;
+const HeaderAsideRight = new ElementIIK ({ 
+  configuration,
+  plan: planHeaderAsideRight,
+  addSubElement: function (plan) {
+    const HeaderButton = new ButtonIIK({ configuration, plan });
+    return HeaderButton;
+  }
+})
+const planFigure = plan.figure;
+const Figure = new ElementIIK({ configuration, plan: planFigure });
+const planSectionNav = plan.figure.sectionNav;
+planSectionNav.class.addProcessor("mouseover", handleMouseOver);
+planSectionNav.class.addProcessor("mouseout", handleMouseOut);
+const SectionNav = new ElementIIK({
+  configuration,
+  plan: planSectionNav,
+  addSubElement: function (plan) {
+    const FugureButton = new ButtonIIK({
+      configuration,
+      plan,
+      addSubElement: function (plan) {
+        const FigureImg = new ImageIIK({ configuration, plan });
+        return FigureImg;
+      }
+    });
+    return FugureButton;
+  }
+});
+const planSectionDecor = plan.figure.sectionDecor;
+const SectionDecor = new ElementIIK({
+  configuration,
+  plan: planSectionDecor,
+  addSubElement: function (plan) {
+    const FigureImg = new ImageIIK({ configuration, plan });
+    return FigureImg;
+  }
+});
+
+Loader.createElement();
+page.append(Loader.element);
+
 const renderHeader = new Promise((resolve, reject) => {
-  const planHeader = plan.header;
-  const Header = new ElementIIK({ plan: planHeader });
-  const newBlock = Header.createElement();
-  
-  const planHeaderAsideLeft = plan.header.asideLeft;
-  addProcessor("click", switchLanguage, planHeaderAsideLeft);
-  const HeaderAsideLeft = new ElementIIK ({ 
-    plan: planHeaderAsideLeft,
-    addSubElement: function (plan) {
-      const HeaderButton = new ButtonIIK({ plan });
-      return HeaderButton.createElement();
-    }
-  });
-  const elementHeaderAsideLeft = HeaderAsideLeft.createElement();
-
-  const planHeaderAsideRight = plan.header.asideRight;
-  const HeaderAsideRight = new ElementIIK ({ 
-    plan: planHeaderAsideRight,
-    addSubElement: function (plan) {
-      const HeaderButton = new ButtonIIK({ 
-        plan: plan,
-        switchLocalization: function (array) {
-          this.element.textContent = array[CURRENT_LANGUAGE];
-        }
-      });
-      return HeaderButton.createElement();
-    }
-  })
-  const elementHeaderAsideRight = HeaderAsideRight.createElement()
-  
-  newBlock.append(elementHeaderAsideLeft, elementHeaderAsideRight);
-
-  resolve(newBlock);
+  Header.createElement();  
+  Header.element.append(HeaderAsideLeft.createElement(), HeaderAsideRight.createElement());
+  resolve(Header.element);
 });
 
 const renderFigure = new Promise((resolve, reject) => {
-  const planFigure = plan.figure;
-  const Figure = new ElementIIK({ plan: planFigure });
-  const newBlock = Figure.createElement();
-
-  const planSectionNav = plan.figure.sectionNav;
-  addProcessor("mouseover", handleMouseOver, planSectionNav);
-  addProcessor("mouseout", handleMouseOut, planSectionNav);
-  const SectionNav = new ElementIIK({
-    plan: planSectionNav,
-    addSubElement: function (plan) {
-      const FugureButton = new ButtonIIK({
-        plan,
-        addSubElement: function (plan) {
-          const FigureImg = new ImageIIK({ 
-            plan,
-            switchLocalization: function (array) {
-              this.element.setAttribute("src", array[CURRENT_LANGUAGE]);
-            }
-          });
-          return FigureImg.createElement();
-        }
-      });
-      return FugureButton.createElement();
-    }
-  });
-  const elementSectionNav = SectionNav.createElement();
-
-  const planSectionDecor = plan.figure.sectionDecor;
-  const SectionDecor = new ElementIIK({
-    plan: planSectionDecor,
-    addSubElement: function (plan) {
-      const FigureImg = new ImageIIK({ plan });
-      return FigureImg.createElement();
-    }
-  });
-  const elementSectionDecor = SectionDecor.createElement();
-  
-  newBlock.append(elementSectionNav, elementSectionDecor);
-
-  resolve(newBlock);
+  Figure.createElement();
+  Figure.element.append(SectionNav.createElement(), SectionDecor.createElement());
+  resolve(Figure.element);
 })
 
 Promise.all([renderHeader, renderFigure])
@@ -154,7 +138,7 @@ Promise.all([renderHeader, renderFigure])
     page.append(...values);
   })
   .then(() => {
-    loader.remove();
+    Loader.removeElement();
   })
   .catch((err) => {
     console.error(err);

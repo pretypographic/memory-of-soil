@@ -1,8 +1,17 @@
 "use strict";
 import parameters from "./parameters.js";
+import { planLoader } from "../modules/components/Loader.js";
 import { planElement } from "../modules/components/Element.js";
 import { planButton } from "../modules/components/Button.js";
 import { planImage } from "../modules/components/Image.js";
+
+function _addLoader() {
+  const loader = planLoader();
+  loader.class.tag = "div";
+  loader.class.styleClasses = "loader";
+  loader.matter.push(["loading...", "загрузка..."]);
+  return loader;
+}
 
 function _addAsideLeft() {
   const asideLeft = planElement();
@@ -16,7 +25,7 @@ function _addAsideLeft() {
     languageButton.class.styleClasses = ["header__button"];
     languageButton.matter = [string];
     return languageButton;
-  })
+  });
   return asideLeft;
 }
 
@@ -32,7 +41,7 @@ function _addAsideRight() {
     languageButton.class.styleClasses = ["header__button"];
     languageButton.matter = [arrey];
     return languageButton;
-  })
+  });
   return asideRight;
 }
 
@@ -68,7 +77,7 @@ function _addSectionNav() {
       return image;
     })
     return button;
-  })
+  });
   return sectionNav;
 }
 
@@ -102,6 +111,7 @@ function _addFigure() {
 }
 
 const plan = {
+  loader: _addLoader(),
   header: _addHeader(),
   figure: _addFigure()
 };
