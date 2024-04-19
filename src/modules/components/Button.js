@@ -20,8 +20,8 @@ class ButtonIIK extends ElementIIK {
   }
 
   _addStructure() {
-    if (!this._plan.class) {
-      console.log("_addStructure, ButtonIIK", this.plan);
+    if (!this._plan) {
+      console.log("отстутствует план", this.plan);
     } else {
       const {
         tag, 

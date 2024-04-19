@@ -17,9 +17,20 @@ class ImageIIK extends ElementIIK {
     super({ configuration, plan });
   }
 
+  create() {
+    this.element = this._addStructure();
+    const { _src } = this._plan.class;
+    if (Array.isArray(_src)) {
+      const src = _src[this._configuration.current.lang];
+      this.element.setAttribute("src", src);
+    } else {
+      this.element.setAttribute("src", _src);
+    }
+    return this.element;
+  }
   _addStructure() {
-    if (!this._plan.class) {
-      console.log("_addStructure, ImageIIK", this.plan);
+    if (!this._plan) {
+      console.log("отстутствует план", this.plan);
     } else {
       const {
         tag, 
@@ -35,21 +46,6 @@ class ImageIIK extends ElementIIK {
       };
       return structure;
     }
-  }
-
-  createElement() {
-    this.element = this._addStructure();
-    const { _src } = this._plan.class;
-    if (Array.isArray(_src)) {
-      const src = this._switchLocalization(_src);
-      this.element.setAttribute("src", src);
-    } else {
-      this.element.setAttribute("src", _src);
-    }
-    if (!this.element) {
-      console.log("createElement, ImageIIK", this);
-    }
-    return this.element;
   }
 }
 

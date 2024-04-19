@@ -21,7 +21,7 @@ class ElementIIK {
     this._addSubElement = addSubElement;
   }
 
-  createElement() {
+  create() {
     const { matter } = this._plan;
     const { leaders } = this._plan.class;
     this.element = this._addStructure();
@@ -33,10 +33,9 @@ class ElementIIK {
     }
     return this.element;
   }
-
   _addStructure() {
     if (!this._plan) {
-      console.log("_addStructure", this)
+      console.log("отстутствует план", this)
     }
     const { 
       tag, 
@@ -46,27 +45,21 @@ class ElementIIK {
     structure.classList.add(...styleClasses);
     return structure;
   }
-
   _addMatter() {
     const { matter } = this._plan;
-    if (!matter || !Array.isArray(matter)) {
-      console.log("_addMatter, ElementIIK", matter);
-    } else {
-      matter.map((item) => {
-        if (typeof item === "string") {
-          this.element.textContent = matter.join("");
-        } else if (typeof item === "object") {
-          if (Array.isArray(item)) {
-            this.element.textContent = this._switchLocalization(item);
-          } else if (this._addSubElement) {
-            const subElement = this._addSubElement(item);
-            this.element.append(subElement.createElement());
-          }
+    matter.map((item) => {
+      if (typeof item === "string") {
+        this.element.textContent = matter.join("");
+      } else if (typeof item === "object") {
+        if (Array.isArray(item)) {
+          this.element.textContent = item[this._configuration.current.lang];
+        } else if (this._addSubElement) {
+          const subElement = this._addSubElement(item);
+          this.element.append(subElement.create());
         }
-      })
-    }
+      }
+    })
   }
-
   _addTime() {
     const { leaders, _processor } = this._plan.class;
     leaders.forEach((leader) => {
@@ -74,31 +67,34 @@ class ElementIIK {
     })
   }
 
-  _switchLocalization(array) {
-    return array[this._configuration.current.lang];
-  }
-
-  updateElement() {
-    this.removeElement();
-    const updatedElement = this.createElement();
+  update() {
+    this.remove();
+    const updatedElement = this.create();
     return updatedElement;
   }
 
-  removeElement() {
+  remove() {
     if (this.element) {
       this._stop();
       this.element.remove();
     } else {
-      console.error("Попытка удалить несуществующий элемент");
+      console.error("элемент не найден");
     }
   }
-
   _stop() {
     const { leaders, _processor } = this._plan.class;
     if (leaders) {
       leaders.forEach((leader) => {
         this.element.removeEventListener(leader, _processor[leader])
       })
+    }
+  }
+
+  lock(elements) {
+    if (this.element) {
+      this.element.append(...elements);
+    } else {
+      console.log("отсутствует материнский элемент");
     }
   }
 }
