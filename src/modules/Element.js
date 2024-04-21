@@ -3,6 +3,9 @@ function planElement() {
     class: {
       tag: "",
       styleClasses: [],
+      mods: {
+        off: ""
+      },
       leaders: [],
       _processor: {},
       addProcessor: function (event, callback) {
@@ -51,11 +54,14 @@ class ElementIIK {
       if (typeof item === "string") {
         this.element.textContent = matter.join("");
       } else if (typeof item === "object") {
-        if (Array.isArray(item)) {
+        if (Array.isArray(item) && this._addSubElement) {
+          const subElement = this._addSubElement(item[this._configuration.current.lang]);
+          this.element.append([subElement.create()]);
+        } else if (Array.isArray(item)) {
           this.element.textContent = item[this._configuration.current.lang];
         } else if (this._addSubElement) {
           const subElement = this._addSubElement(item);
-          this.element.append(subElement.create());
+          this.lock([subElement.create()]);
         }
       }
     })
@@ -96,6 +102,10 @@ class ElementIIK {
     } else {
       console.log("отсутствует материнский элемент");
     }
+  }
+
+  switchOff() {
+    this.element.classList.toggle(this._plan.class.mods.off);
   }
 }
 

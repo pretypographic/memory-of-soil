@@ -1,12 +1,19 @@
 "use strict";
 
 import "./index.css";
-import { LoaderIIK } from "./modules/components/Loader.js";
-import { ElementIIK } from "./modules/components/Element.js";
-import { ButtonIIK } from "./modules/components/Button.js";
-import { ImageIIK } from "./modules/components/Image.js";
-import plan from "./utils/plan.js";
+import Device from "./modules/Device.js";
+import { LoaderIIK } from "./modules/Loader.js";
+import { ElementIIK } from "./modules/Element.js";
+import { ButtonIIK } from "./modules/Button.js";
+import { ImageIIK } from "./modules/Image.js";
+import { ArticleIIK } from "./modules/Article.js";
+import { SectionIIK } from "./modules/Section.js";
 import configuration from "./utils/configuration.js";
+import plan from "./utils/plan.js";
+
+console.log(plan);
+
+// const Memory = new Device();
 
 const page = document.querySelector("body");
 
@@ -31,6 +38,7 @@ const HeaderAsideLeft = new ElementIIK ({
 });
 
 const planHeaderAsideRight = plan.header.asideRight;
+planHeaderAsideRight.class.addProcessor("click", handleNavClick)
 const HeaderAsideRight = new ElementIIK ({ 
   configuration,
   plan: planHeaderAsideRight,
@@ -72,11 +80,43 @@ const SectionDecor = new ElementIIK({
   }
 });
 
+const planProjector = plan.projector;
+const Projector = new ElementIIK({ configuration, plan: planProjector });
+
+const planArticle = plan.projector.article;
+const Article = new ArticleIIK({ 
+  configuration, 
+  plan: planArticle,
+  addSubElement: function (plan) {
+    const Section = new SectionIIK({ configuration, plan });
+    return Section;
+  }
+});
+
+const planNames = plan.projector.names;
+const Names = new ArticleIIK({ 
+  configuration, 
+  plan: planNames,
+  addSubElement: function (plan) {
+    const Section = new SectionIIK({ configuration, plan });
+    return Section;
+  }
+})
+
+function handleNavClick(event) {
+  Figure.switchOff();
+  renderProjector
+  .then((block) => {
+    page.append(block);
+  })
+}
+
 function switchLanguage(event) {
   if (event.target.classList.contains("header__button")) {
     configuration.handleSwitch(event.target);
     Header.lock([HeaderAsideRight.update()]);
     Figure.lock([SectionNav.update()]);
+    Projector.lock([Article.update(), Names.update()]);
   }
 }
 
@@ -114,6 +154,12 @@ const renderFigure = new Promise((resolve, reject) => {
   Figure.create();
   Figure.lock([SectionNav.create(), SectionDecor.create()]);
   resolve(Figure.element);
+})
+
+const renderProjector = new Promise((resolve, reject) => {
+  Projector.create();
+  Projector.lock([Article.create(), Names.create()]);
+  resolve(Projector.element);
 })
 
 Promise.all([renderHeader, renderFigure])
