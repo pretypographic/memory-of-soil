@@ -1,158 +1,149 @@
 "use strict";
 import parameters from "./parameters.js";
 import { instruction } from "./data.js";
-import { planLoader } from "../modules/Loader.js";
+import { planDevice } from "../modules/Device.js";
+import { planBlock } from "../modules/Block.js";
 import { planElement } from "../modules/Element.js";
-import { planButton } from "../modules/Button.js";
-import { planImage } from "../modules/Image.js";
-import { planAticle } from "../modules/Article.js";
-import { planSection } from "../modules/Section.js";
 
-const plan = createPlan();
+const planMemory = planDevice(["body"], addIndicator());
+planMemory.addMatter("headerBlock", addHeader(), { headerBlock: true });
+planMemory.addMatter("figureBlock", addFigure(), { figureBlock: true });
+planMemory.addMatter("projectorBlock", addProjector(), { projectorBlock: true });
 
-function createPlan() {
-  return {
-    loader: _addLoader(),
-    header: _addHeader(),
-    figure: _addFigure(),
-    projector: _addProjector()
-  }
+function addIndicator() {
+  const indicator = planElement("div", ["indicator"]);
+  indicator.addMatter("text", "загрузка...", { lang: 1 });
+  indicator.addMatter("text", "loading...", { lang: 0 });
+  return indicator;
 }
 
-function _addLoader() {
-  const loader = planLoader();
-  loader.class.tag = "div";
-  loader.class.styleClasses = "loader";
-  loader.matter.push(["loading...", "загрузка..."]);
-  return loader;
-}
-function _addHeader() {
-  const header = planElement();
-  header.class.tag = "header";
-  header.class.styleClasses = ["header"];
-  header["asideLeft"] = _addAsideLeft();
-  header["asideRight"] = _addAsideRight();
+function addHeader() {
+  const header = planBlock("header", ["header"]);
+  header.addMatter("asideLeft", addAsideLeft());
+  header.addMatter("asideRight", addAsideRight());
   return header;
 }
-function _addAsideLeft() {
-  const asideLeft = planElement();
-  asideLeft.class.tag = "aside";
-  asideLeft.class.styleClasses = [
+function addAsideLeft() {
+  const asideLeft = planBlock("aside", [
     "header__aside", 
     "header__aside_type_left"
-  ];
-  asideLeft.matter = parameters._languages.map((string) => {
-    const languageButton = planButton();
-    languageButton.class.styleClasses = ["header__button"];
-    languageButton.matter = [string];
-    return languageButton;
+  ]);
+  parameters._languages.forEach((string, i) => {
+    const languageButton = planElement("button", ["header__button"]);
+    languageButton.addMatter("text", string);
+    asideLeft.addMatter("element", languageButton);
   });
   return asideLeft;
 }
-function _addAsideRight() {
-  const asideRight = planElement();
-  asideRight.class.tag = "aside";
-  asideRight.class.styleClasses = [
+function addAsideRight() {
+  const asideRight = planBlock("aside", [
     "header__aside", 
     "header__aside_type_right"
-  ];
-  asideRight.matter = parameters._nav.map((arrey) => {
-    const languageButton = planButton();
-    languageButton.class.styleClasses = ["header__button"];
-    languageButton.matter = [arrey];
-    return languageButton;
+  ]);
+  parameters._nav.forEach((arrey) => {
+    const languageButton = planElement("button", ["header__button"]);
+    arrey.forEach((string, i) => {
+      languageButton.addMatter("text", string, { lang: i });
+    })
+    asideRight.addMatter("element", languageButton);
   });
   return asideRight;
 }
-function _addFigure() {
-  const figure = planElement();
-  figure.class.tag = "figure";
-  figure.class.styleClasses = ["figure"];
-  figure.class.mods.off = "figure_state_off";
-  figure["sectionNav"] = _addSectionNav();
-  figure["sectionDecor"] = _addSectionDecor();
+
+function addFigure() {
+  const figure = planBlock("figure", ["figure"]);
+  figure.addMatter("sectionNav", addSectionNav());
+  figure.addMatter("sectionDecor", addSectionDecor());
   return figure;
 }
-function _addSectionNav() {
-  const sectionNav = planElement();
-  sectionNav.class.tag = "section";
-  sectionNav.class.styleClasses = [
+function addSectionNav() {
+  const sectionNav = planBlock("section", [
     "figure__section", 
     "figure__section_type_nav"
-  ];
-  sectionNav.matter = parameters._navRingsImg().map((arrey, i) => {
-    const button = planButton();
-    button.class.styleClasses = ["figure__button"];
-    button.class._style = parameters._navRingStyles[i];
-    button.matter = arrey.map((item, i) => {
-      const image = planImage();
+  ]);
+  parameters._navRingsImg().forEach((arrey, i) => {
+    const button = planElement("buuton", ["figure__button"], parameters._navRingStyles[i]);
+    arrey.forEach((item, i) => {
       const modes = [
         "figure__img_type_title", 
         "figure__img_type_shine", 
         "figure__img_type_lit"
       ];
-      image.class.styleClasses = ["figure__img", `${modes[i]}`];
-      image.class._src = item;
-      return image;
+      const image = planElement("img", ["figure__img", `${modes[i]}`]);
+      if (Array.isArray(item)) {
+        const array = item;
+        array.forEach((item, i) => {
+          image.addMatter("image", item, { lang: i })
+        });
+      } else {
+        image.addMatter("image", item);
+      };
+      button.addMatter("element", image);
     })
-    return button;
+    sectionNav.addMatter("element", button)
   });
   return sectionNav;
 }
-function _addSectionDecor() {
-  const sectionDecor = planElement();
-  sectionDecor.class.tag = "section";
-  sectionDecor.class.styleClasses = [
+function addSectionDecor() {
+  const sectionDecor = planElement("section", [
     "figure__section",
     "figure__section_type_decor"
-  ];
-  sectionDecor.matter = parameters._decorRingsImg().map((string, i) => {
-    const image = planImage();
-    image.class.styleClasses = [
+  ]);
+  parameters._decorRingsImg().forEach((string, i) => {
+    const image = planElement("img", [
       "figure__img",
       "figure__img_type_lit"
-    ];
-    image.class._src = string;
-    image.class._style = parameters._decorRingsStyles()[i];
-    return image;
+    ], parameters._decorRingsStyles()[i]);
+    image.addMatter("image", string);
+    sectionDecor.addMatter("element", image);
   });
   return sectionDecor;
 }
-function _addProjector() {
-  const projector = planElement();
-  projector.class.tag = "footer";
-  projector.class.styleClasses = ["footer"];
-  projector["article"] = _addArticle();
-  projector["names"] = _addNames();
+
+function addProjector() {
+  const projector = planBlock("footer", ["footer"]);
+  projector.addMatter("element", addArticle());
+  projector.addMatter("element", addNames());
   return projector;
 }
-function _addArticle() {
-  const article = planAticle();
-  article.class.styleClasses = ["footer__article"];
-  article.matter = instruction.map((lang) => {
-    return lang.column.map((arrey) => {
-      const section = planSection();
-      section.class.styleClasses = ["footer__section"];
-      section.matter = arrey;
-      return section;
+function addArticle() {
+  const article = planElement("article", ["footer__article"]);
+  instruction.forEach((lang, i) => {
+    return lang.column.forEach((arrey) => {
+      const section = planElement("section", ["footer__section"]);
+      arrey.forEach((string, i) => {
+        if (i === 0) {
+          const title = planElement("h2");
+          title.addMatter("text", string);
+          section.addMatter("element", title);
+        } else {
+          const paragraph = planElement("p");
+          paragraph.addMatter("text", string)
+          section.addMatter("element", paragraph);
+        }
+      })
+      article.addMatter("element", section, { lang: i });
     })
   })
   return article;
 }
-function _addNames() {
-  const names = planElement();
-  names.class.tag = "section";
-  names.class.styleClasses = ["footer__section", "footer__section_names"]
-  names.matter = instruction.map((lang) => {
-    return lang.names.map((arrey) => {
-      const section = planAticle();
-      section.class.tag = "div";
-      section.class.styleClasses = ["footer__cell"];
-      section.matter = arrey;
-      return section;
+function addNames() {
+  const section = planElement("section", [
+    "footer__section", 
+    "footer__section_names"
+  ]);
+  instruction.forEach((lang, i) => {
+    return lang.names.forEach((arrey) => {
+      const name = planElement("div", ["footer__cell"]);
+      arrey.forEach((string) => {
+        const paragraph = planElement("p");
+        paragraph.addMatter("text", string)
+        name.addMatter("element", paragraph)
+      })
+      section.addMatter("element", name, { lang: i })
     })
   })
-  return names;
+  return section;
 }
 
-export default plan;
+export default planMemory;

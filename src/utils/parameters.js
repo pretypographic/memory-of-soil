@@ -20,8 +20,8 @@ const parameters = {
   _navRingsImg: function () {
     const array = [];
     for (let i = 0; i <= 8; i++) {
-      const titles = this._languages.map((string) => {
-        return Object.values(images.title[string])[i];
+      const titles = Object.values(images.title).map((string) => {
+        return Object.values(string)[i];
       })
       array.push([
         titles,

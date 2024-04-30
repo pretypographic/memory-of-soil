@@ -1,112 +1,88 @@
-function planElement() {
+function planElement(tag, styleClasses = false, styleMod = false) {
   return {
     class: {
-      tag: "",
-      styleClasses: [],
-      mods: {
-        off: ""
-      },
-      leaders: [],
-      _processor: {},
-      addProcessor: function (event, callback) {
-        this._processor[event] = callback;
-        this.leaders.push(event);
-      }
+      tag: tag,
+      styleClasses: styleClasses,
+      styleMod: styleMod
     },
-    matter: []
+    matter: [],
+    addMatter: function (type, data, conf = false) {      
+      if (conf) {
+        this.matter.push([type, data, conf]);
+      } else {
+        this.matter.push([type, data]);
+      }
+    }
   }
 };
 
-class ElementIIK {
-  constructor({ configuration, plan, addSubElement }) {
+class Element {
+  constructor({ configuration, plan, elementClass }) {
     this._configuration = configuration;
-    this._plan = plan;
-    this._addSubElement = addSubElement;
+    this.plan = plan;
+    this.matter = plan.matter;
+    this._elementClass = elementClass;
   }
 
   create() {
-    const { matter } = this._plan;
-    const { leaders } = this._plan.class;
     this.element = this._addStructure();
-    if (matter) {
-      this._addMatter();
-    } 
-    if (leaders) {
-      this._addTime();
-    }
+    this._addMatter();
     return this.element;
   }
   _addStructure() {
-    if (!this._plan) {
+    if (!this.plan) {
       console.log("отстутствует план", this)
     }
-    const { 
-      tag, 
-      styleClasses
-    } = this._plan.class;
+    const { tag, styleClasses, styleMod } = this.plan.class;
     const structure = document.createElement(tag);
-    structure.classList.add(...styleClasses);
+    if (styleClasses) {
+      structure.classList.add(...styleClasses);
+    }
+    if (styleMod) {
+      structure.setAttribute("style", styleMod);
+    }
     return structure;
   }
   _addMatter() {
-    const { matter } = this._plan;
-    matter.map((item) => {
-      if (typeof item === "string") {
-        this.element.textContent = matter.join("");
-      } else if (typeof item === "object") {
-        if (Array.isArray(item) && this._addSubElement) {
-          const subElement = this._addSubElement(item[this._configuration.current.lang]);
-          this.element.append([subElement.create()]);
-        } else if (Array.isArray(item)) {
-          this.element.textContent = item[this._configuration.current.lang];
-        } else if (this._addSubElement) {
-          const subElement = this._addSubElement(item);
-          this.lock([subElement.create()]);
-        }
+    this.matter.map((item) => {
+      if (item[2]) {
+        this._checkConf(item);
+      } else {
+        this._checkType(item);
       }
     })
   }
-  _addTime() {
-    const { leaders, _processor } = this._plan.class;
-    leaders.forEach((leader) => {
-      this.element.addEventListener(leader, _processor[leader])
-    })
+  _checkConf(item) {
+    Object.keys(item[2]).forEach((key) => {
+      if (Object.hasOwn(this._configuration.current, key) && item[2][key] === this._configuration.current[key]) {
+        this._checkType(item);
+      } else {
+        return;
+      }
+    });
   }
-
-  update() {
-    this.remove();
-    const updatedElement = this.create();
-    return updatedElement;
-  }
-
-  remove() {
-    if (this.element) {
-      this._stop();
-      this.element.remove();
-    } else {
-      console.error("элемент не найден");
-    }
-  }
-  _stop() {
-    const { leaders, _processor } = this._plan.class;
-    if (leaders) {
-      leaders.forEach((leader) => {
-        this.element.removeEventListener(leader, _processor[leader])
-      })
+  _checkType(item) {
+    if (item[0] === "element") {
+      const newElement = this._elementClass({ 
+        configuration: this._configuration, 
+        plan: item[1],
+        elementClass: this._elementClass
+      });
+      this.lock(newElement.create());
+    } else if (item[0] === "text") {
+      this.element.textContent = item[1];
+    } else if (item[0] === "image") {
+      this.element.setAttribute("src", item[1]);
     }
   }
 
   lock(elements) {
-    if (this.element) {
+    if (Array.isArray(elements)) {
       this.element.append(...elements);
     } else {
-      console.log("отсутствует материнский элемент");
+      this.element.append(elements);
     }
-  }
-
-  switchOff() {
-    this.element.classList.toggle(this._plan.class.mods.off);
   }
 }
 
-export { planElement, ElementIIK };
+export { planElement, Element };
