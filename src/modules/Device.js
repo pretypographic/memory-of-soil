@@ -6,22 +6,18 @@ function planDevice(styleClasses, indicator) {
     class: {
       styleClasses: styleClasses,
       indicator: indicator,
-      blocks: []
+      frames: []
     },
-    addMatter: function (name, data, conf) {
-      if (conf) {
-        this.class.blocks.push([name, conf]);
-      } else {
-        this.class.blocks.push([name]);
-      }
-      this[name] = data;
+    addFrame: function (name, plan) {
+      this.class.frames.push([name]);
+      this[name] = plan;
     }
   }
 };
 
 class Device {
-  constructor({ configuration, plan }) {
-    this._configuration = configuration;
+  constructor({ conf, plan }) {
+    this._conf = conf;
     this.body = document.querySelector("body");
     this.plan = plan;
     this._elementClass = function (data) {
@@ -33,21 +29,26 @@ class Device {
   }
 
   initiate() {
-    const { styleClasses, blocks } = this.plan.class;
+    const { styleClasses } = this.plan.class;
     this.body.classList.add(styleClasses);
     this._showIndicator();
-    blocks.forEach((block) => {
-      this.plan[block[0]] = this._blockClass({ 
-        configuration: this._configuration, 
-        plan: this.plan[block[0]],
+    this._addFrames();
+  }
+  _addFrames() {
+    const { frames } = this.plan.class;
+    frames.forEach((frame) => {
+      this[frame] = this._blockClass({ 
+        conf: this._conf, 
+        plan: this.plan[frame],
         elementClass: this._elementClass,
         blockClass: this._blockClass
       });
+      this[frame].initiate();
     });
   }
   _showIndicator() {
     this.indicator = this._elementClass({ 
-      configuration: this._configuration, 
+      conf: this._conf, 
       plan: this.plan.class.indicator 
     });
     this.body.append(this.indicator.create());
@@ -56,20 +57,17 @@ class Device {
     this.indicator.element.remove();
   }
 
-  lock(blocks) {
-    if (!blocks) {
-      return;
-    }
+  lock(frames) {
     if (!this.indicator) {
       this._showIndicator();
     }
-    if (Array.isArray(blocks)) {
-      const promises = blocks.map((block) => {
-        return this._makePromise(block);
+    if (Array.isArray(frames)) {
+      const promises = frames.map((frame) => {
+        return this._makePromise(frame);
       });
       Promise.all(promises)
-        .then((newBlocks) => {
-          this.body.append(...newBlocks);
+        .then((newFrames) => {
+          this.body.append(...newFrames);
         })
         .then(() => {
           this._hideIndicator();
@@ -78,10 +76,10 @@ class Device {
           console.error(err);
         });
     } else {
-      const promise = this._makePromise(blocks);
+      const promise = this._makePromise(frames);
       promise
-      .then((newBlock) => {
-        this.body.append(newBlock);
+      .then((newFrame) => {
+        this.body.append(newFrame);
       })
       .then(() => {
         this._hideIndicator();
@@ -91,28 +89,20 @@ class Device {
       });
     }
   }
-  _makePromise(block) {
+  _makePromise(frame) {
     return new Promise((resolve) => {
-      resolve(block);
+      resolve(frame);
     })
   }
 
-  remove(blocks) {
-    if (Array.isArray(blocks)) {
-      blocks.forEach((block) => {
-        block.remove();
+  remove(frames) {
+    if (Array.isArray(frames)) {
+      frames.forEach((frame) => {
+        frame.remove();
       })
     } else {
-      blocks.remove();
+      frames.remove();
     }
-  }
-
-  update() {
-    const { blocks } = this.plan.class;
-    blocks.forEach((block) => {
-      const conf = block[1];
-      this.lock(this.plan[block[0]].update(conf));
-    });
   }
 }
 

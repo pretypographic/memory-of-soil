@@ -1,9 +1,9 @@
-function planElement(tag, styleClasses = false, styleMod = false) {
+function planElement(tag, styleClasses = false, confName = false) {
   return {
     class: {
       tag: tag,
       styleClasses: styleClasses,
-      styleMod: styleMod
+      confName: confName
     },
     matter: [],
     addMatter: function (type, data, conf = false) {      
@@ -17,8 +17,8 @@ function planElement(tag, styleClasses = false, styleMod = false) {
 };
 
 class Element {
-  constructor({ configuration, plan, elementClass }) {
-    this._configuration = configuration;
+  constructor({ conf, plan, elementClass }) {
+    this._conf = conf;
     this.plan = plan;
     this.matter = plan.matter;
     this._elementClass = elementClass;
@@ -45,35 +45,19 @@ class Element {
   }
   _addMatter() {
     this.matter.map((item) => {
-      if (item[2]) {
-        this._checkConf(item);
-      } else {
-        this._checkType(item);
+      if (item[0] === "element") {
+        const newElement = this._elementClass({ 
+          conf: this._conf, 
+          plan: item[1],
+          elementClass: this._elementClass
+        });
+        this.lock(newElement.create());
+      } else if (item[0] === "text") {
+        this.element.textContent = item[1];
+      } else if (item[0] === "image") {
+        this.element.setAttribute("src", item[1]);
       }
     })
-  }
-  _checkConf(item) {
-    Object.keys(item[2]).forEach((key) => {
-      if (Object.hasOwn(this._configuration.current, key) && item[2][key] === this._configuration.current[key]) {
-        this._checkType(item);
-      } else {
-        return;
-      }
-    });
-  }
-  _checkType(item) {
-    if (item[0] === "element") {
-      const newElement = this._elementClass({ 
-        configuration: this._configuration, 
-        plan: item[1],
-        elementClass: this._elementClass
-      });
-      this.lock(newElement.create());
-    } else if (item[0] === "text") {
-      this.element.textContent = item[1];
-    } else if (item[0] === "image") {
-      this.element.setAttribute("src", item[1]);
-    }
   }
 
   lock(elements) {

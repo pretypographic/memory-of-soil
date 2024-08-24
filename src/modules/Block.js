@@ -1,29 +1,18 @@
-function planBlock(tag, styleClasses) {
+function planBlock(tag, styleClasses = false, confName = false) {
   return {
     class: {
       tag: tag,
       styleClasses: styleClasses,
-      blocks: [],
+      confName: confName,
+      matter: [],
       leaders: [],
       _processor: {},
     },
-    matter: [],
-    addMatter: function (type, data, conf = false) {
-      const dataTypes = ["element", "text", "image"];
-      if (!dataTypes.some(t => t === type)) {
+    addMatter: function (type, plan) {
+      this.class.matter.push([type, plan]);
+      if (type !== "element") {
         const name = type;
-        if (conf) {
-          this.class.blocks.push([name, conf]);
-        } else {
-          this.class.blocks.push([name]);
-        }
-        this[name] = data;
-      } else {
-        if (conf) {
-          this.matter.push([type, data, conf]);
-        } else {
-          this.matter.push([type, data]);
-        }
+        this[name] = plan;
       }
     },
     addProcessor: function (event, callback) {
@@ -34,35 +23,38 @@ function planBlock(tag, styleClasses) {
 };
 
 class Block {
-  constructor({ configuration, plan, elementClass, blockClass }) {
-    this._configuration = configuration;
+  constructor({ conf, plan, elementClass, blockClass }) {
+    this._conf = conf;
     this.plan = plan;
-    this.matter = plan.matter;
     this._elementClass = elementClass;
     this._blockClass = blockClass;
+    this._subBlocks = [];
   }
 
   initiate() {
-    const { blocks } = this.plan.class;
-    if (blocks) {
-      blocks.forEach((block) => {
-        this[block[0]] = this._blockClass({ 
-          configuration: this._configuration, 
-          plan: this.plan[block[0]],
-          elementClass: this._elementClass,
-          blockClass: this._blockClass
-        });
-      });
+    const { confName, matter } = this.plan.class;
+    if (confName) {
+      this._confRecord = this._conf.current[confName];
+    }
+    if (matter) {
+      matter.forEach((block) => {
+        if (block[0] !== "element") {
+          this[block[0]] = this._blockClass({ 
+            conf: this._conf, 
+            plan: this.plan[block[0]],
+            elementClass: this._elementClass,
+            blockClass: this._blockClass
+          });
+          this[block[0]].initiate();
+        }
+      })
     }
   }
-  
+
   create() {
-    const { leaders, blocks } = this.plan.class;
+    const { leaders, matter } = this.plan.class;
     this.block = this._addStructure();
-    if (blocks) {
-      this._addSubBlock();
-    };
-    if (this.matter) {
+    if (matter) {
       this._addMatter();
     };
     if (leaders) {
@@ -82,49 +74,24 @@ class Block {
     structure.classList.add(...styleClasses);
     return structure;
   }
-  _addSubBlock() {
-    const { blocks } = this.plan.class;
-    blocks.forEach((block) => {
-      if (block[1]) {
-        Object.keys(block[1]).forEach((key) => {
-          if (Object.hasOwn(this._configuration.current, key) && block[1][key] === this._configuration.current[key]) {
-            this.lock(this[block[0]].create());
-          } else {
-            return;
-          }
-        });
-      } else {
-        this.lock(this[block[0]].create());
-      }
-    });
-  }
   _addMatter() {
-    this.matter.map((item) => {
-      if (item[2]) {
-        this._checkConf(item);
+    const { matter } = this.plan.class;
+    matter.map((item) => {
+      if (item[0] === "element") {
+        const newElement = this._elementClass({ 
+          conf: this._conf, 
+          plan: item[1],
+          elementClass: this._elementClass
+        });
+        this.lock(newElement.create());
       } else {
-        this._checkType(item);
+        this._addSubBlock(item);
       }
     })
   }
-  _checkConf(item) {
-    Object.keys(item[2]).forEach((key) => {
-      if (Object.hasOwn(this._configuration.current, key) && item[2][key] === this._configuration.current[key]) {
-        this._checkType(item);
-      } else {
-        return;
-      }
-    });
-  }
-  _checkType(item) {
-    if (item[0] === "element") {
-      const newElement = this._elementClass({ 
-        configuration: this._configuration, 
-        plan: item[1],
-        elementClass: this._elementClass
-      });
-      this.lock(newElement.create());
-    }
+  _addSubBlock(item) {
+    this._subBlocks.push(item[0]);
+    this.lock(this[item[0]].create());
   }
   _addTime() {
     const { leaders, _processor } = this.plan.class;
@@ -143,10 +110,11 @@ class Block {
 
   remove() {
     this._stop();
-    if (this.plan.class.blocks) {
-      this.plan.class.blocks.forEach((block) => {
-        this[block[0]].remove();
+    if (this._subBlocks) {
+      this._subBlocks.forEach((block) => {
+        this[block].remove();
       })
+      this._subBlocks = [];
     }
     this.block.remove();
   }
@@ -159,22 +127,8 @@ class Block {
     }
   }
 
-  update(conf) {
-    if (this.block) {
-      this.remove();
-    }
-    if (conf) {
-      const chek = Object.keys(conf).every((key) => {
-        return Object.hasOwn(this._configuration.current, key) && conf[key] === this._configuration.current[key];
-      });
-      if (chek) {
-        return this.create();
-      } else {
-        return;
-      }
-    } else {
-      return this.create();
-    }
+  toggleClass(className) {
+    this.block.classList.toggle(className);
   }
 }
 

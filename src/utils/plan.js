@@ -1,147 +1,143 @@
 "use strict";
-import parameters from "./parameters.js";
-import { instruction } from "./data.js";
+import conf from "./conf.js";
+import { main, instruction } from "./source.js";
 import { planDevice } from "../modules/Device.js";
 import { planBlock } from "../modules/Block.js";
 import { planElement } from "../modules/Element.js";
 
-const planMemory = planDevice(["body"], addIndicator());
-planMemory.addMatter("headerBlock", addHeader(), { headerBlock: true });
-planMemory.addMatter("figureBlock", addFigure(), { figureBlock: true });
-planMemory.addMatter("projectorBlock", addProjector(), { projectorBlock: true });
+console.log(conf._navRingsImg());
 
-function addIndicator() {
+function addIndicatorPlan() {
   const indicator = planElement("div", ["indicator"]);
-  indicator.addMatter("text", "загрузка...", { lang: 1 });
-  indicator.addMatter("text", "loading...", { lang: 0 });
+  indicator.addMatter("text", "loading...");
+  indicator.addMatter("text", "загрузка...");
   return indicator;
 }
 
-function addHeader() {
-  const header = planBlock("header", ["header"]);
-  header.addMatter("asideLeft", addAsideLeft());
-  header.addMatter("asideRight", addAsideRight());
-  return header;
+const planMemory = planDevice(["body"], addIndicatorPlan());
+planMemory.addFrame("header", addHeaderPlan());
+planMemory.addFrame("figure", addFigurePlan());
+planMemory.addFrame("projector", addProjectorPlan());
+
+function addHeaderPlan() {
+  const headerPlan = planBlock("header", ["header"]);
+  headerPlan.addMatter("asideLeft", addAsideLeftPlan());
+  headerPlan.addMatter("asideRight", addAsideRightPlan());
+  return headerPlan;
 }
-function addAsideLeft() {
-  const asideLeft = planBlock("aside", [
+function addAsideLeftPlan() { 
+  const asideLeftPlan = planBlock("aside", [
     "header__aside", 
     "header__aside_type_left"
   ]);
-  parameters._languages.forEach((string, i) => {
-    const languageButton = planElement("button", ["header__button"]);
-    languageButton.addMatter("text", string);
-    asideLeft.addMatter("element", languageButton);
+  main.languages.forEach((string, i) => {
+    const languageButtonPlan = planElement("button", ["header__button"]);
+    languageButtonPlan.addMatter("text", string);
+    asideLeftPlan.addMatter("element", languageButtonPlan);
   });
-  return asideLeft;
+  return asideLeftPlan;
 }
-function addAsideRight() {
-  const asideRight = planBlock("aside", [
+function addAsideRightPlan() {
+  const asideRightPlan = planBlock("aside", [
     "header__aside", 
     "header__aside_type_right"
   ]);
-  parameters._nav.forEach((arrey) => {
-    const languageButton = planElement("button", ["header__button"]);
-    arrey.forEach((string, i) => {
-      languageButton.addMatter("text", string, { lang: i });
-    })
-    asideRight.addMatter("element", languageButton);
-  });
-  return asideRight;
+  const aboutButtonPlan = planElement("button", ["header__button"]);
+  aboutButtonPlan.addMatter("text", main.about.eng[0]);
+  asideRightPlan.addMatter("element", aboutButtonPlan);
+  return asideRightPlan;
 }
 
-function addFigure() {
-  const figure = planBlock("figure", ["figure"]);
-  figure.addMatter("sectionNav", addSectionNav());
-  figure.addMatter("sectionDecor", addSectionDecor());
-  return figure;
+function addFigurePlan() {
+  const figurePlan = planBlock("figure", ["figure"]);
+  figurePlan.addMatter("sectionNav", addSectionNavPlan());
+  figurePlan.addMatter("sectionDecor", addSectionDecorPlan());
+  return figurePlan;
 }
-function addSectionNav() {
-  const sectionNav = planBlock("section", [
+function addSectionNavPlan() {
+  const sectionNavPlan = planBlock("section", [
     "figure__section", 
     "figure__section_type_nav"
   ]);
-  parameters._navRingsImg().forEach((arrey, i) => {
-    const button = planElement("buuton", ["figure__button"], parameters._navRingStyles[i]);
+  conf._navRingsImg().forEach((arrey, i) => {
+    const buttonPlan = planElement("button", ["figure__button"]);
+    buttonPlan.class.styleMod = conf._navRingsStyles[i];
     arrey.forEach((item, i) => {
       const modes = [
         "figure__img_type_title", 
         "figure__img_type_shine", 
         "figure__img_type_lit"
       ];
-      const image = planElement("img", ["figure__img", `${modes[i]}`]);
+      const imagePlan = planElement("img", ["figure__img", `${modes[i]}`]);
       if (Array.isArray(item)) {
         const array = item;
         array.forEach((item, i) => {
-          image.addMatter("image", item, { lang: i })
+          imagePlan.addMatter("image", item)
         });
       } else {
-        image.addMatter("image", item);
+        imagePlan.addMatter("image", item);
       };
-      button.addMatter("element", image);
+      buttonPlan.addMatter("element", imagePlan);
     })
-    sectionNav.addMatter("element", button)
+    sectionNavPlan.addMatter("element", buttonPlan)
   });
-  return sectionNav;
+  return sectionNavPlan;
 }
-function addSectionDecor() {
-  const sectionDecor = planElement("section", [
+function addSectionDecorPlan() {
+  const sectionDecor = planBlock("section", [
     "figure__section",
     "figure__section_type_decor"
   ]);
-  parameters._decorRingsImg().forEach((string, i) => {
-    const image = planElement("img", [
+  conf._decorRingsImg().forEach((string, i) => {
+    const imagePlan = planElement("img", [
       "figure__img",
       "figure__img_type_lit"
-    ], parameters._decorRingsStyles()[i]);
-    image.addMatter("image", string);
-    sectionDecor.addMatter("element", image);
+    ]);
+    imagePlan.class.styleMod = conf._decorRingsStyles()[i];
+    imagePlan.addMatter("image", string);
+    sectionDecor.addMatter("element", imagePlan);
   });
   return sectionDecor;
 }
 
-function addProjector() {
-  const projector = planBlock("footer", ["footer"]);
-  projector.addMatter("element", addArticle());
-  projector.addMatter("element", addNames());
+function addProjectorPlan() {
+  const projector = planBlock("footer", ["footer", "disabled"]);
+  projector.addMatter("element", addArticlePlan());
+  projector.addMatter("element", addNamesPlan());
   return projector;
 }
-function addArticle() {
+function addArticlePlan() {
   const article = planElement("article", ["footer__article"]);
-  instruction.forEach((lang, i) => {
-    return lang.column.forEach((arrey) => {
-      const section = planElement("section", ["footer__section"]);
-      arrey.forEach((string, i) => {
-        if (i === 0) {
-          const title = planElement("h2");
-          title.addMatter("text", string);
-          section.addMatter("element", title);
-        } else {
-          const paragraph = planElement("p");
-          paragraph.addMatter("text", string)
-          section.addMatter("element", paragraph);
-        }
-      })
-      article.addMatter("element", section, { lang: i });
+  instruction.column.eng.forEach((arrey) => {
+    const section = planElement("section", ["footer__section"]);
+    arrey.forEach((string, i) => {
+      if (i === 0) {
+        const title = planElement("h2");
+        title.addMatter("text", string);
+        section.addMatter("element", title);
+      } else {
+        const paragraph = planElement("p");
+        paragraph.addMatter("text", string)
+        section.addMatter("element", paragraph);
+      }
     })
+    article.addMatter("element", section);
   })
   return article;
 }
-function addNames() {
+function addNamesPlan() {
   const section = planElement("section", [
     "footer__section", 
     "footer__section_names"
   ]);
-  instruction.forEach((lang, i) => {
-    return lang.names.forEach((arrey) => {
-      const name = planElement("div", ["footer__cell"]);
-      arrey.forEach((string) => {
-        const paragraph = planElement("p");
-        paragraph.addMatter("text", string)
-        name.addMatter("element", paragraph)
-      })
-      section.addMatter("element", name, { lang: i })
+  instruction.names.eng.forEach((arrey) => {
+    const name = planElement("div", ["footer__cell"]);
+    arrey.forEach((string) => {
+      const paragraph = planElement("p");
+      paragraph.addMatter("text", string)
+      name.addMatter("element", paragraph)
     })
+    section.addMatter("element", name)
   })
   return section;
 }
