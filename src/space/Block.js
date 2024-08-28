@@ -5,6 +5,7 @@ function planBlock(tag, styleClasses = false, confName = false) {
       styleClasses: styleClasses,
       confName: confName,
       matter: [],
+      // triggers: - ?
       leaders: [],
       _processor: {},
     },
@@ -16,8 +17,23 @@ function planBlock(tag, styleClasses = false, confName = false) {
       }
     },
     addProcessor: function (event, callback) {
-      this.class._processor[event] = callback;
+      const action = (event) => {
+        if (this._chek(event)) {
+          callback();
+        };
+      }
+      this.class._processor[event] = action;
       this.class.leaders.push(event);
+    },
+    _chek: function (event) {
+      let newChek = this.class.styleClasses.some((string) => {
+        return event.target.parentElement.classList.contains(string);
+      });
+      if (newChek) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 };
@@ -62,6 +78,7 @@ class Block {
     };
     return this.block;
   }
+  // _addSpace
   _addStructure() {
     if (!this.plan) {
       console.log("отстутствует план", this)
@@ -93,6 +110,7 @@ class Block {
     this._subBlocks.push(item[0]);
     this.lock(this[item[0]].create());
   }
+  // _addMovement
   _addTime() {
     const { leaders, _processor } = this.plan.class;
     leaders.forEach((leader) => {
@@ -129,6 +147,10 @@ class Block {
 
   toggleClass(className) {
     this.block.classList.toggle(className);
+  }
+
+  matter() {
+    return Array.from(this.block.children);
   }
 }
 

@@ -4,10 +4,14 @@
 import images from "../media/images/data.js";
 
 const main = {
+  indicator: {
+    eng: "loading...",
+    rus: "загрузка..."
+  },
   languages: ["eng", "rus"],
   about: {      
-    eng: ["about", "about"],
-    rus: ["о проекте", "о проекте"]
+    eng: "about",
+    rus: "о проекте"
   },
   images: {
     eng: [],
@@ -59,42 +63,54 @@ const instruction = {
   names: {
     eng: [
       [
+        false,
         'author',
         'Liza Tezneva'
       ], [
+        false,
         'author',
         'Polina Shubina'
       ], [
+        false,
         'author',
         'Mariam Pesvianidze'
       ], [
+        false,
         'web',
         'Aleksandr Phes'
       ], [
+        false,
         'design',
         'Ilya Zharkin'
       ], [
+        false,
         'VFX animation',
         'Emile Khafizov'
       ]
     ],
     rus: [
       [
+        false,
         'автор',
         'Лиза Тезнева'
       ], [
+        false,
         'автор',
         'Полина Шубина'
       ], [
+        false,
         'автор',
         'Мариам Песвианидзе'
       ], [
+        false,
         'web',
         'Александр Фэс'
       ], [
+        false,
         'дизайн',
         'Илья Жаркин'
       ], [
+        false,
         'VFX анимация',
         'Эмиль Хафизов'
       ]
