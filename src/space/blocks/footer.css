@@ -24,6 +24,7 @@
   margin-bottom: 7vh;
   display: flex;
   flex-direction: row;
+  pointer-events: none;
 }
 
 .footer__names {

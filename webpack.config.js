@@ -23,15 +23,29 @@ module.exports = {
         test: /\.js$/,
         use: 'babel-loader',
         exclude: '/node_modules/'
-      }, {
-        test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
+      },
+      {
+        test: /\.(png|jpe?g|svg|gif|woff(2)?|eot|ttf|otf)$/i,
         type: "asset/resource"
-      }, {
+      },
+      {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, {
-          loader: "css-loader",
-          options: { importLoaders: 1 }
-        }]
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: { importLoaders: 1 }
+          }
+        ]
+      },
+      {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        loader: 'file-loader',
+        options: {
+          name: '[contenthash].[ext]',
+          outputPath: 'media/videos',
+          publicPath: 'media/videos',
+        },
       }
     ]
   },

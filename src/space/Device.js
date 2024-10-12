@@ -15,6 +15,7 @@ function planDevice(styleClasses, indicator) {
   }
 };
 
+// 
 class Device {
   constructor({ conf, plan }) {
     this._conf = conf;

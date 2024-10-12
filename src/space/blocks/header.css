@@ -47,7 +47,7 @@
 }
 
 .header__button:hover {
-  animation: triger 0.4s linear 0s 1 forwards;
+  animation: trigger 0.5s linear 0s 1 forwards;
 }
 
 .header__button_active {
@@ -58,7 +58,7 @@
   transform: scaleX(1);
 }
 
-@keyframes triger {
+@keyframes trigger {
   0% {
     text-shadow: -2px -2px 2px yellow;
   }

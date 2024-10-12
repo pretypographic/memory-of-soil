@@ -4,6 +4,7 @@ function planElement(tag, styleClasses = false, confName = false) {
       tag: tag,
       styleClasses: styleClasses,
       confName: confName
+      // styleMod:
     },
     matter: [],
     addMatter: function (type, data) {
@@ -12,6 +13,7 @@ function planElement(tag, styleClasses = false, confName = false) {
   };
 };
 
+// Work
 class Element {
   constructor({ conf, plan, elementClass }) {
     this._conf = conf;
@@ -26,7 +28,7 @@ class Element {
     return this.element;
   }
   _addStructure() {
-    if (!this.plan) {
+    if (!this.plan.class.tag) {
       console.log("plan needed", this)
     };
     const { tag, styleClasses, styleMod } = this.plan.class;
@@ -41,24 +43,21 @@ class Element {
   }
   _addMatter() {
     this.matter.map((item) => {
+      let type = item[0];
       let data = item[1];
-      // console.log("start:", data);
-      // console.log("conf:", this.plan.class.confName);
-      // console.log("add:", (item[0] !== "element" && typeof item[1] === "object"));
-      if ((item[0] !== "element" && typeof item[1] === "object")) {
-        data = item[1][this._conf.current[this.plan.class.confName]];
-        // console.log("end:", data);
+      if ((type !== "element" && typeof data === "object")) {
+        data = data[this._conf.current[this.plan.class.confName]];
       };
-      if (item[0] === "element") {
+      if (type === "element") {
         const newElement = this._elementClass({ 
           conf: this._conf, 
           plan: data,
           elementClass: this._elementClass
         });
         this.lock(newElement.create());
-      } else if (item[0] === "text") {
+      } else if (type === "text") {
         this.element.textContent = data;
-      } else if (item[0] === "columns") {
+      } else if (type === "columns") {
         data.forEach((array, i) => {
           const section = document.createElement("section");
           section.classList.add("footer__section");
@@ -78,7 +77,7 @@ class Element {
           });
           this.lock(section);
         });
-      } else if (item[0] === "image") {
+      } else if (type === "image") {
         this.element.setAttribute("src", data);
       };
     });

@@ -38,6 +38,7 @@ function planBlock(tag, styleClasses = false, confName = false) {
   }
 };
 
+// Stage
 class Block {
   constructor({ conf, plan, elementClass, blockClass }) {
     this._conf = conf;
@@ -55,9 +56,12 @@ class Block {
     if (matter) {
       matter.forEach((block) => {
         if (block[0] !== "element") {
+          if (!block[1].class) {
+            block[1] = block[1][confName];  
+          }
           this[block[0]] = this._blockClass({ 
             conf: this._conf, 
-            plan: this.plan[block[0]],
+            plan: block[1],
             elementClass: this._elementClass,
             blockClass: this._blockClass
           });
@@ -92,12 +96,26 @@ class Block {
     return structure;
   }
   _addMatter() {
-    const { matter } = this.plan.class;
+    const { matter, confName } = this.plan.class;
     matter.map((item) => {
-      if (item[0] === "element") {
+      let type = item[0];
+      let data = item[1];
+      if (type === "element") {
+        if (Array.isArray(data)) {
+          data = data[0][this._conf.current[confName]];
+          console.log(data);
+          return data.map((plan) => {
+            const newElement = this._elementClass({ 
+              conf: this._conf, 
+              plan: plan,
+              elementClass: this._elementClass
+            });
+            this.lock(newElement.create());
+          })
+        };
         const newElement = this._elementClass({ 
-          conf: this._conf, 
-          plan: item[1],
+          conf: this._conf,
+          plan: data,
           elementClass: this._elementClass
         });
         this.lock(newElement.create());

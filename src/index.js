@@ -4,28 +4,54 @@ import "./index.css";
 import conf from "./utils/conf.js";
 import planMemory from "./utils/plan.js";
 import { Device } from "./space/Device.js";
+import { memory } from "./resources/source.js";
 
 const Memory = new Device({
   conf: conf,
   plan: planMemory
 });
 Memory.initiate();
+console.log(Memory);
 
-const { header, figure, projector } = Memory;
-header.asideLeft.plan.addProcessor("click", function () {
+const { header, figure, projector, gallery } = Memory;
+header.asideLeft.plan.addProcessor("click", () => {
   switchLanguages();
 });
-header.asideRight.plan.addProcessor("click", function () {
+header.asideRight.plan.addProcessor("click", () => {
   updateConf();
   reverseLabel();
   toggleInstruction();
 });
-figure.sectionNav.plan.addProcessor("mouseover", function () {
+figure.sectionNav.plan.addProcessor("mouseover", () => {
   triggerShining();
 });
-figure.sectionNav.plan.addProcessor("mouseout", function () {
+figure.sectionNav.plan.addProcessor("mouseout", () => {
   quitShining();
 });
+figure.sectionNav.plan.addProcessor("click", () => {
+  openMemoryFrame();
+})
+// document.addEventListener("mousemove", () => {
+//   handleMouseMove();
+// })
+// function handleMouseMove() {
+//   let X = event.screenX / window.screen.width * 100;
+//   let Y = event.screenY / window.screen.height * 100;
+//   let shiftX;
+//   let shiftY;
+//   if (X > 50) {
+//     shiftX = `${-(X - 50)}px`;
+//   } else {
+//     shiftX = `${50 - X}px`;
+//   };
+//   if (Y > 50) {
+//     shiftY = `${-(Y - 50)}px`;
+//   } else {
+//     shiftY = `${50 - Y}px`;
+//   };
+//   const styleMod = `top: calc(${shiftY} / 6); left: calc(50% + ${shiftX} / 6);`;
+//   figure.block.style = styleMod;
+// };
 function switchLanguages() {
   if (event.target.textContent === "eng") {
     const button = event.target;
@@ -106,13 +132,28 @@ function openMainFrame() {
 };
 function removeMainFrame() {
   Memory.remove([header, figure, projector]);
-}
+};
+function openMemoryFrame() {
+  Promise.resolve(removeMainFrame())
+    .then(() => {
+      conf.current.frame = event.target.textContent;
+    })
+    .then(() => {
+      Memory.lock([header.create(), gallery.create(), projector.create()]);
+    })
+    .then(() => {
+      conf.current.frame = "memory";
+      languageCheck();
+      if (conf.current.projector === "image" || conf.current.projector === "video" || conf.current.projector === "text") {
+        toggleProjector();
+      }
+    })
+};
 function update() {
   if (conf.current.frame === "main") {
     removeMainFrame();
     openMainFrame();
   }
-}
+};
 
 openMainFrame();
-console.log(Memory);
