@@ -1,11 +1,10 @@
 "use strict";
 
 import conf from "./conf.js";
-import { main, instruction, memory } from "../resources/source.js";
+import { main, instruction, data } from "../resources/source.js";
 import { planDevice } from "../space/Device.js";
 import { planBlock } from "../space/Block.js";
 import { planElement } from "../space/Element.js";
-import images from "../media/images/data.js";
 
 const indicator = planElement("div", ["indicator"], "lang");
 indicator.addMatter("text", main.indicator);
@@ -26,9 +25,9 @@ projectorPlan.addMatter("element", articlePlan());
 projectorPlan.addMatter("element", sectionPlan());
 planMemory.addFrame("projector", projectorPlan);
 
-const galaryPlan = planBlock("main", ["main"]);
-galaryPlan.addMatter("visualSection", visualSectionPlan());
-planMemory.addFrame("gallery", galaryPlan);
+const gallaryPlan = planBlock("main", ["main"], "frame");
+gallaryPlan.addMatter("element", formExposition());
+planMemory.addFrame("gallery", gallaryPlan);
 
 function asideLeftPlan() {
   const asideLeftPlan = planBlock("aside", [
@@ -59,7 +58,8 @@ function sectionNavPlan() {
   ]);
   conf._navRingsImg().forEach((images, i) => {
     const buttonPlan = planElement("button", ["figure__button"], "lang");
-    buttonPlan.addMatter("text", Object.values(memory.title)[0]);
+    const titles = Object.keys(data).reverse();
+    buttonPlan.addMatter("text", titles[i]);
     buttonPlan.class.styleMod = conf._navRingsStyles[i];
     images.forEach((string, i) => {
       const modes = [
@@ -104,33 +104,27 @@ function sectionPlan() {
   sectionPlan.addMatter("columns", instruction.names)
   return sectionPlan;
 }
-function visualSectionPlan() {
-  const framesTitle = Object.keys(images.frames);
-  const framesImages = Object.values(images.frames);
-  const visualSectionPlan = planBlock("section", [
-    "main__section", 
-    "main__section_side_visual"], "frame");
-  let array = [];
-  const modes = framesTitle.reduce((conf, string, i) => {
+function formExposition() {
+  const framesTitle = Object.keys(data);
+  const exposition = framesTitle.reduce((conf, string) => {
     return {
       ...conf,
-      [string]: Object.values(framesImages[i]).map((src) => {
-        const elementImagePlan = planElement("div", ["main__image-element"]);
-        const imagePlan = planElement("img", ["main__image"]);
-        imagePlan.addMatter("image", src);
-        elementImagePlan.addMatter("element", imagePlan);
-        return elementImagePlan;
-      }, [])
+      [string]: formFrameExposition(string)
     }
   }, {});
-  array.push(modes);
-  visualSectionPlan.addMatter("element", array);
-  return visualSectionPlan;
+  console.log(exposition);
+  return [exposition];
 }
-function textSectionPlan() {
-  const textSectionPlan = planBlock("section", ["main__section", "main__section_side_text"]);
-  // textSectionPlan.addMatter("elements", memory.text); 
-  return textSectionPlan;
+function formFrameExposition(string) {
+  if (data[string].images) {
+    return Object.values(data[string].images).map((src) => {
+      const elementImagePlan = planElement("div", ["main__image-element"]);
+      const imagePlan = planElement("img", ["main__image"]);
+      imagePlan.addMatter("image", src);
+      elementImagePlan.addMatter("element", imagePlan);
+      return elementImagePlan;
+    });
+  }
 }
 
 export default planMemory;

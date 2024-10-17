@@ -4,7 +4,6 @@ import "./index.css";
 import conf from "./utils/conf.js";
 import planMemory from "./utils/plan.js";
 import { Device } from "./space/Device.js";
-import { memory } from "./resources/source.js";
 
 const Memory = new Device({
   conf: conf,
@@ -30,7 +29,16 @@ figure.sectionNav.plan.addProcessor("mouseout", () => {
 });
 figure.sectionNav.plan.addProcessor("click", () => {
   openMemoryFrame();
-})
+});
+gallery.plan.addProcessor("mouseover", () => {
+  lookIn();
+});
+gallery.plan.addProcessor("mouseout", () => {
+  lookOut();
+});
+gallery.plan.addProcessor("click", () => {
+  openWide();
+});
 // document.addEventListener("mousemove", () => {
 //   handleMouseMove();
 // })
@@ -148,6 +156,24 @@ function openMemoryFrame() {
         toggleProjector();
       }
     })
+};
+function lookIn() {
+  const imageElement = event.target.parentElement;
+  if (!imageElement.classList.contains("main__image-element_opened")) {
+    imageElement.classList.add("main__image-element_touched");
+  }
+};
+function lookOut() {
+  const imageElement = event.target.parentElement;
+  if (!imageElement.classList.contains("main__image-element_opened")) {
+    imageElement.classList.remove("main__image-element_touched");
+  }
+};
+function openWide() {
+  const imageElement = event.target.parentElement;
+  imageElement.classList.remove("main__image-element_touched");
+  imageElement.classList.add("main__image-element_opened");
+  projector.toggleClass("disabled");
 };
 function update() {
   if (conf.current.frame === "main") {

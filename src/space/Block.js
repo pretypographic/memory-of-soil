@@ -17,24 +17,25 @@ function planBlock(tag, styleClasses = false, confName = false) {
       }
     },
     addProcessor: function (event, callback) {
-      const action = (event) => {
-        if (this._chek(event)) {
-          callback();
-        };
-      }
-      this.class._processor[event] = action;
+      // const action = (event) => {
+      //   if (this._chek(event)) {
+      //     callback();
+      //   };
+      // }
+      this.class._processor[event] = callback;
       this.class.leaders.push(event);
     },
-    _chek: function (event) {
-      let newChek = this.class.styleClasses.some((string) => {
-        return event.target.parentElement.classList.contains(string);
-      });
-      if (newChek) {
-        return true;
-      } else {
-        return false;
-      }
-    }
+    // _chek: function (event) {
+    //   console.log("beep", event.target)
+    //   let newChek = this.class.styleClasses.some((string) => {
+    //     return event.target.parentElement.classList.contains(string);
+    //   });
+    //   if (newChek) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // }
   }
 };
 
@@ -103,7 +104,6 @@ class Block {
       if (type === "element") {
         if (Array.isArray(data)) {
           data = data[0][this._conf.current[confName]];
-          console.log(data);
           return data.map((plan) => {
             const newElement = this._elementClass({ 
               conf: this._conf, 
