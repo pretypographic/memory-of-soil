@@ -38,6 +38,7 @@ gallery.plan.addProcessor("mouseout", () => {
 });
 gallery.plan.addProcessor("click", () => {
   openWide();
+  // открыть попап
 });
 // document.addEventListener("mousemove", () => {
 //   handleMouseMove();
@@ -151,12 +152,16 @@ function openMemoryFrame() {
     })
     .then(() => {
       conf.current.frame = "memory";
+      header.asideRight.toggleClass("disabled");
       languageCheck();
       if (conf.current.projector === "image" || conf.current.projector === "video" || conf.current.projector === "text") {
         toggleProjector();
       }
     })
 };
+function removeMemoryFrame() {
+  Memory.remove([header, gallery, projector]);
+}
 function lookIn() {
   const imageElement = event.target.parentElement;
   if (!imageElement.classList.contains("main__image-element_opened")) {
@@ -179,6 +184,9 @@ function update() {
   if (conf.current.frame === "main") {
     removeMainFrame();
     openMainFrame();
+  } else {
+    removeMemoryFrame();
+    openMemoryFrame();
   }
 };
 

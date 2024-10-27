@@ -28,13 +28,13 @@ const main = {
     rus: "загрузка..."
   },
   languages: ["eng", "rus"],
+  navElement: {
+    eng: "back",
+    rus: "обратно"
+  },
   about: {      
     eng: "about",
     rus: "о проекте"
-  },
-  images: {
-    eng: [],
-    rus: []
   }
 };
 
@@ -460,7 +460,7 @@ const data = {
     video: [
       {
         video: bloodstone_v2,
-        image: { backgroundImage: `URL(${poster03_blood_stone_v2})` },
+        image: poster03_blood_stone_v2,
         format: 'viewing__video_type_a'
       }
     ],
@@ -494,7 +494,7 @@ const data = {
     video: [
       {
         video: flower_2,
-        image: { backgroundImage: `URL(${poster_flower2})` },
+        image: poster_flower2,
         format: 'viewing__video_type_b'
       }
     ],
@@ -530,7 +530,7 @@ const data = {
       eng: 'revelations',
     },
     images: images.frames.revelations,
-    video: [],
+    video: false,
     texts: {
       rus: [
         `Я трусиха. Я бесконечно люблю природу, ценю ее, пытаюсь постоянно осознавать, что я ее часть, но оставшись с ней наедине, я робею. Мне становится страшно как только приходит темнота, я боюсь хищников, я боюcь насекомых. В связке с этим, я осознала, насколько природа мощная и самостоятельная. Насколько она подвижная и адаптивная. Природа - не незабытая жертва, а забытый участник. Природа - не фон для человеческих передряг, а среда, обстоятельства и последствия. (Полина)`,
@@ -619,7 +619,7 @@ const data = {
     video: [
       {
         video: Polina_1,
-        image: { backgroundImage: `URL(${poster_Polina_1})` },
+        image: poster_Polina_1,
         format: 'viewing__video_type_c'
       }
     ],
@@ -653,7 +653,7 @@ const data = {
     video: [
       {
         video: fist_v2,
-        image: { backgroundImage: `URL(${poster_fist_v2})` },
+        image: poster_fist_v2,
         format: 'viewing__video_type_a'
       }
     ],
@@ -696,19 +696,19 @@ const data = {
     video: [
       {
         video: dancing_stone,
-        image: { backgroundImage: `URL(${poster_dancing_stone})` },
+        image: poster_dancing_stone,
         format: 'viewing__video_type_a'
       }, {
         video: DSCF0823_30sec,
-        image: { backgroundImage: `URL(${poster_DSCF0823_30sec})` },
+        image: poster_DSCF0823_30sec,
         format: 'viewing__video_type_c'
       }, {
         video: MVI_5637,
-        image: { backgroundImage: `URL(${poster_MVI_5637})` },
+        image: poster_MVI_5637,
         format: 'viewing__video_type_c'
       }, {
         video: Polina_2v2,
-        image: { backgroundImage: `URL(${poster_Polina_2v2})` },
+        image: poster_Polina_2v2,
         format: 'viewing__video_type_c'
       }
     ],
@@ -742,11 +742,11 @@ const data = {
     video: [
       {
         video: fog,
-        image: { backgroundImage: `URL(${poster_fog})` },
+        image: poster_fog,
         format: 'viewing__video_type_b'
       }, {
         video: timelapse,
-        image: { backgroundImage: `URL(${poster_timelapse})` },
+        image: poster_timelapse,
         format: 'viewing__video_type_c'
       }
     ],

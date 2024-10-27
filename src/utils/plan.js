@@ -6,60 +6,86 @@ import { planDevice } from "../space/Device.js";
 import { planBlock } from "../space/Block.js";
 import { planElement } from "../space/Element.js";
 
-const indicator = planElement("div", ["indicator"], "lang");
-indicator.addMatter("text", main.indicator);
+const DIV_ELEMENT = "div";
+const HEADER_ELEMENT = "header";
+const FRGURE_ELEMENT = "figure";
+const FOOTER_ELEMENT = "footer";
+const MAIN_ELEMENT = "main";
+const SECTION_ELEMENT = "section";
+const ARTICLE_ELEMENT = "article";
+const ASIDE_ELEMENT = "aside";
+const BUTTON_ELEMENT = "button";
+const IMG_ELEMENT = "img";
+
+const LANG_CONF = "lang";
+const FRAME_CONF = "frame";
+const PROJECTOR_CONF = "projector";
+
+const TEXT_TYPE = "text";
+const COLUMNS_TYPE = "columns";
+const IMAGE_TYPE = "image";
+const ELEMENT_TYPE= "element";
+
+const indicator = planElement(DIV_ELEMENT, ["indicator"], LANG_CONF);
+indicator.addMatter(TEXT_TYPE, main.indicator);
 const planMemory = planDevice(["body"], indicator);
 
-const headerPlan = planBlock("header", ["header"]);
+const headerPlan = planBlock(HEADER_ELEMENT, ["header"]);
 headerPlan.addMatter("asideLeft", asideLeftPlan());
 headerPlan.addMatter("asideRight", asideRightPlan());
+headerPlan.addMatter(ELEMENT_TYPE, headerNavButtonPlan());
 planMemory.addFrame("header", headerPlan);
 
-const figurePlan = planBlock("figure", ["figure"]);
+const figurePlan = planBlock(FRGURE_ELEMENT, ["figure"]);
 figurePlan.addMatter("sectionNav", sectionNavPlan());
 figurePlan.addMatter("sectionDecor", sectionDecorPlan());
 planMemory.addFrame("figure", figurePlan);
 
-const projectorPlan = planBlock("footer", ["footer", "disabled"], "projector");
-projectorPlan.addMatter("element", articlePlan());
-projectorPlan.addMatter("element", sectionPlan());
+const projectorPlan = planBlock(FOOTER_ELEMENT, ["footer", "disabled"], PROJECTOR_CONF);
+projectorPlan.addMatter(ELEMENT_TYPE, articlePlan());
+projectorPlan.addMatter(ELEMENT_TYPE, sectionPlan());
 planMemory.addFrame("projector", projectorPlan);
 
-const gallaryPlan = planBlock("main", ["main"], "frame");
-gallaryPlan.addMatter("element", formExposition());
+const gallaryPlan = planBlock(MAIN_ELEMENT, ["main"], FRAME_CONF);
+gallaryPlan.addMatter(ELEMENT_TYPE, formExposition());
 planMemory.addFrame("gallery", gallaryPlan);
 
 function asideLeftPlan() {
-  const asideLeftPlan = planBlock("aside", [
+  const asideLeftPlan = planBlock(ASIDE_ELEMENT, [
     "header__aside", 
     "header__aside_type_left"
   ]);
   main.languages.forEach((string, i) => {
-    const languageButtonPlan = planElement("button", ["header__button"]);
-    languageButtonPlan.addMatter("text", string);
-    asideLeftPlan.addMatter("element", languageButtonPlan);
+    const languageButtonPlan = planElement(BUTTON_ELEMENT, ["header__button"]);
+    languageButtonPlan.addMatter(TEXT_TYPE, string);
+    asideLeftPlan.addMatter(ELEMENT_TYPE, languageButtonPlan);
   });
   return asideLeftPlan;
 }
 function asideRightPlan() {
-  const asideRightPlan = planBlock("aside", [
+  const asideRightPlan = planBlock(ASIDE_ELEMENT, [
     "header__aside", 
     "header__aside_type_right"
   ]);
-  const buttonPlan = planElement("button", ["header__button"], "lang");
-  buttonPlan.addMatter("text", main.about);
-  asideRightPlan.addMatter("element", buttonPlan);
+  const buttonPlan = planElement(BUTTON_ELEMENT, ["header__button"], LANG_CONF);
+  buttonPlan.addMatter(TEXT_TYPE, main.about);
+  asideRightPlan.addMatter(ELEMENT_TYPE, buttonPlan);
   return asideRightPlan;
 }
+function headerNavButtonPlan() {
+  const headerNavButton = planElement(BUTTON_ELEMENT, ["header__nav-button", "disabled"], LANG_CONF);
+  headerNavButton.addMatter(TEXT_TYPE, main.navElement)
+  return headerNavButton;
+}
 function sectionNavPlan() {
-  const sectionNavPlan = planBlock("section", [
+  const sectionNavPlan = planBlock(SECTION_ELEMENT, [
     "figure__section", 
     "figure__section_type_nav"
   ]);
   conf._navRingsImg().forEach((images, i) => {
-    const buttonPlan = planElement("button", ["figure__button"], "lang");
+    const buttonPlan = planElement(BUTTON_ELEMENT, ["figure__button"], LANG_CONF);
     const titles = Object.keys(data).reverse();
-    buttonPlan.addMatter("text", titles[i]);
+    buttonPlan.addMatter(TEXT_TYPE, titles[i]);
     buttonPlan.class.styleMod = conf._navRingsStyles[i];
     images.forEach((string, i) => {
       const modes = [
@@ -67,41 +93,41 @@ function sectionNavPlan() {
         "figure__img_type_shine", 
         "figure__img_type_lit"
       ];
-      const imagePlan = planElement("img", ["figure__img", `${modes[i]}`], "lang");
-      imagePlan.addMatter("image", string);
-      buttonPlan.addMatter("element", imagePlan);
+      const imagePlan = planElement(IMG_ELEMENT, ["figure__img", `${modes[i]}`], LANG_CONF);
+      imagePlan.addMatter(IMAGE_TYPE, string);
+      buttonPlan.addMatter(ELEMENT_TYPE, imagePlan);
     });
-    sectionNavPlan.addMatter("element", buttonPlan);
+    sectionNavPlan.addMatter(ELEMENT_TYPE, buttonPlan);
   });
   return sectionNavPlan;
 }
 function sectionDecorPlan() {
-  const sectionDecorPlan = planBlock("section", [
+  const sectionDecorPlan = planBlock(SECTION_ELEMENT, [
     "figure__section",
     "figure__section_type_decor"
   ]);
   conf._decorRingsImg().forEach((string, i) => {
-    const imagePlan = planElement("img", [
+    const imagePlan = planElement(IMG_ELEMENT, [
       "figure__img",
       "figure__img_type_lit"
     ]);
     imagePlan.class.styleMod = conf._decorRingsStyles()[i];
-    imagePlan.addMatter("image", string);
-    sectionDecorPlan.addMatter("element", imagePlan);
+    imagePlan.addMatter(IMAGE_TYPE, string);
+    sectionDecorPlan.addMatter(ELEMENT_TYPE, imagePlan);
   });
   return sectionDecorPlan;
 }
 function articlePlan() {
-  const articlePlan = planElement("article", ["footer__article"], "lang");
-  articlePlan.addMatter("columns", instruction.column);
+  const articlePlan = planElement(ARTICLE_ELEMENT, ["footer__article"], LANG_CONF);
+  articlePlan.addMatter(COLUMNS_TYPE, instruction.column);
   return articlePlan;
 }
 function sectionPlan() {
-  const sectionPlan = planElement("section", [
+  const sectionPlan = planElement(SECTION_ELEMENT, [
     "footer__section", 
     "footer__names"
-  ], "lang");
-  sectionPlan.addMatter("columns", instruction.names)
+  ], LANG_CONF);
+  sectionPlan.addMatter(COLUMNS_TYPE, instruction.names)
   return sectionPlan;
 }
 function formExposition() {
@@ -112,19 +138,30 @@ function formExposition() {
       [string]: formFrameExposition(string)
     }
   }, {});
-  console.log(exposition);
   return [exposition];
 }
 function formFrameExposition(string) {
-  if (data[string].images) {
-    return Object.values(data[string].images).map((src) => {
-      const elementImagePlan = planElement("div", ["main__image-element"]);
-      const imagePlan = planElement("img", ["main__image"]);
-      imagePlan.addMatter("image", src);
-      elementImagePlan.addMatter("element", imagePlan);
-      return elementImagePlan;
+  let array = [];
+  if (data[string].video) {
+    Object.values(data[string].video).map((object) => {
+      const elementImagePlan = planElement(DIV_ELEMENT, ["main__image-element"]);
+      const imagePlan = planElement(IMG_ELEMENT, ["main__image"]);
+      imagePlan.addMatter(IMAGE_TYPE, object.image);
+      elementImagePlan.addMatter(ELEMENT_TYPE, imagePlan);
+      array.push(elementImagePlan);
     });
-  }
+  };
+  if (data[string].images) {
+    Object.values(data[string].images).map((src) => {
+      const elementImagePlan = planElement(DIV_ELEMENT, ["main__image-element"]);
+      const imagePlan = planElement(IMG_ELEMENT, ["main__image"]);
+      imagePlan.addMatter(IMAGE_TYPE, src);
+      elementImagePlan.addMatter(ELEMENT_TYPE, imagePlan);
+      array.push(elementImagePlan);
+    });
+  };
+  // как будет работать попап?
+  return array;
 }
 
 export default planMemory;
