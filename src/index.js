@@ -22,6 +22,10 @@ header.asideRight.plan.addProcessor("click", () => {
   reverseLabel();
   toggleInstruction();
 });
+header.navButton.plan.addProcessor("click", () => {
+  removeMemoryFrame();
+  openMainFrame();
+})
 figure.sectionNav.plan.addProcessor("mouseover", () => {
   triggerShining();
 });
@@ -124,40 +128,29 @@ function languageCheck() {
   }
 }
 function openMainFrame() {
-  Promise.resolve()
-    .then(() => {
-      Memory.lock([header.create(), figure.create(), projector.create()]);
-    })
-    .then(() => {
-      conf.current.frame = "main";
-      languageCheck();
-      if (conf.current.projectorOpened) {
-        toggleInstruction();
-        reverseLabel();
-      }
-    })
+  conf.current.frame = "main";
+  Memory.lock([header.create(), figure.create(), projector.create()]);
+  header.navButton.toggleClass("disabled");
+  languageCheck();
+  if (conf.current.projectorOpened) {
+    toggleInstruction();
+    reverseLabel();
+  }
 };
 function removeMainFrame() {
   Memory.remove([header, figure, projector]);
 };
 function openMemoryFrame() {
-  Promise.resolve()
-    .then(() => {
-      if (conf.current.frame === "main") {
-        conf.current.frame = event.target.textContent;
-      }
-    })
-    .then(() => {
-      Memory.lock([header.create(), gallery.create(), projector.create()]);
-    })
-    .then(() => {
-      conf.current.frame = "memory";
-      header.asideRight.toggleClass("disabled");
-      languageCheck();
-      if (conf.current.projectorOpened) {
-        toggleProjector();
-      }
-    })
+  if (conf.current.frame === "main") {
+    conf.current.frame = event.target.textContent;
+  }
+  Memory.lock([header.create(), gallery.create(), projector.create()]);
+  header.asideRight.toggleClass("disabled");
+  languageCheck();
+  if (conf.current.projectorOpened) {
+    toggleProjector();
+  }
+
 };
 function removeMemoryFrame() {
   Memory.remove([header, gallery, projector]);

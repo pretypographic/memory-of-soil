@@ -34,7 +34,7 @@ let popupData = {};
 const headerPlan = planBlock(HEADER_ELEMENT, ["header"]);
 headerPlan.addMatter("asideLeft", asideLeftPlan());
 headerPlan.addMatter("asideRight", asideRightPlan());
-headerPlan.addMatter(ELEMENT_TYPE, headerNavButtonPlan());
+headerPlan.addMatter("navButton", headerNavPlan());
 planMemory.addFrame("header", headerPlan);
 
 const figurePlan = planBlock(FRGURE_ELEMENT, ["figure"]);
@@ -72,10 +72,12 @@ function asideRightPlan() {
   asideRightPlan.addMatter(ELEMENT_TYPE, buttonPlan);
   return asideRightPlan;
 }
-function headerNavButtonPlan() {
-  const headerNavButton = planElement(BUTTON_ELEMENT, ["header__nav-button", "disabled"], LANG_CONF);
+function headerNavPlan() {
+  const headerNav = planBlock(SECTION_ELEMENT, ["header__nav"], LANG_CONF);
+  const headerNavButton = planElement(BUTTON_ELEMENT, ["header__nav-button"], LANG_CONF);
   headerNavButton.addMatter(TEXT_TYPE, main.navElement)
-  return headerNavButton;
+  headerNav.addMatter(ELEMENT_TYPE, headerNavButton);
+  return headerNav;
 }
 function sectionNavPlan() {
   const sectionNavPlan = planBlock(SECTION_ELEMENT, [
