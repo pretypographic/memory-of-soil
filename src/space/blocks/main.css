@@ -6,6 +6,8 @@
   position: absolute;
   top: 0;
   left: 0;
+  opacity: 0;
+  animation: load 1s 0.3s forwards;
 }
 
 .main__section {
@@ -32,6 +34,7 @@
 }
 
 .main__image-element_touched {
+  
   flex-shrink: 9;
 }
 
@@ -49,4 +52,13 @@
 
 .main__image-element_touched .main__image {
   filter: grayscale(0%);
+}
+
+@keyframes load {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

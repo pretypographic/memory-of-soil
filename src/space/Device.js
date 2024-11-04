@@ -89,6 +89,7 @@ class Device {
         console.error(err);
       });
     }
+    return this.body;
   }
   _makePromise(frame) {
     return new Promise((resolve) => {

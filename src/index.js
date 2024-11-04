@@ -15,6 +15,7 @@ console.log(Memory);
 const { header, figure, projector, gallery } = Memory;
 header.asideLeft.plan.addProcessor("click", () => {
   switchLanguages();
+  update();
 });
 header.asideRight.plan.addProcessor("click", () => {
   updateConf();
@@ -28,6 +29,7 @@ figure.sectionNav.plan.addProcessor("mouseout", () => {
   quitShining();
 });
 figure.sectionNav.plan.addProcessor("click", () => {
+  removeMainFrame();
   openMemoryFrame();
 });
 gallery.plan.addProcessor("mouseover", () => {
@@ -63,30 +65,22 @@ gallery.plan.addProcessor("click", () => {
 // };
 function switchLanguages() {
   if (event.target.textContent === "eng") {
-    const button = event.target;
     conf.current.lang = "eng";
-    button.classList.toggle("header__button_active");
-    button.nextElementSibling.classList.toggle("header__button_active");
   } else if (event.target.textContent === "rus") {
-    const button = event.target;
     conf.current.lang = "rus";
-    button.classList.toggle("header__button_active");
-    button.previousElementSibling.classList.toggle("header__button_active");
-  }
-  update();
+  };
 }
 function updateConf() {  
-  if (conf.current.projector === "about") {
-    conf.current.projector = false;
-  } else if (conf.current.projector === false) {
-    conf.current.projector = "about";
-  }
+  conf.current.projectorMode = "about";
+  conf.current.projectorOpened = !conf.current.projectorOpened;
 }
 function reverseLabel() {
   if (conf.current.lang === "eng") {
     if (event.target.textContent === "rings") {
+      console.log(event.target.textContent);
       event.target.textContent = "about";
     } else if (event.target.textContent === "about") {
+      console.log(event.target.textContent);
       event.target.textContent = "rings";
     }
   } else if (conf.current.lang === "rus") {
@@ -130,12 +124,16 @@ function languageCheck() {
   }
 }
 function openMainFrame() {
-  Promise.resolve(Memory.lock([header.create(), figure.create(), projector.create()]))
+  Promise.resolve()
+    .then(() => {
+      Memory.lock([header.create(), figure.create(), projector.create()]);
+    })
     .then(() => {
       conf.current.frame = "main";
       languageCheck();
-      if (conf.current.projector === "about") {
+      if (conf.current.projectorOpened) {
         toggleInstruction();
+        reverseLabel();
       }
     })
 };
@@ -143,9 +141,11 @@ function removeMainFrame() {
   Memory.remove([header, figure, projector]);
 };
 function openMemoryFrame() {
-  Promise.resolve(removeMainFrame())
+  Promise.resolve()
     .then(() => {
-      conf.current.frame = event.target.textContent;
+      if (conf.current.frame === "main") {
+        conf.current.frame = event.target.textContent;
+      }
     })
     .then(() => {
       Memory.lock([header.create(), gallery.create(), projector.create()]);
@@ -154,7 +154,7 @@ function openMemoryFrame() {
       conf.current.frame = "memory";
       header.asideRight.toggleClass("disabled");
       languageCheck();
-      if (conf.current.projector === "image" || conf.current.projector === "video" || conf.current.projector === "text") {
+      if (conf.current.projectorOpened) {
         toggleProjector();
       }
     })

@@ -31,7 +31,7 @@ class Element {
     if (!this.plan.class.tag) {
       console.log("plan needed", this)
     };
-    const { tag, styleClasses, styleMod } = this.plan.class;
+    const { tag, styleClasses, styleMod, id } = this.plan.class;
     const structure = document.createElement(tag);
     if (styleClasses) {
       structure.classList.add(...styleClasses);
@@ -39,6 +39,9 @@ class Element {
     if (styleMod) {
       structure.setAttribute("style", styleMod);
     };
+    if (id) {
+      structure.setAttribute("id", id);
+    }
     return structure;
   }
   _addMatter() {

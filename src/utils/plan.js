@@ -19,7 +19,7 @@ const IMG_ELEMENT = "img";
 
 const LANG_CONF = "lang";
 const FRAME_CONF = "frame";
-const PROJECTOR_CONF = "projector";
+const PROJECTOR_CONF = "projectorMode";
 
 const TEXT_TYPE = "text";
 const COLUMNS_TYPE = "columns";
@@ -29,6 +29,7 @@ const ELEMENT_TYPE= "element";
 const indicator = planElement(DIV_ELEMENT, ["indicator"], LANG_CONF);
 indicator.addMatter(TEXT_TYPE, main.indicator);
 const planMemory = planDevice(["body"], indicator);
+let popupData = {};
 
 const headerPlan = planBlock(HEADER_ELEMENT, ["header"]);
 headerPlan.addMatter("asideLeft", asideLeftPlan());
@@ -42,8 +43,7 @@ figurePlan.addMatter("sectionDecor", sectionDecorPlan());
 planMemory.addFrame("figure", figurePlan);
 
 const projectorPlan = planBlock(FOOTER_ELEMENT, ["footer", "disabled"], PROJECTOR_CONF);
-projectorPlan.addMatter(ELEMENT_TYPE, articlePlan());
-projectorPlan.addMatter(ELEMENT_TYPE, sectionPlan());
+projectorPlan.addMatter(ELEMENT_TYPE, setProjector());
 planMemory.addFrame("projector", projectorPlan);
 
 const gallaryPlan = planBlock(MAIN_ELEMENT, ["main"], FRAME_CONF);
@@ -117,6 +117,15 @@ function sectionDecorPlan() {
   });
   return sectionDecorPlan;
 }
+function setProjector(x) {
+  let projectorModes = {
+    about: [articlePlan(), sectionPlan()],
+    image: [],
+    video: [],
+    text: []
+  }
+  return [projectorModes];
+}
 function articlePlan() {
   const articlePlan = planElement(ARTICLE_ELEMENT, ["footer__article"], LANG_CONF);
   articlePlan.addMatter(COLUMNS_TYPE, instruction.column);
@@ -146,21 +155,25 @@ function formFrameExposition(string) {
     Object.values(data[string].video).map((object) => {
       const elementImagePlan = planElement(DIV_ELEMENT, ["main__image-element"]);
       const imagePlan = planElement(IMG_ELEMENT, ["main__image"]);
+      imagePlan.class.id = `v${Math.round(Math.random() * 1000000)}`;
       imagePlan.addMatter(IMAGE_TYPE, object.image);
       elementImagePlan.addMatter(ELEMENT_TYPE, imagePlan);
       array.push(elementImagePlan);
+      popupData = { ...popupData, [imagePlan.class.id]: object.video }
     });
   };
   if (data[string].images) {
     Object.values(data[string].images).map((src) => {
       const elementImagePlan = planElement(DIV_ELEMENT, ["main__image-element"]);
       const imagePlan = planElement(IMG_ELEMENT, ["main__image"]);
+      imagePlan.class.id = `i${Math.round(Math.random() * 1000000)}`;
       imagePlan.addMatter(IMAGE_TYPE, src);
       elementImagePlan.addMatter(ELEMENT_TYPE, imagePlan);
       array.push(elementImagePlan);
+      popupData = { ...popupData, [imagePlan.class.id]: src }
     });
   };
-  // как будет работать попап?
+  // как будет работать попап? - с помощью popupData
   return array;
 }
 

@@ -1,6 +1,7 @@
 "use strict";
 
 import images from "../media/images/data.js";
+import { instruction } from "../resources/source.js";
 
 //configuration
 const conf = {
@@ -8,7 +9,12 @@ const conf = {
     load: false,
     lang: "eng",
     frame: "main",
-    projector: false
+    projectorOpened: false,
+    projectorMode: "about"
+    // projector: {
+    //   opened: false,
+    //   type: "instruction"
+    // }
   },
   _navRingsStyles: [
     "width: 15vh; height: 15vh; top: 42vh; z-index: 9;",

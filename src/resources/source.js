@@ -3,6 +3,7 @@
 import images from "../media/images/data.js";
 import bloodstone_v2 from "../media/videos/frame-memory/bloodstone_v2.mp4";
 import poster03_blood_stone_v2 from "../media/videos/frame-memory/poster03_blood_stone_v2.jpg";
+import poster03_blood_stone_v2gif from "../media/videos/frame-memory/MEMORY_blood stone_v2.gif";
 import flower_2 from "../media/videos/frame-illusion/flower 2.mp4";
 import poster_flower2 from "../media/videos/frame-illusion/poster_flower2.jpg";
 import Polina_1 from "../media/videos/frame-human/Polina_1.mp4";
@@ -460,7 +461,7 @@ const data = {
     video: [
       {
         video: bloodstone_v2,
-        image: poster03_blood_stone_v2,
+        image: poster03_blood_stone_v2gif,
         format: 'viewing__video_type_a'
       }
     ],
