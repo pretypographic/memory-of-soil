@@ -16,6 +16,7 @@ const ARTICLE_ELEMENT = "article";
 const ASIDE_ELEMENT = "aside";
 const BUTTON_ELEMENT = "button";
 const IMG_ELEMENT = "img";
+const VIDEO_ELEMENT = "video";
 
 const LANG_CONF = "lang";
 const FRAME_CONF = "frame";
@@ -42,7 +43,7 @@ figurePlan.addMatter("sectionNav", sectionNavPlan());
 figurePlan.addMatter("sectionDecor", sectionDecorPlan());
 planMemory.addFrame("figure", figurePlan);
 
-const projectorPlan = planBlock(FOOTER_ELEMENT, ["footer", "disabled"], PROJECTOR_CONF);
+const projectorPlan = planBlock(FOOTER_ELEMENT, ["footer"], PROJECTOR_CONF);
 projectorPlan.addMatter(ELEMENT_TYPE, setProjector());
 planMemory.addFrame("projector", projectorPlan);
 
@@ -119,12 +120,12 @@ function sectionDecorPlan() {
   });
   return sectionDecorPlan;
 }
-function setProjector(x) {
+function setProjector() {
   let projectorModes = {
     about: [articlePlan(), sectionPlan()],
-    image: [],
-    video: [],
-    text: []
+    image: [slideProjectorPlan()],
+    video: [cinemaProjectorPlan()],
+    text: [opaqueProjectorPlan()]
   }
   return [projectorModes];
 }
@@ -140,6 +141,19 @@ function sectionPlan() {
   ], LANG_CONF);
   sectionPlan.addMatter(COLUMNS_TYPE, instruction.names)
   return sectionPlan;
+}
+function slideProjectorPlan() {
+  const screenPlan = planElement(IMG_ELEMENT, ["slide-projector"]);
+  // screenPlan.addMatter(ELEMENT_TYPE,);
+  return screenPlan;
+}
+function cinemaProjectorPlan() {
+  const screenPlan = planElement(VIDEO_ELEMENT, ["cinema-projector"]);
+  return screenPlan;
+}
+function opaqueProjectorPlan() {
+  const screenPlan = planElement(DIV_ELEMENT, ["opaque-projector"]);
+  return screenPlan;
 }
 function formExposition() {
   const framesTitle = Object.keys(data);
@@ -179,4 +193,4 @@ function formFrameExposition(string) {
   return array;
 }
 
-export default planMemory;
+export { planMemory, popupData };

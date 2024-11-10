@@ -7,13 +7,7 @@
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  /* overflow: hidden; */
   transition: opacity 0.3s;
-}
-
-.figure_state_off {
-  opacity: 0;
-  z-index: -1;
 }
 
 .figure__section {

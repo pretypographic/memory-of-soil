@@ -2,7 +2,7 @@
 
 import "./index.css";
 import conf from "./utils/conf.js";
-import planMemory from "./utils/plan.js";
+import { planMemory, popupData } from "./utils/plan.js";
 import { Device } from "./space/Device.js";
 
 const Memory = new Device({
@@ -14,15 +14,16 @@ console.log(Memory);
 
 const { header, figure, projector, gallery } = Memory;
 header.asideLeft.plan.addProcessor("click", () => {
-  switchLanguages();
+  switchLanguagesConf();
   update();
 });
 header.asideRight.plan.addProcessor("click", () => {
-  updateConf();
+  switchAboutConf();
   reverseLabel();
   toggleInstruction();
 });
 header.navButton.plan.addProcessor("click", () => {
+  conf.current.frame = "main";
   removeMemoryFrame();
   openMainFrame();
 })
@@ -33,6 +34,7 @@ figure.sectionNav.plan.addProcessor("mouseout", () => {
   quitShining();
 });
 figure.sectionNav.plan.addProcessor("click", () => {
+  switchFrameConf();
   removeMainFrame();
   openMemoryFrame();
 });
@@ -43,9 +45,18 @@ gallery.plan.addProcessor("mouseout", () => {
   lookOut();
 });
 gallery.plan.addProcessor("click", () => {
+  switchProjectorConf();
+  updateProjector();
   openWide();
-  // открыть попап
 });
+projector.plan.addProcessor("click", () => {
+  if (conf.current.projectorMode !== "about") {
+    conf.current.projectorMode = "about";
+    conf.current.projectorOpened = false;
+    gaveAway();
+    updateProjector();
+  }
+})
 // document.addEventListener("mousemove", () => {
 //   handleMouseMove();
 // })
@@ -67,16 +78,39 @@ gallery.plan.addProcessor("click", () => {
 //   const styleMod = `top: calc(${shiftY} / 6); left: calc(50% + ${shiftX} / 6);`;
 //   figure.block.style = styleMod;
 // };
-function switchLanguages() {
+function switchLanguagesConf() {
   if (event.target.textContent === "eng") {
     conf.current.lang = "eng";
   } else if (event.target.textContent === "rus") {
     conf.current.lang = "rus";
   };
 }
-function updateConf() {  
+function switchAboutConf() {
   conf.current.projectorMode = "about";
   conf.current.projectorOpened = !conf.current.projectorOpened;
+}
+function switchProjectorConf() {
+  const image = event.target;
+  const imageFrameElement = image.parentElement;
+  const imageID = image.getAttribute("id");
+  conf.memory.imageID = imageID;
+  conf.memory.imageElement = imageFrameElement;
+  
+  let projectorMode = undefined;
+  if (imageID.startsWith("i")) {
+    projectorMode = "image"
+  } else if (imageID.startsWith("v")) {
+    projectorMode = "video";
+  } else if (imageID.startsWith("t")) {
+    projectorMode = "text";
+  }
+  conf.current.projectorMode = projectorMode;
+  return imageID;
+}
+function switchFrameConf() {
+  if (conf.current.frame === "main") {
+    conf.current.frame = event.target.textContent;
+  }
 }
 function reverseLabel() {
   if (conf.current.lang === "eng") {
@@ -96,8 +130,8 @@ function reverseLabel() {
   };
 }
 function toggleInstruction() {
-  projector.toggleClass("disabled");
-  figure.toggleClass("figure_state_off");
+  projector.toggleClass("footer_opened");
+  figure.toggleClass("figure_state_off");  
 }
 function triggerShining() {
   if (event.target.classList.contains("figure__button")) {
@@ -113,7 +147,7 @@ function quitShining() {
     figure.sectionDecor.toggleClass("figure__section_lightOn");
   }
 }
-function languageCheck() {
+function setLanguageButtons() {
   const matter = header.asideLeft.matter();
   const engButton = matter.find((element) => {
     return element.textContent === "eng";
@@ -121,19 +155,20 @@ function languageCheck() {
   const rusButton = matter.find((element) => {
     return element.textContent === "rus";
   });
-  if (conf.current.lang === "eng") {
-    engButton.classList.add("header__button_active");
-  } else if (conf.current.lang === "rus") {
-    rusButton.classList.add("header__button_active");
-  }
+  requestAnimationFrame(() => {
+    if (conf.current.lang === "eng") {
+      engButton.classList.add("header__button_active");
+    } else if (conf.current.lang === "rus") {
+      rusButton.classList.add("header__button_active");
+    }
+  });
 }
 function openMainFrame() {
-  conf.current.frame = "main";
   Memory.lock([header.create(), figure.create(), projector.create()]);
-  header.navButton.toggleClass("disabled");
-  languageCheck();
+  header.navButton.toggleClass("header__nav-button_hidden");
+  setLanguageButtons();
   if (conf.current.projectorOpened) {
-    toggleInstruction();
+    projector.toggleClass("footer_opened");
     reverseLabel();
   }
 };
@@ -141,14 +176,11 @@ function removeMainFrame() {
   Memory.remove([header, figure, projector]);
 };
 function openMemoryFrame() {
-  if (conf.current.frame === "main") {
-    conf.current.frame = event.target.textContent;
-  }
   Memory.lock([header.create(), gallery.create(), projector.create()]);
   header.asideRight.toggleClass("disabled");
-  languageCheck();
+  setLanguageButtons();
   if (conf.current.projectorOpened) {
-    toggleProjector();
+    projector.toggleClass("footer_opened");
   }
 
 };
@@ -168,11 +200,18 @@ function lookOut() {
   }
 };
 function openWide() {
-  const imageElement = event.target.parentElement;
-  imageElement.classList.remove("main__image-element_touched");
-  imageElement.classList.add("main__image-element_opened");
-  projector.toggleClass("disabled");
+  const lens = projector.matter()[0];
+  lens.setAttribute("src", popupData[conf.memory.imageID]);
+  conf.memory.imageElement.classList.remove("main__image-element_touched");
+  conf.memory.imageElement.classList.add("main__image-element_opened");
+  header.navButton.toggleClass("header__nav-button_hidden");
+  projector.toggleClass("footer_projector");
 };
+function gaveAway() {
+  conf.memory.imageElement.classList.remove("main__image-element_opened");
+  header.navButton.toggleClass("header__nav-button_hidden");
+  projector.toggleClass("footer_projector");
+}
 function update() {
   if (conf.current.frame === "main") {
     removeMainFrame();
@@ -182,5 +221,9 @@ function update() {
     openMemoryFrame();
   }
 };
+function updateProjector() {
+  Memory.remove([projector]);
+  Memory.lock([projector.create()]);
+}
 
 openMainFrame();

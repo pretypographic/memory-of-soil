@@ -1,13 +1,31 @@
 .footer {
   color: white;
   height: 100vh;
-  width: 70%;
+  width: 100%;
   margin: auto;
-  padding-top: 20vh;
+  padding: 20vh 15% 0;
   box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  position: relative;
+  z-index: -1;
+  opacity: 0;
+  transition: all 1s;
+}
+
+.footer_opened {
+  opacity: 1;
+  z-index: 1;
+}
+
+.footer_projector {
+  margin: 0;
+  padding: 0;
+  animation: open 1s ease-in-out forwards;
+  /* opacity: 1; */
+  z-index: 1;
 }
 
 .footer__section {
@@ -41,4 +59,31 @@
   padding: 0;
   border-left: none;
   align-items: center;
+}
+
+.slide-projector {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cinema-projector {
+  
+}
+
+.opaque-projector {
+  
+}
+
+.disabled {
+  display: none;
+}
+
+@keyframes open {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
