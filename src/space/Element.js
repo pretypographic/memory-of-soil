@@ -7,8 +7,12 @@ function planElement(tag, styleClasses = false, confName = false) {
       // styleMod:
     },
     matter: [],
-    addMatter: function (type, data) {
-      this.matter.push([type, data]);
+    addMatter: function (type, data, matterStyleClasses) {
+      if (matterStyleClasses) {
+        this.matter.push([type, data, matterStyleClasses]);
+      } else {
+        this.matter.push([type, data]);
+      }
     }
   };
 };
@@ -62,8 +66,9 @@ class Element {
         this.element.textContent = data;
       } else if (type === "columns") {
         data.forEach((array, i) => {
+          const matterStyleClasses = item[2];
           const section = document.createElement("section");
-          section.classList.add("footer__section");
+          section.classList.add(matterStyleClasses);
           array.forEach((string, i) => {
             if (i === 0) {
               if (!string) {

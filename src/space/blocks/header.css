@@ -58,29 +58,6 @@
   transform: scaleX(1);
 }
 
-.header__nav-button {  
-  text-transform: uppercase;
-  text-decoration: none;
-  font-size: 3em;
-  letter-spacing: 0.4em;
-  color: #fff;
-  opacity: 0.5;
-  transition: opacity 0.5s;  
-  position: fixed;
-  left: 50%;
-  bottom: calc(100vh / 12);
-  transform: translateX(-50%);
-}
-
-.header__nav-button:hover {
-  opacity: 1;
-}
-
-.header__nav-button_hidden .header__nav-button {
-  opacity: 0;
-  pointer-events: none;
-}
-
 @keyframes trigger {
   0% {
     text-shadow: -2px -2px 2px yellow;

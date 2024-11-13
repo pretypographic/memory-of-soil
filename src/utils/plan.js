@@ -10,6 +10,7 @@ const DIV_ELEMENT = "div";
 const HEADER_ELEMENT = "header";
 const FRGURE_ELEMENT = "figure";
 const FOOTER_ELEMENT = "footer";
+const TITLE_ELEMENT = "h1";
 const MAIN_ELEMENT = "main";
 const SECTION_ELEMENT = "section";
 const ARTICLE_ELEMENT = "article";
@@ -25,7 +26,7 @@ const PROJECTOR_CONF = "projectorMode";
 const TEXT_TYPE = "text";
 const COLUMNS_TYPE = "columns";
 const IMAGE_TYPE = "image";
-const ELEMENT_TYPE= "element";
+const ELEMENT_TYPE = "element";
 
 const indicator = planElement(DIV_ELEMENT, ["indicator"], LANG_CONF);
 indicator.addMatter(TEXT_TYPE, main.indicator);
@@ -35,7 +36,6 @@ let popupData = {};
 const headerPlan = planBlock(HEADER_ELEMENT, ["header"]);
 headerPlan.addMatter("asideLeft", asideLeftPlan());
 headerPlan.addMatter("asideRight", asideRightPlan());
-headerPlan.addMatter("navButton", headerNavPlan());
 planMemory.addFrame("header", headerPlan);
 
 const figurePlan = planBlock(FRGURE_ELEMENT, ["figure"]);
@@ -48,7 +48,9 @@ projectorPlan.addMatter(ELEMENT_TYPE, setProjector());
 planMemory.addFrame("projector", projectorPlan);
 
 const gallaryPlan = planBlock(MAIN_ELEMENT, ["main"], FRAME_CONF);
+gallaryPlan.addMatter("title", frameTitlePlan());
 gallaryPlan.addMatter(ELEMENT_TYPE, formExposition());
+gallaryPlan.addMatter("navButton", frameNavPlan());
 planMemory.addFrame("gallery", gallaryPlan);
 
 function asideLeftPlan() {
@@ -72,13 +74,6 @@ function asideRightPlan() {
   buttonPlan.addMatter(TEXT_TYPE, main.about);
   asideRightPlan.addMatter(ELEMENT_TYPE, buttonPlan);
   return asideRightPlan;
-}
-function headerNavPlan() {
-  const headerNav = planBlock(SECTION_ELEMENT, ["header__nav"], LANG_CONF);
-  const headerNavButton = planElement(BUTTON_ELEMENT, ["header__nav-button"], LANG_CONF);
-  headerNavButton.addMatter(TEXT_TYPE, main.navElement)
-  headerNav.addMatter(ELEMENT_TYPE, headerNavButton);
-  return headerNav;
 }
 function sectionNavPlan() {
   const sectionNavPlan = planBlock(SECTION_ELEMENT, [
@@ -131,7 +126,7 @@ function setProjector() {
 }
 function articlePlan() {
   const articlePlan = planElement(ARTICLE_ELEMENT, ["footer__article"], LANG_CONF);
-  articlePlan.addMatter(COLUMNS_TYPE, instruction.column);
+  articlePlan.addMatter(COLUMNS_TYPE, instruction.column, "footer__section");
   return articlePlan;
 }
 function sectionPlan() {
@@ -154,6 +149,20 @@ function cinemaProjectorPlan() {
 function opaqueProjectorPlan() {
   const screenPlan = planElement(DIV_ELEMENT, ["opaque-projector"]);
   return screenPlan;
+}
+function frameTitlePlan() {
+  const mainTitleBlock = planBlock(DIV_ELEMENT, ["main__title-block"], FRAME_CONF);
+  const dataArray = Object.values(data);
+  const frameConfArray = [dataArray.reduce((acc, item) => {
+    const mainTitle = planElement(TITLE_ELEMENT, ["main__title"], LANG_CONF);
+    mainTitle.addMatter(TEXT_TYPE, item.title);
+    return {
+      ...acc,
+      [item.title.eng]: [mainTitle]
+    }
+  }, {})];
+  mainTitleBlock.addMatter(ELEMENT_TYPE, frameConfArray);
+  return mainTitleBlock;
 }
 function formExposition() {
   const framesTitle = Object.keys(data);
@@ -189,8 +198,19 @@ function formFrameExposition(string) {
       popupData = { ...popupData, [imagePlan.class.id]: src }
     });
   };
-  // как будет работать попап? - с помощью popupData
+  if (data[string].texts) {
+    const elementTextPlan = planElement(DIV_ELEMENT, ["main__text-element"], LANG_CONF);
+    elementTextPlan.addMatter(COLUMNS_TYPE, data[string].texts, "main__text");
+    array.push(elementTextPlan);
+  }
   return array;
+}
+function frameNavPlan() {
+  const headerNav = planBlock(SECTION_ELEMENT, ["main__nav"]);
+  const headerNavButton = planElement(BUTTON_ELEMENT, ["main__nav-button"], LANG_CONF);
+  headerNavButton.addMatter(TEXT_TYPE, main.navElement)
+  headerNav.addMatter(ELEMENT_TYPE, headerNavButton);
+  return headerNav;
 }
 
 export { planMemory, popupData };

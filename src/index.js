@@ -22,11 +22,6 @@ header.asideRight.plan.addProcessor("click", () => {
   reverseLabel();
   toggleInstruction();
 });
-header.navButton.plan.addProcessor("click", () => {
-  conf.current.frame = "main";
-  removeMemoryFrame();
-  openMainFrame();
-})
 figure.sectionNav.plan.addProcessor("mouseover", () => {
   triggerShining();
 });
@@ -49,6 +44,11 @@ gallery.plan.addProcessor("click", () => {
   updateProjector();
   openWide();
 });
+gallery.navButton.plan.addProcessor("click", () => {
+  conf.current.frame = "main";
+  removeMemoryFrame();
+  openMainFrame();
+})
 projector.plan.addProcessor("click", () => {
   if (conf.current.projectorMode !== "about") {
     conf.current.projectorMode = "about";
@@ -78,6 +78,7 @@ projector.plan.addProcessor("click", () => {
 //   const styleMod = `top: calc(${shiftY} / 6); left: calc(50% + ${shiftX} / 6);`;
 //   figure.block.style = styleMod;
 // };
+
 function switchLanguagesConf() {
   if (event.target.textContent === "eng") {
     conf.current.lang = "eng";
@@ -112,6 +113,7 @@ function switchFrameConf() {
     conf.current.frame = event.target.textContent;
   }
 }
+
 function reverseLabel() {
   if (conf.current.lang === "eng") {
     if (event.target.textContent === "rings") {
@@ -165,7 +167,7 @@ function setLanguageButtons() {
 }
 function openMainFrame() {
   Memory.lock([header.create(), figure.create(), projector.create()]);
-  header.navButton.toggleClass("header__nav-button_hidden");
+  // header.navButton.toggleClass("main__nav-button_hidden");
   setLanguageButtons();
   if (conf.current.projectorOpened) {
     projector.toggleClass("footer_opened");
@@ -204,14 +206,17 @@ function openWide() {
   lens.setAttribute("src", popupData[conf.memory.imageID]);
   conf.memory.imageElement.classList.remove("main__image-element_touched");
   conf.memory.imageElement.classList.add("main__image-element_opened");
-  header.navButton.toggleClass("header__nav-button_hidden");
+  gallery.title.toggleClass("main__title_hidden");
+  gallery.navButton.toggleClass("main__nav-button_hidden");
   projector.toggleClass("footer_projector");
 };
 function gaveAway() {
   conf.memory.imageElement.classList.remove("main__image-element_opened");
-  header.navButton.toggleClass("header__nav-button_hidden");
+  gallery.title.toggleClass("main__title_hidden");
+  gallery.navButton.toggleClass("main__nav-button_hidden");
   projector.toggleClass("footer_projector");
 }
+
 function update() {
   if (conf.current.frame === "main") {
     removeMainFrame();
@@ -224,6 +229,6 @@ function update() {
 function updateProjector() {
   Memory.remove([projector]);
   Memory.lock([projector.create()]);
-}
+} 
 
 openMainFrame();
