@@ -148,7 +148,7 @@ const data = {
     video: [
       {
         video: bloodstone_v2,
-        image: poster03_blood_stone_v2gif,
+        image: poster03_blood_stone_v2,
         format: 'viewing__video_type_a'
       }
     ],
@@ -161,11 +161,11 @@ const data = {
         [``, `Запоминает ли земля ужас войны? Остаются ли у нее своеобразные антропологические шрамы? Или же ее фантастическая способность к регенерации способна нивелировать прошлое?`],
       ],
       eng: [
-        `Nature remembers and accumulates a "cultural layer" of memory about war and battles. Humans construct monuments to remember the fallen and praise the bravery and heroism of those who lost their lives. The battles are often held in natural surroundings. However, nature is overlooked as a participant and a sufferer in these actions. We want to highlight the memory preserved by the earth and trees. From this perspective, the grandeur of humans is lost, fallen warriors become fertilizers for the soil, and the purpose of their struggle dissolves in the vastness of the landscape.`,
-        `Giant swords. In my childhood, my mom used to tell me about the Atlanteans who inhabited the Earth. I can't shake the thought that it was they who left behind their weapons, although I always imagined the Atlanteans as unarmed. (Liza)`,
-        `Wars of past generations grow into monuments on quiet meadows, and here is one such case. The soil embraces everyone and everything, making no exceptions. Does it feel the pain of human conflicts? There is a feeling that it does not. For every action, nature has a counteraction, a wise and calculated response.`,
-        `"The forest is incredibly important. It provides warmth and coziness to our homes, gives us clean air, physical and mental health, adventures, and freedom. In the forest, the Romans were defeated, the German economy was built upon its resources, the Romanticism of the 18th century emerged under its trees, and the environmental movements of the 20th century were born." (extract from the book ‘The Hidden Life of Trees’ by Peter Wohlleben)`,
-        `Does the soil remember the horror of war? Does it bear anthropological scars? Or does its fantastic regenerative ability have the power to neutralize the past?`,
+        [``, `Nature remembers and accumulates a "cultural layer" of memory about war and battles. Humans construct monuments to remember the fallen and praise the bravery and heroism of those who lost their lives. The battles are often held in natural surroundings. However, nature is overlooked as a participant and a sufferer in these actions. We want to highlight the memory preserved by the earth and trees. From this perspective, the grandeur of humans is lost, fallen warriors become fertilizers for the soil, and the purpose of their struggle dissolves in the vastness of the landscape.`],
+        [``, `Giant swords. In my childhood, my mom used to tell me about the Atlanteans who inhabited the Earth. I can't shake the thought that it was they who left behind their weapons, although I always imagined the Atlanteans as unarmed. (Liza)`],
+        [``, `Wars of past generations grow into monuments on quiet meadows, and here is one such case. The soil embraces everyone and everything, making no exceptions. Does it feel the pain of human conflicts? There is a feeling that it does not. For every action, nature has a counteraction, a wise and calculated response.`],
+        [``, `"The forest is incredibly important. It provides warmth and coziness to our homes, gives us clean air, physical and mental health, adventures, and freedom. In the forest, the Romans were defeated, the German economy was built upon its resources, the Romanticism of the 18th century emerged under its trees, and the environmental movements of the 20th century were born." (extract from the book ‘The Hidden Life of Trees’ by Peter Wohlleben)`],
+        [``, `Does the soil remember the horror of war? Does it bear anthropological scars? Or does its fantastic regenerative ability have the power to neutralize the past?`],
       ]
       // format: 'journals_type_a'
     },
@@ -188,23 +188,23 @@ const data = {
     ],
     texts: {
       rus: [
-        `В голову затекает река и мыслей не остается.`,
-        `Основные чувства и эмоции - обман зрения, иллюзия присутствия. В конце поездки нас подвозил человек, который в свое время участвовал в строительстве монумента Дидгори и он рассказал нам, что на самом деле битва была в каком-то совершенно другом месте. На территории, определенной под монумент не было найдено ни человеческих останков, ни оружия, ничего.`,
-        `Доносится шум воды издалека
+        [``, `В голову затекает река и мыслей не остается.`],
+        [``, `Основные чувства и эмоции - обман зрения, иллюзия присутствия. В конце поездки нас подвозил человек, который в свое время участвовал в строительстве монумента Дидгори и он рассказал нам, что на самом деле битва была в каком-то совершенно другом месте. На территории, определенной под монумент не было найдено ни человеческих останков, ни оружия, ничего.`],
+        [``, `Доносится шум воды издалека
         До водопада пол часа
-        Думали мы тогда`,
-        `Доверившись картам google, мы смело устремились к водопаду Тавкавта. Мы шли по  раскаленному асфальту и голым травянистым холмам, затем зашли в лесную чащу. Мы шли четвертый час, но к нашему разочарованию дорога закончилась вершиной, на которой нас встретили свежепокрашенный красный крест, крепость и недостроенная церковь. Никакого водопада поблизости мы так и не обнаружили. Но зато там была отличная сотовая связь, которой не было большую часть пути.`,
-        `К нам подошла женщина и позвала к столу, по-английски. Было неловко отказаться, мы пошли. Когда нас спросили и услышали в ответ, откуда мы, повисла неловкая пауза и ощущение дискомфорта и разочарования. Мужчина, который был главным по приему гостей, попросил меня сказать тост по-английски несмотря на то, что весь стол очевидно говорил только по-грузински и по-русски. Я пыталась говорить хорошие слова про культуру, природу и людей Грузии. Но меня не понимали. Когда я завершила тост, никто кроме меня бокал не поднял.
-        (Полина)`,
+        Думали мы тогда`],
+        [``, `Доверившись картам google, мы смело устремились к водопаду Тавкавта. Мы шли по  раскаленному асфальту и голым травянистым холмам, затем зашли в лесную чащу. Мы шли четвертый час, но к нашему разочарованию дорога закончилась вершиной, на которой нас встретили свежепокрашенный красный крест, крепость и недостроенная церковь. Никакого водопада поблизости мы так и не обнаружили. Но зато там была отличная сотовая связь, которой не было большую часть пути.`],
+        [``, `К нам подошла женщина и позвала к столу, по-английски. Было неловко отказаться, мы пошли. Когда нас спросили и услышали в ответ, откуда мы, повисла неловкая пауза и ощущение дискомфорта и разочарования. Мужчина, который был главным по приему гостей, попросил меня сказать тост по-английски несмотря на то, что весь стол очевидно говорил только по-грузински и по-русски. Я пыталась говорить хорошие слова про культуру, природу и людей Грузии. Но меня не понимали. Когда я завершила тост, никто кроме меня бокал не поднял.
+        (Полина)`],
       ],
       eng: [
-        `The river flows into my mind, and there are no thoughts left.`,
-        `The main feelings and emotions - visual deception, the illusion of presence. At the end of the trip, we were given a ride by a man who had been involved in the construction of the Didgori monument, and he told us that the battle actually took place in a completely different location. There were no human remains, no weapons, nothing found in the area designated for the monument.`,
-        `The sound of water can be heard from afar
+        [``, `The river flows into my mind, and there are no thoughts left.`],
+        [``, `The main feelings and emotions - visual deception, the illusion of presence. At the end of the trip, we were given a ride by a man who had been involved in the construction of the Didgori monument, and he told us that the battle actually took place in a completely different location. There were no human remains, no weapons, nothing found in the area designated for the monument.`],
+        [``, `The sound of water can be heard from afar
         It's half an hour to the waterfall
-        That's what we then thought`,
-        `Trusting Google Maps, we boldly set off towards the Tavkavta Waterfall. We walked along scorching asphalt and bare grassy hills, then entered a forested area. We walked for four hours, but to our disappointment, the road ended at a peak where we were greeted by a freshly painted red cross, a fortress, and an unfinished church. We never discovered any nearby waterfall. However, there was excellent cell phone reception there, which was absent for most of the way.`,
-        `A woman approached us speaking English and invited us to a table. It felt awkward to refuse, so we went along. When we were asked about our origins and they heard our response, an uncomfortable pause hung in the air, accompanied by a sense of discomfort and disappointment. The man in charge of receiving guests asked me to make a toast in English, despite the fact that everyone at the table clearly spoke only Georgian and Russian. I tried to speak kind words about the culture, nature, and people of Georgia, but I wasn't understood. When I finished the toast, no one raised their glass except for me. (Polina)`,
+        That's what we then thought`],
+        [``, `Trusting Google Maps, we boldly set off towards the Tavkavta Waterfall. We walked along scorching asphalt and bare grassy hills, then entered a forested area. We walked for four hours, but to our disappointment, the road ended at a peak where we were greeted by a freshly painted red cross, a fortress, and an unfinished church. We never discovered any nearby waterfall. However, there was excellent cell phone reception there, which was absent for most of the way.`],
+        [``, `A woman approached us speaking English and invited us to a table. It felt awkward to refuse, so we went along. When we were asked about our origins and they heard our response, an uncomfortable pause hung in the air, accompanied by a sense of discomfort and disappointment. The man in charge of receiving guests asked me to make a toast in English, despite the fact that everyone at the table clearly spoke only Georgian and Russian. I tried to speak kind words about the culture, nature, and people of Georgia, but I wasn't understood. When I finished the toast, no one raised their glass except for me. (Polina)`],
       ]
       // format: 'journals_type_c'
     },
@@ -221,27 +221,28 @@ const data = {
     video: false,
     texts: {
       rus: [
-        `Я трусиха. Я бесконечно люблю природу, ценю ее, пытаюсь постоянно осознавать, что я ее часть, но оставшись с ней наедине, я робею. Мне становится страшно как только приходит темнота, я боюсь хищников, я боюcь насекомых. В связке с этим, я осознала, насколько природа мощная и самостоятельная. Насколько она подвижная и адаптивная. Природа - не незабытая жертва, а забытый участник. Природа - не фон для человеческих передряг, а среда, обстоятельства и последствия. (Полина)`,
-        `Не могу найти хаос здесь. Видимо не так глубоко зашли, поэтому все кажется слишком гармоничным. (Лиза)`,
-        `Чувство голода приятно, чувство жажды ужасно и пугающе. (Лиза)`,
-        `Ощущение, что я кого-то не встретила. Кажется, что это чувство появляется при каждом походе в лес. (Лиза)`,
-        `Открытия - всегда проверяй точку, найденную на google картах дополнительным поиском, и набирай воду в каждом встречном источнике. (Мари)`,
-        `Мы были внимательны к природе. Мы прислушивались, присматривались и наблюдали. Это сказалось и на наших межличностных отношениях. Мы были очень спокойны и адаптивны, мы поддерживали, но при этом были независимы и самостоятельны. (Полина)`,
-        `Рокот насекомых повсюду
+        [``, `Я трусиха. Я бесконечно люблю природу, ценю ее, пытаюсь постоянно осознавать, что я ее часть, но оставшись с ней наедине, я робею. 
+          Мне становится страшно как только приходит темнота, я боюсь хищников, я боюcь насекомых. В связке с этим, я осознала, насколько природа мощная и самостоятельная. Насколько она подвижная и адаптивная. Природа - не незабытая жертва, а забытый участник. Природа - не фон для человеческих передряг, а среда, обстоятельства и последствия. (Полина)`],
+        [``, `Не могу найти хаос здесь. Видимо не так глубоко зашли, поэтому все кажется слишком гармоничным. (Лиза)`],
+        [``, `Чувство голода приятно, чувство жажды ужасно и пугающе. (Лиза)`],
+        [``, `Ощущение, что я кого-то не встретила. Кажется, что это чувство появляется при каждом походе в лес. (Лиза)`],
+        [``, `Открытия - всегда проверяй точку, найденную на google картах дополнительным поиском, и набирай воду в каждом встречном источнике. (Мари)`],
+        [``, `Мы были внимательны к природе. Мы прислушивались, присматривались и наблюдали. Это сказалось и на наших межличностных отношениях. Мы были очень спокойны и адаптивны, мы поддерживали, но при этом были независимы и самостоятельны. (Полина)`],
+        [``, `Рокот насекомых повсюду
         Мы следуем по маршруту
-        Сквозь цветения буйство`,
+        Сквозь цветения буйство`],
       ],
       eng: [
-        `I am a coward. I love nature endlessly, I value it, and I constantly try to remind myself that I am a part of it. However, when I find myself alone with nature, I become timid.
-        As soon as darkness falls, I become afraid. I fear wild animals, I fear insects. In parallel with this, I have realized how powerful and independent nature is. How it is mobile and adaptable. Nature is not a forgotten victim but a forgotten participant. Nature is not a backdrop for human troubles but an environment, circumstances, and consequences. (Polina)`,
-        `I cannot find chaos here. Perhaps we haven't delved deep enough, so everything seems too harmonious. (Liza)`,
-        `The feeling of hunger is pleasant, while the feeling of thirst is awful and frightening. (Liza)`,
-        `I feel like I haven't met someone. It seems that this sensation arises with every trip to the forest. (Liza)`,
-        `Discoveries - always verify the location found on Google Maps with additional research, and fill up water at every water source you encounter. (Mari)`,
-        `We were attentive to nature. We listened, observed, and paid close attention. This had an impact on our interpersonal relationships. We were very calm and adaptable, providing support while also being independent and self-reliant. (Polina)`,
-        `The buzzing of insects is everywhere
+        [``, `I am a coward. I love nature endlessly, I value it, and I constantly try to remind myself that I am a part of it. However, when I find myself alone with nature, I become timid. 
+          As soon as darkness falls, I become afraid. I fear wild animals, I fear insects. In parallel with this, I have realized how powerful and independent nature is. How it is mobile and adaptable. Nature is not a forgotten victim but a forgotten participant. Nature is not a backdrop for human troubles but an environment, circumstances, and consequences. (Polina)`],
+        [``, `I cannot find chaos here. Perhaps we haven't delved deep enough, so everything seems too harmonious. (Liza)`],
+        [``, `The feeling of hunger is pleasant, while the feeling of thirst is awful and frightening. (Liza)`],
+        [``, `I feel like I haven't met someone. It seems that this sensation arises with every trip to the forest. (Liza)`],
+        [``, `Discoveries - always verify the location found on Google Maps with additional research, and fill up water at every water source you encounter. (Mari)`],
+        [``, `We were attentive to nature. We listened, observed, and paid close attention. This had an impact on our interpersonal relationships. We were very calm and adaptable, providing support while also being independent and self-reliant. (Polina)`],
+        [``, `The buzzing of insects is everywhere
         We follow the route
-        Through the riot of blossoms`,
+        Through the riot of blossoms`],
       ]
       // format: 'journals_type_c'
     },
@@ -258,15 +259,16 @@ const data = {
     video: false,
     texts: {
       rus: [
-        `Очень жарко, горячий бетон. Сверчки. Мухи. Ящерицы. Множество полевых цветов.
-        Шоти (хлеб) под крестом. 43 огромных меча, будто ножи, вонзаются в тело холма. Больно смотреть.`,
-        `Огромных масштабов монумент. Античность, величие, монументальность. Длинная лестница восходящая к вершине холма. Бетонная сцена, колонны, которые подпирают пустоту. На сцене – акустика создающая эхо.`,
-        `Дидгорская битва — сражение, которое произошло 12 августа 1121 года между войсками Грузинского царства и сельджукскими войсками. Сражение привело к разгрому сельджукской армии и освобождению Тбилиси, который стал столицей страны. С этого момента начался «Золотой Век» грузинской истории. Битва широко упоминается в грузинском фольклоре и культуре.`,
+        [``, `Очень жарко, горячий бетон. Сверчки. Мухи. Ящерицы. Множество полевых цветов.
+        Шоти (хлеб) под крестом. 43 огромных меча, будто ножи, вонзаются в тело холма. Больно смотреть.`],
+        [``, `Огромных масштабов монумент. Античность, величие, монументальность. Длинная лестница восходящая к вершине холма. Бетонная сцена, колонны, которые подпирают пустоту. На сцене – акустика создающая эхо.`],
+        [``, `Дидгорская битва — сражение, которое произошло 12 августа 1121 года между войсками Грузинского царства и сельджукскими войсками. Сражение привело к разгрому сельджукской армии и освобождению Тбилиси, который стал столицей страны. С этого момента начался «Золотой Век» грузинской истории. Битва широко упоминается в грузинском фольклоре и культуре.`],
       ],
       eng: [
-        `It's very hot. Concrete is scorching. Crickets, flies and a lizard. Multitude of wildflowers. There's "shoti" bread placed under the main cross. Forty-three enormous swords, like knives, are cutting through the body of the hill. It's painful to see.`,
-        `It is a monument of immense scale. Antiquity, grandeur, and monumentality. A long staircase ascends to the top of the hill. There is a concrete stage with columns that support the void. On the stage, the acoustics creates echoes.`,
-        `The Battle of Didgori was a conflict that occurred on August 12, 1121, between the forces of the Georgian Kingdom and the Seljuks. The battle resulted in the defeat of the Seljuk army and the liberation of Tbilisi, which became the capital of the country. From that moment, the "Golden Age" of Georgian history began. The battle is widely mentioned in Georgian folklore and culture.`,
+        [``, `It's very hot. Concrete is scorching. Crickets, flies and a lizard. Multitude of wildflowers. 
+        There's "shoti" bread placed under the main cross. Forty-three enormous swords, like knives, are cutting through the body of the hill. It's painful to see.`],
+        [``, `It is a monument of immense scale. Antiquity, grandeur, and monumentality. A long staircase ascends to the top of the hill. There is a concrete stage with columns that support the void. On the stage, the acoustics creates echoes.`],
+        [``, `The Battle of Didgori was a conflict that occurred on August 12, 1121, between the forces of the Georgian Kingdom and the Seljuks. The battle resulted in the defeat of the Seljuk army and the liberation of Tbilisi, which became the capital of the country. From that moment, the "Golden Age" of Georgian history began. The battle is widely mentioned in Georgian folklore and culture.`],
       ]
       // format: 'journals_type_b'
     },
@@ -283,14 +285,14 @@ const data = {
     video: false,
     texts: {
       rus: [
-        'Одно из самых разрушительных и жестоких людских проявлений – это война. И здесь природа в очередной раз оказывается на втором плане. Открытые пространства используют, как «поля битвы», леса и овраги, как укрытие. И если до ХХ века самым страшным военным орудием были огонь и пушки, последние 100 с лишним лет человечество значительно обогатило арсенал взаимного уничтожения ядерным, водородным и химическим оружием.',
-        'Вокруг разбросаны бронзовые абстрактные и полу-абстрактные фигуры. Напоминают костяшки, позвонки, бедра. Непогребенные кости воинов или коней, которым пришлось участвовать в сражении людей. Что-то в этих фигурах было инородное, другая эстетика, непонятность, абсурдность, как и суть войны/сражений.',
-        'Один мужчина нарушил повисшее молчание, и предложил выпить “за нашу страну Грузию, ее культуру и историю”. Затем, второй предложил выпить за Грузию, у которой было много великих побед и будет еще.. После этого нам намекнули, что ритуал окончен и нам можно уходить.',
+        [``, 'Одно из самых разрушительных и жестоких людских проявлений – это война. И здесь природа в очередной раз оказывается на втором плане. Открытые пространства используют, как «поля битвы», леса и овраги, как укрытие. И если до ХХ века самым страшным военным орудием были огонь и пушки, последние 100 с лишним лет человечество значительно обогатило арсенал взаимного уничтожения ядерным, водородным и химическим оружием.'],
+        [``, 'Вокруг разбросаны бронзовые абстрактные и полу-абстрактные фигуры. Напоминают костяшки, позвонки, бедра. Непогребенные кости воинов или коней, которым пришлось участвовать в сражении людей. Что-то в этих фигурах было инородное, другая эстетика, непонятность, абсурдность, как и суть войны/сражений.'],
+        [``, 'Один мужчина нарушил повисшее молчание, и предложил выпить “за нашу страну Грузию, ее культуру и историю”. Затем, второй предложил выпить за Грузию, у которой было много великих побед и будет еще.. После этого нам намекнули, что ритуал окончен и нам можно уходить.'],
       ],
       eng: [
-        'One of the most destructive and cruel human manifestations is war, and once again, nature finds itself in the background. Open spaces are used as "battlefields," forests and ravines as hiding places. While fire and cannons were once the most terrifying military weapons until the 20th century, in the past century humanity has significantly enriched its arsenal of mutual destruction with nuclear, hydrogen, and chemical weapons.',
-        'Scattered around are bronze abstract and semi-abstract figures. They resemble bone fragments, vertebrae, and femurs. Unburied bones of warriors or horses forced to participate in human battles. There is something foreign in these figures, a different aesthetic, an incomprehensibility, an absurdity, much like the essence of war and conflict itself.',
-        'The silence was broken by one man who suggested raising a toast ‘to our country, Georgia, its culture, and its history’. Then the other proposed to drink ‘to Georgia, which had achieved many great victories and would continue to do so.’ After that, we were subtly signaled that the ritual was over and we could leave.',
+        [``, 'One of the most destructive and cruel human manifestations is war, and once again, nature finds itself in the background. Open spaces are used as "battlefields," forests and ravines as hiding places. While fire and cannons were once the most terrifying military weapons until the 20th century, in the past century humanity has significantly enriched its arsenal of mutual destruction with nuclear, hydrogen, and chemical weapons.'],
+        [``, 'Scattered around are bronze abstract and semi-abstract figures. They resemble bone fragments, vertebrae, and femurs. Unburied bones of warriors or horses forced to participate in human battles. There is something foreign in these figures, a different aesthetic, an incomprehensibility, an absurdity, much like the essence of war and conflict itself.'],
+        [``, 'The silence was broken by one man who suggested raising a toast ‘to our country, Georgia, its culture, and its history’. Then the other proposed to drink ‘to Georgia, which had achieved many great victories and would continue to do so.’ After that, we were subtly signaled that the ritual was over and we could leave.'],
       ]
       // format: 'journals_type_b'
     },
@@ -313,18 +315,18 @@ const data = {
     ],
     texts: {
       rus: [
-        `Человек чаще воспринимает природу, как фон, а не, как главного героя своей деятельности. Тем временем мир вокруг нас живой и он чувствует и понимает не меньше, а то и больше, чем нам позволяют наши ограниченные формы восприятия.`,
-        `Зачем нужны чучела животных? Экспонат репрезентирует объект, существо, которое существует в природе. Но это чучело никак не отображает реальное животное. Скорее эти чучела показывают, как люди полвека назад представляли животных, словно выкопанные из-под земли предметы быта – древние ложки и оружие. Как интересно и точно смотрелись бы кадры с фотоловушек в музее.
-        Узнавание растений. Мы вырвали растения из своей привычной жизни и пришли в музей узнать, как же их на самом деле зовут. Звучит довольно кровожадно.`,
-        `Поход не кажется легким и тело постоянно болит, но без острой боли.`,
-        `В пути мы так и не встретили других людей (что впрочем нас обрадовало), но следы былого присутствия человека нам попадались: редкий мусор, следы от автомобиля, места для очага, поле, усеянное картошкой и древние каменные постройки. Из-за жары и тяжелых рюкзаков идти было сложно, но нас манила идея водопада.`,
+        [``, `Человек чаще воспринимает природу, как фон, а не, как главного героя своей деятельности. Тем временем мир вокруг нас живой и он чувствует и понимает не меньше, а то и больше, чем нам позволяют наши ограниченные формы восприятия.`],
+        [``, `Зачем нужны чучела животных? Экспонат репрезентирует объект, существо, которое существует в природе. Но это чучело никак не отображает реальное животное. Скорее эти чучела показывают, как люди полвека назад представляли животных, словно выкопанные из-под земли предметы быта – древние ложки и оружие. Как интересно и точно смотрелись бы кадры с фотоловушек в музее.
+        Узнавание растений. Мы вырвали растения из своей привычной жизни и пришли в музей узнать, как же их на самом деле зовут. Звучит довольно кровожадно.`],
+        [``, `Поход не кажется легким и тело постоянно болит, но без острой боли.`],
+        [``, `В пути мы так и не встретили других людей (что впрочем нас обрадовало), но следы былого присутствия человека нам попадались: редкий мусор, следы от автомобиля, места для очага, поле, усеянное картошкой и древние каменные постройки. Из-за жары и тяжелых рюкзаков идти было сложно, но нас манила идея водопада.`],
       ],
       eng: [
-        `A person often perceives nature as a backdrop rather than the main protagonist of their activities. Meanwhile, the world around us is vibrant, and it feels and understands no less, if not more, than our limited forms of perception allow us.`,
-        `What is the purpose of animal taxidermy? The exhibit represents an object, a creature that exists in nature. However, this taxidermy does not accurately depict the real animal. Instead, these specimens show how people imagined animals half a century ago, like household objects dug up from the ground — ancient spoons and weapons. How interesting and accurate it would be to have camera trap footage in the museum.
-        Plant identification. We have uprooted plants from their natural habitat and came to the museum to learn their true names. Sounds quite bloodthirsty.`,
-        `The hike doesn't feel easy, and my body is constantly aching, but without sharp pain.`,
-        `During our journey, we didn't encounter any other people (which actually pleased us), but we came across traces of human presence: occasional litter, tire tracks, fire pits, a field sown with potatoes, and ancient stone structures. It was difficult to walk due to the heat and heavy backpacks, but the idea of reaching a waterfall strengthened us.`,
+        [``, `A person often perceives nature as a backdrop rather than the main protagonist of their activities. Meanwhile, the world around us is vibrant, and it feels and understands no less, if not more, than our limited forms of perception allow us.`],
+        [``, `What is the purpose of animal taxidermy? The exhibit represents an object, a creature that exists in nature. However, this taxidermy does not accurately depict the real animal. Instead, these specimens show how people imagined animals half a century ago, like household objects dug up from the ground — ancient spoons and weapons. How interesting and accurate it would be to have camera trap footage in the museum.
+        Plant identification. We have uprooted plants from their natural habitat and came to the museum to learn their true names. Sounds quite bloodthirsty.`],
+        [``, `The hike doesn't feel easy, and my body is constantly aching, but without sharp pain.`],
+        [``, `During our journey, we didn't encounter any other people (which actually pleased us), but we came across traces of human presence: occasional litter, tire tracks, fire pits, a field sown with potatoes, and ancient stone structures. It was difficult to walk due to the heat and heavy backpacks, but the idea of reaching a waterfall strengthened us.`],
       ]
       // format: 'journals_type_c'
     },
@@ -347,27 +349,28 @@ const data = {
     ],
     texts: {
       rus: [
-        `Деревья - это не личности, это множественность. И они живут понятием “мы”, а не “я”. Таким образом и конфликт перестает быть “личным”.`,
-        `Кажется, гармония построена в том числе на мелких конфликтах. Сосуществование, наверное, невозможно без конфликтов? Развитие, возможно не будет происходить без них? Борьба за солнце, за еду, за лучшее местечко в лесу. Но эти конфликты не переходят границы реальных потребностей. И нередко, один осознав свое бессилие, безропотно отступает. Конфликты неминуемы. Они происходят постоянно, на микроуровне, изредка переходя в макро.`,
-        `Вьюн вьется вокруг дерева. Дерево не убегает, оно подчиняется. Умирая они продолжают сосуществовать. Дерево умирает “в объятиях” вьюна.`,
-        `Конфликт естественен. Возможен ли баланс в конфликте? Конфликт – это убийство и соперничество или это подавление чужих интересов? Конфликт – это насилие. Природа невозможна без насилия.
+        [``, `Деревья - это не личности, это множественность. И они живут понятием “мы”, а не “я”. Таким образом и конфликт перестает быть “личным”.`],
+        [``, `Кажется, гармония построена в том числе на мелких конфликтах. Сосуществование, наверное, невозможно без конфликтов? Развитие, возможно не будет происходить без них? Борьба за солнце, за еду, за лучшее местечко в лесу. Но эти конфликты не переходят границы реальных потребностей. И нередко, один осознав свое бессилие, безропотно отступает. Конфликты неминуемы. Они происходят постоянно, на микроуровне, изредка переходя в макро.`],
+        [``, `Вьюн вьется вокруг дерева. Дерево не убегает, оно подчиняется. Умирая они продолжают сосуществовать. Дерево умирает “в объятиях” вьюна.`],
+        [``, `Конфликт естественен. Возможен ли баланс в конфликте? Конфликт – это убийство и соперничество или это подавление чужих интересов? Конфликт – это насилие. Природа невозможна без насилия.
         Сильный убивает слабого – закон сформированный природой. Но сформулировал его человек. Возможна ли свобода в природе или все подчинено строгим законам? Может быть, при отклонении от этого закона возникает конфликт?
         Конфликт и гармония противоположны или могут сосуществовать?
-        Конфликт оставляет след, память.`,
-        `На третий день мы играли в “Морской бой”. Думаю, что конфликт это основа бытия. Борьба света и тьмы, как концепция и в целом противостояние, как состояние. Этот мир не может пребывать в абсолютной безмятежности. Даже, если в нем все спокойно с точки зрения событий, контраст/конфликт будет в цвете, свете, композиции или звуке. Эта “сильная доля” все равно будет возникать. И, кстати, я выиграла в “Морской бой”. Но надо отдать должное - я же и предложила в него играть. (Мариам)`,
+        Конфликт оставляет след, память.`],
+        [``, `На третий день мы играли в “Морской бой”. 
+        Думаю, что конфликт это основа бытия. Борьба света и тьмы, как концепция и в целом противостояние, как состояние. Этот мир не может пребывать в абсолютной безмятежности. Даже, если в нем все спокойно с точки зрения событий, контраст/конфликт будет в цвете, свете, композиции или звуке. Эта “сильная доля” все равно будет возникать. И, кстати, я выиграла в “Морской бой”. Но надо отдать должное - я же и предложила в него играть. (Мариам)`],
       ],
       eng: [
-        `Trees are not individual entities; they are a plurality. And they live by the notion of "we" rather than "I." Thus, conflicts cease to be "personal."`,
-        `It seems that harmony is built, in part, on minor conflicts. Perhaps coexistence is impossible without conflicts? Is it possible that progress will not occur without them? The struggle for sunlight, for food, for the best spot in the forest. However, these conflicts do not surpass the boundaries of real needs. And often one, realizing their powerlessness, retreats without resistance. Conflicts are inevitable. They occur constantly, at a micro level, occasionally escalating to a macro level.`,
-        `The vine twines around the tree. The tree does not flee; it obeys. Even after death, they continue to coexist. The tree dies "in the embrace" of the vine.`,
-        `Conflict is natural. Is balance possible in conflict?
+        [``, `Trees are not individual entities; they are a plurality. And they live by the notion of "we" rather than "I." Thus, conflicts cease to be "personal."`],
+        [``, `It seems that harmony is built, in part, on minor conflicts. Perhaps coexistence is impossible without conflicts? Is it possible that progress will not occur without them? The struggle for sunlight, for food, for the best spot in the forest. However, these conflicts do not surpass the boundaries of real needs. And often one, realizing their powerlessness, retreats without resistance. Conflicts are inevitable. They occur constantly, at a micro level, occasionally escalating to a macro level.`],
+        [``, `The vine twines around the tree. The tree does not flee; it obeys. Even after death, they continue to coexist. The tree dies "in the embrace" of the vine.`],
+        [``, `Conflict is natural. Is balance possible in conflict?
         Conflict is violence. Nature is impossible without violence.
         The strong kill the weak - a law formed by nature. But it was formulated by humans.
         Is freedom possible in nature, or is everything subject to strict laws? Perhaps conflict arises when deviating from this law?
         Are conflict and harmony opposite or can they coexist?
-        Conflict always leaves a trace, a memory. What is the purpose of conflict?`,
-        `On the third day we played "Battleship."
-        I believe that conflict is the foundation of existence. The struggle between light and darkness, as a concept and as a state of opposition in general. This world cannot exist in absolute tranquility. Even if everything is calm in terms of events, there will still be contrast/conflict in color, light, composition, or sound. That "strong element" will inevitably arise. By the way, I won in "Battleship." It should be mentioned though, I was the one who suggested playing it. (Mariam)`,
+        Conflict always leaves a trace, a memory. What is the purpose of conflict?`],
+        [``, `On the third day we played "Battleship."
+        I believe that conflict is the foundation of existence. The struggle between light and darkness, as a concept and as a state of opposition in general. This world cannot exist in absolute tranquility. Even if everything is calm in terms of events, there will still be contrast/conflict in color, light, composition, or sound. That "strong element" will inevitably arise. By the way, I won in "Battleship." It should be mentioned though, I was the one who suggested playing it. (Mariam)`],
       ]
       // format: 'journals_type_a'
     },
@@ -402,18 +405,18 @@ const data = {
     ],
     texts: {
       rus: [
-        `Природа владеет невероятным балансом, вестибулярным аппаратом, подвижностью, адаптивностью. Так как она расслаблена и состоит из множества разрозненных элементов.
-        Это как в танце - если быть напряженным, и стоять колом, ты очень неустойчив. Если иметь мягкое тело, подвижность, адаптивность, а еще лучше танцевать не “против”, а “вместе” с полом, стульями, людьми вокруг, стенами или землей, деревьями, водой, танец может быть бесконечным и ошеломляюще красивым.`,
-        `Утро тумана. На горы сверху спускается густой туман. Только один раз увидела сквозь облака белый круг солнца. Птицы с раннего утра заняты своими делами - кто-то летит по долине между холмов, кто-то парит в небе, кто-то бегал по камню как ящерица, кто-то стучит по дереву. (Полина)`,
-        `Для меня самый понятный, натуральный способ общения/взаимодействия с природой - это движение: бегать, танцевать, лежать, ползать, подражать, повторять линии, повторять движения, повторять характер. (Полина)`,
-        `Вода в разных фазах реки падает с разным звуком и ритмом.`,
+        [``, `Природа владеет невероятным балансом, вестибулярным аппаратом, подвижностью, адаптивностью. Так как она расслаблена и состоит из множества разрозненных элементов.
+        Это как в танце - если быть напряженным, и стоять колом, ты очень неустойчив. Если иметь мягкое тело, подвижность, адаптивность, а еще лучше танцевать не “против”, а “вместе” с полом, стульями, людьми вокруг, стенами или землей, деревьями, водой, танец может быть бесконечным и ошеломляюще красивым.`],
+        [``, `Утро тумана. На горы сверху спускается густой туман. Только один раз увидела сквозь облака белый круг солнца. Птицы с раннего утра заняты своими делами - кто-то летит по долине между холмов, кто-то парит в небе, кто-то бегал по камню как ящерица, кто-то стучит по дереву. (Полина)`],
+        [``, `Для меня самый понятный, натуральный способ общения/взаимодействия с природой - это движение: бегать, танцевать, лежать, ползать, подражать, повторять линии, повторять движения, повторять характер. (Полина)`],
+        [``, `Вода в разных фазах реки падает с разным звуком и ритмом.`],
       ],
       eng: [
-        `Nature possesses an incredible balance, a vestibular system, mobility, and adaptability. It is relaxed and consists of a multitude diverse elements.
-        It is like a dance - if you're tense and standing rigid, you're very unstable. But if you have a soft body and dance not "against" but "with" the floor, chairs, people, walls, or earth, trees, and water, the dance can be endless and stunningly beautiful.`,
-        `Misty morning. Dense fog descends upon the mountains from above. Only once did I catch a glimpse of the white circle of the sun through the clouds. Birds are busy with their early morning affairs  - some fly through the valley between hills, some glide in the sky, some run across the rocks like lizards, and some peck at the trees. (Polina)`,
-        `For me, the most comprehensible and natural way to communicate/interact with nature is through movement: running, dancing, lying down, crawling, imitating, repeating lines, movements, the character. (Polina)`,
-        `Water in different phases of a river falls with different sounds and rhythms.`,
+        [``, `Nature possesses an incredible balance, a vestibular system, mobility, and adaptability. It is relaxed and consists of a multitude diverse elements.
+        It is like a dance - if you're tense and standing rigid, you're very unstable. But if you have a soft body and dance not "against" but "with" the floor, chairs, people, walls, or earth, trees, and water, the dance can be endless and stunningly beautiful.`],
+        [``, `Misty morning. Dense fog descends upon the mountains from above. Only once did I catch a glimpse of the white circle of the sun through the clouds. Birds are busy with their early morning affairs  - some fly through the valley between hills, some glide in the sky, some run across the rocks like lizards, and some peck at the trees. (Polina)`],
+        [``, `For me, the most comprehensible and natural way to communicate/interact with nature is through movement: running, dancing, lying down, crawling, imitating, repeating lines, movements, the character. (Polina)`],
+        [``, `Water in different phases of a river falls with different sounds and rhythms.`],
       ]
       // format: 'journals_type_a'
     },
@@ -440,16 +443,16 @@ const data = {
     ],
     texts: {
       rus: [
-        'Нужно отойти от линейности событий. Для природы прошлое, настоящее и будущее едины.',
-        '"Древесное время цикличное, периодически повторяющееся, многолетнее; прошлое и будущее дышат одновременно, и настоящее совершенно необязательно течет в одном направлении; наоборот, оно чертит круги внутри кругов, похожих на древесные кольца – те, что вы видите, срубив дерево. Древесное время эквивалентно времени рассказанной истории, и, как все истории, оно не развивается по идеальной прямой, безупречной кривой или под правильным углом, но изгибается и разветвляется, принимая фантастические формы, порождая чудесные ответвления и потрясающие воображение дуги. Человеческое время и древесное время – понятия несовместимые" (Отрывок из книги Элифа Шафака “Остров пропавших деревьев”)',
-        'Поразил Petrified wood - Окаменелое дерево. Сколько ему веков? Минеральная мумификация дерева..Растительный мир был представлен гербарием, образцы которого датировались начиная с конца 19 века. Пожелтевшая бумага и потерявшие почти весь пигмент цветы. Сравнивая с фотографией, мы с трудом узнавали образцы. Интересно, как эти засохшие цветы в рамочке могут помочь людям познакомиться с биоразнообразием?',
-        'Природа представляет из себя мудро устроенную экосистему в которой все подчиняется строго определенной логике. Один из таких законов - всё когда-то родившееся, однажды умирает и отдает свою последнюю честь земле, запуская новый цикл жизни для других существ. Антропогенное воздействие внесло свои коррективы во многие ранее устоявшиеся природные традиции, но закон жизни и смерти актуален, как и раньше.',
+        [``, 'Нужно отойти от линейности событий. Для природы прошлое, настоящее и будущее едины.'],
+        [``, '"Древесное время цикличное, периодически повторяющееся, многолетнее; прошлое и будущее дышат одновременно, и настоящее совершенно необязательно течет в одном направлении; наоборот, оно чертит круги внутри кругов, похожих на древесные кольца – те, что вы видите, срубив дерево. Древесное время эквивалентно времени рассказанной истории, и, как все истории, оно не развивается по идеальной прямой, безупречной кривой или под правильным углом, но изгибается и разветвляется, принимая фантастические формы, порождая чудесные ответвления и потрясающие воображение дуги. Человеческое время и древесное время – понятия несовместимые" (Отрывок из книги Элифа Шафака “Остров пропавших деревьев”)'],
+        [``, 'Поразил Petrified wood - Окаменелое дерево. Сколько ему веков? Минеральная мумификация дерева..Растительный мир был представлен гербарием, образцы которого датировались начиная с конца 19 века. Пожелтевшая бумага и потерявшие почти весь пигмент цветы. Сравнивая с фотографией, мы с трудом узнавали образцы. Интересно, как эти засохшие цветы в рамочке могут помочь людям познакомиться с биоразнообразием?'],
+        [``, 'Природа представляет из себя мудро устроенную экосистему в которой все подчиняется строго определенной логике. Один из таких законов - всё когда-то родившееся, однажды умирает и отдает свою последнюю честь земле, запуская новый цикл жизни для других существ. Антропогенное воздействие внесло свои коррективы во многие ранее устоявшиеся природные традиции, но закон жизни и смерти актуален, как и раньше.'],
       ],
       eng: [
-        'We need to move away from the linearity of events. For nature, the past, present, and future are unified.',
-        '“Arboreal-time is cyclical, recurrent, perennial; the past and the future breathe within this moment, and the present does not necessarily flow in one direction; instead it draws circles within circles, like the rings you find when you cut us down. Arboreal-time is equivalent to story-time — and, like a story, a tree does not grow in perfectly straight lines, flawless curves or exact right angles, but bends and twists and bifurcates into fantastical shapes, throwing out branches of wonder and arcs of invention. They are incompatible, human-time and tree-time” (excerpt from the book ‘The Island of Missing Trees’ by Elif Shafak)',
-        `Petrified wood is fascinating. How many centuries does it span? Mineral mummification of the wood…The plant world was represented through a herbarium, including samples dating back to the late 19th century. The yellowed paper and faded flowers, almost devoid of pigment, made it difficult to recognize the specimens when comparing them to the photographs. It's interesting to think about how these dried flowers in a frame can help people explore biodiversity.`,
-        'Nature represents a wisely organized ecosystem in which everything adheres to a strictly defined logic. One such laws is that everything which is born eventually dies, paying its final tribute to the Earth and launching a new cycle of life for other beings.. Anthropogenic impact has made corrections to many previously established natural traditions, but the law of life and death remains relevant, just as it always has.',
+        [``, 'We need to move away from the linearity of events. For nature, the past, present, and future are unified.'],
+        [``, '“Arboreal-time is cyclical, recurrent, perennial; the past and the future breathe within this moment, and the present does not necessarily flow in one direction; instead it draws circles within circles, like the rings you find when you cut us down. Arboreal-time is equivalent to story-time — and, like a story, a tree does not grow in perfectly straight lines, flawless curves or exact right angles, but bends and twists and bifurcates into fantastical shapes, throwing out branches of wonder and arcs of invention. They are incompatible, human-time and tree-time” (excerpt from the book ‘The Island of Missing Trees’ by Elif Shafak)'],
+        [``, `Petrified wood is fascinating. How many centuries does it span? Mineral mummification of the wood…The plant world was represented through a herbarium, including samples dating back to the late 19th century. The yellowed paper and faded flowers, almost devoid of pigment, made it difficult to recognize the specimens when comparing them to the photographs. It's interesting to think about how these dried flowers in a frame can help people explore biodiversity.`],
+        [``, 'Nature represents a wisely organized ecosystem in which everything adheres to a strictly defined logic. One such laws is that everything which is born eventually dies, paying its final tribute to the Earth and launching a new cycle of life for other beings.. Anthropogenic impact has made corrections to many previously established natural traditions, but the law of life and death remains relevant, just as it always has.'],
       ]
       // format: 'journals_type_a'
     },

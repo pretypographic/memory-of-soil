@@ -30,24 +30,45 @@ figure.sectionNav.plan.addProcessor("mouseout", () => {
 });
 figure.sectionNav.plan.addProcessor("click", () => {
   switchFrameConf();
-  removeMainFrame();
-  openMemoryFrame();
+  collapseMemory();
+  setTimeout(() => {
+    removeMainFrame();
+    openMemoryFrame();
+  }, 3400)
 });
 gallery.plan.addProcessor("mouseover", () => {
-  lookIn();
+  if (event.target.parentElement.classList.contains("main__text")) {
+    lookInTexts();
+  } else if (event.target.classList.contains("main__title-block")) {
+    return;
+  } else {
+    lookInImage();
+  }
 });
 gallery.plan.addProcessor("mouseout", () => {
-  lookOut();
+  if (event.target.parentElement.classList.contains("main__text")) {
+    lookOutTexts();
+  } else if (event.target.classList.contains("main__title-block")) {
+    return;
+  } else {
+    lookOutImage();
+  }
 });
 gallery.plan.addProcessor("click", () => {
-  switchProjectorConf();
-  updateProjector();
-  openWide();
+  console.log(event.target)
+  if (event.target.classList.contains("main__image")) {
+    switchProjectorConf();
+    updateProjector();
+    openWide();
+  }
 });
 gallery.navButton.plan.addProcessor("click", () => {
   conf.current.frame = "main";
   removeMemoryFrame();
   openMainFrame();
+  header.asideLeft.toggleClass("header__aside_hide");
+  header.asideRight.toggleClass("header__aside_hide");
+  figure.shield.toggleClass("figure__shield_hide");
 })
 projector.plan.addProcessor("click", () => {
   if (conf.current.projectorMode !== "about") {
@@ -114,6 +135,61 @@ function switchFrameConf() {
   }
 }
 
+function blastMemory() {
+  let sectionNavButtons = figure.sectionNav.matter();
+  let sectionDecorLit = figure.sectionDecor.matter();
+  let step = 0;
+  sectionNavButtons.forEach((element) => {
+    const animationDeleyStyle = `${0 + step}s`;
+    const sectionNavLit = Array.from(element.children)[2];
+    sectionNavLit.style = `animation-delay: ${animationDeleyStyle}`;
+    step += 0.05;
+  })
+  sectionDecorLit.forEach((element) => {
+    const animationDeleyStyle = `${0 + step}s`;
+    element.style = `animation-delay: ${animationDeleyStyle}`;
+    step += 0.05;
+  })
+  figure.sectionNav.toggleClass("figure__section_blast");
+  figure.sectionDecor.toggleClass("figure__section_blast");
+  setTimeout(() => {
+    step = 0.2;
+    header.asideLeft.toggleClass("header__aside_hide");
+    header.asideRight.toggleClass("header__aside_hide");
+    figure.sectionNav.toggleClass("figure__section_blast");
+    figure.sectionDecor.toggleClass("figure__section_blast");
+    figure.shield.toggleClass("figure__shield_hide");
+    sectionDecorLit.forEach((element) => {
+      const animationDeleyStyle = `${0 + step}s`;
+      element.style = `animation-delay: ${animationDeleyStyle}`;
+      step += 0.1;
+    })
+  }, 3400);
+};
+function collapseMemory() {
+  let sectionDecorLit = figure.sectionDecor.matter().reverse();
+  let sectionNavButtons = figure.sectionNav.matter().reverse();
+  let step = 0;
+  sectionDecorLit.forEach((element) => {
+    const animationDeleyStyle = `${0 + step}s`;
+    element.style = `animation-delay: ${animationDeleyStyle}`;
+    step += 0.07;
+  });
+  sectionNavButtons.forEach((element) => {
+    const animationDeleyStyle = `${0 + step}s`;
+    const sectionNavLit = Array.from(element.children)[2];
+    sectionNavLit.style = `animation-delay: ${animationDeleyStyle}`;
+    step += 0.07;
+  });
+  figure.block.style = `background: rgba(0, 0, 0, 0)`;
+  header.asideLeft.toggleClass("header__aside_hide");
+  header.asideRight.toggleClass("header__aside_hide");
+  figure.shield.toggleClass("figure__shield_hide");
+  setTimeout(() => {
+    figure.sectionNav.toggleClass("figure__section_blast");
+    figure.sectionDecor.toggleClass("figure__section_blast");
+  }, 100);
+}
 function reverseLabel() {
   if (conf.current.lang === "eng") {
     if (event.target.textContent === "rings") {
@@ -167,7 +243,6 @@ function setLanguageButtons() {
 }
 function openMainFrame() {
   Memory.lock([header.create(), figure.create(), projector.create()]);
-  // header.navButton.toggleClass("main__nav-button_hidden");
   setLanguageButtons();
   if (conf.current.projectorOpened) {
     projector.toggleClass("footer_opened");
@@ -189,17 +264,25 @@ function openMemoryFrame() {
 function removeMemoryFrame() {
   Memory.remove([header, gallery, projector]);
 }
-function lookIn() {
+function lookInImage() {
   const imageElement = event.target.parentElement;
   if (!imageElement.classList.contains("main__image-element_opened")) {
     imageElement.classList.add("main__image-element_touched");
   }
 };
-function lookOut() {
+function lookOutImage() {
   const imageElement = event.target.parentElement;
   if (!imageElement.classList.contains("main__image-element_opened")) {
     imageElement.classList.remove("main__image-element_touched");
   }
+};
+function lookInTexts() {
+  const textElement = gallery.block.querySelector(".main__text-element")
+  textElement.classList.add("main__text-element_touched");
+};
+function lookOutTexts() {
+  const textElement = gallery.block.querySelector(".main__text-element")
+  textElement.classList.remove("main__text-element_touched");
 };
 function openWide() {
   const lens = projector.matter()[0];
@@ -221,6 +304,9 @@ function update() {
   if (conf.current.frame === "main") {
     removeMainFrame();
     openMainFrame();
+    header.asideLeft.toggleClass("header__aside_hide");
+    header.asideRight.toggleClass("header__aside_hide");
+    figure.shield.toggleClass("figure__shield_hide");
   } else {
     removeMemoryFrame();
     openMemoryFrame();
@@ -232,3 +318,4 @@ function updateProjector() {
 } 
 
 openMainFrame();
+blastMemory();

@@ -5,6 +5,14 @@
   z-index: 2;
 }
 
+.header__aside {
+  transition: all 0.4s;
+}
+
+.header__aside_hide {
+  opacity: 0;
+}
+
 .header__aside_type_left {
   position: absolute;
   top: 4vh;

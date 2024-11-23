@@ -78,6 +78,22 @@
   animation-play-state: running;
 }
 
+.figure__section_blast .figure__img_type_lit {
+  animation: shiningWawe ease-in 1.2s 2 alternate forwards;
+  animation-play-state: running;
+}
+
+.figure__shield {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 1;
+}
+
+.figure__shield_hide {
+  display: none;
+}
+
 @keyframes shining {
   0% {
     opacity: 0.7;

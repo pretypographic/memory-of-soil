@@ -41,6 +41,7 @@ planMemory.addFrame("header", headerPlan);
 const figurePlan = planBlock(FRGURE_ELEMENT, ["figure"]);
 figurePlan.addMatter("sectionNav", sectionNavPlan());
 figurePlan.addMatter("sectionDecor", sectionDecorPlan());
+figurePlan.addMatter("shield", shieldPlan());
 planMemory.addFrame("figure", figurePlan);
 
 const projectorPlan = planBlock(FOOTER_ELEMENT, ["footer"], PROJECTOR_CONF);
@@ -55,7 +56,8 @@ planMemory.addFrame("gallery", gallaryPlan);
 
 function asideLeftPlan() {
   const asideLeftPlan = planBlock(ASIDE_ELEMENT, [
-    "header__aside", 
+    "header__aside",
+    "header__aside_hide",
     "header__aside_type_left"
   ]);
   main.languages.forEach((string, i) => {
@@ -67,7 +69,8 @@ function asideLeftPlan() {
 }
 function asideRightPlan() {
   const asideRightPlan = planBlock(ASIDE_ELEMENT, [
-    "header__aside", 
+    "header__aside",
+    "header__aside_hide",
     "header__aside_type_right"
   ]);
   const buttonPlan = planElement(BUTTON_ELEMENT, ["header__button"], LANG_CONF);
@@ -114,6 +117,10 @@ function sectionDecorPlan() {
     sectionDecorPlan.addMatter(ELEMENT_TYPE, imagePlan);
   });
   return sectionDecorPlan;
+}
+function shieldPlan() {
+  const shieldPlan = planBlock(DIV_ELEMENT, ["figure__shield"]);
+  return shieldPlan;
 }
 function setProjector() {
   let projectorModes = {
