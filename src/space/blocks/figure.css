@@ -8,6 +8,8 @@
   left: 50%;
   transform: translateX(-50%);
   transition: opacity 0.3s;
+  opacity: 0;
+  animation: load 2s 0.3s forwards;
 }
 
 .figure__section {

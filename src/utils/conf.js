@@ -8,7 +8,7 @@ const conf = {
     load: false,
     lang: "eng",
     frame: "main",
-    // projector: { opened: false, type: "instruction" },
+    // projector: { opened: false, mode: "instruction" },
     projectorOpened: false,
     projectorMode: "about"
   },

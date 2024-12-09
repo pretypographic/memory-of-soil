@@ -18,6 +18,7 @@ const ASIDE_ELEMENT = "aside";
 const BUTTON_ELEMENT = "button";
 const IMG_ELEMENT = "img";
 const VIDEO_ELEMENT = "video";
+const SOURCE_ELEMENT = "source";
 
 const LANG_CONF = "lang";
 const FRAME_CONF = "frame";
@@ -25,6 +26,7 @@ const PROJECTOR_CONF = "projectorMode";
 
 const TEXT_TYPE = "text";
 const COLUMNS_TYPE = "columns";
+const ARTICLE_TYPE = "article";
 const IMAGE_TYPE = "image";
 const ELEMENT_TYPE = "element";
 
@@ -125,9 +127,9 @@ function shieldPlan() {
 function setProjector() {
   let projectorModes = {
     about: [articlePlan(), sectionPlan()],
-    image: [slideProjectorPlan()],
-    video: [cinemaProjectorPlan()],
-    text: [opaqueProjectorPlan()]
+    image: [slideProjectorPlan(), closeButtonPlan()],
+    video: [cinemaProjectorPlan(), closeButtonPlan()],
+    text: [opaqueProjectorPlan(), closeButtonPlan()]
   }
   return [projectorModes];
 }
@@ -141,16 +143,24 @@ function sectionPlan() {
     "footer__section", 
     "footer__names"
   ], LANG_CONF);
-  sectionPlan.addMatter(COLUMNS_TYPE, instruction.names)
+  sectionPlan.addMatter(COLUMNS_TYPE, instruction.names, "footer__name-block")
   return sectionPlan;
+}
+function closeButtonPlan() {
+  const closeButtonPlan = planElement(BUTTON_ELEMENT, ["footer__button"]);
+  closeButtonPlan.addMatter(TEXT_TYPE, "+");
+  return closeButtonPlan;
 }
 function slideProjectorPlan() {
   const screenPlan = planElement(IMG_ELEMENT, ["slide-projector"]);
-  // screenPlan.addMatter(ELEMENT_TYPE,);
   return screenPlan;
 }
 function cinemaProjectorPlan() {
   const screenPlan = planElement(VIDEO_ELEMENT, ["cinema-projector"]);
+  screenPlan.class.controls = true;
+  const screenSourcePlan = planElement(SOURCE_ELEMENT, false);
+  screenSourcePlan.class.type = "video/mp4";
+  screenPlan.addMatter(ELEMENT_TYPE, screenSourcePlan);
   return screenPlan;
 }
 function opaqueProjectorPlan() {
@@ -208,7 +218,9 @@ function formFrameExposition(string) {
   if (data[string].texts) {
     const elementTextPlan = planElement(DIV_ELEMENT, ["main__text-element"], LANG_CONF);
     elementTextPlan.addMatter(COLUMNS_TYPE, data[string].texts, "main__text");
+    elementTextPlan.class.id = `t${Math.round(Math.random() * 1000000)}`;
     array.push(elementTextPlan);
+    popupData = { ...popupData, [elementTextPlan.class.id]: data[string].texts }
   }
   return array;
 }

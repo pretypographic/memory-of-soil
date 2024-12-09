@@ -5,6 +5,8 @@ import conf from "./utils/conf.js";
 import { planMemory, popupData } from "./utils/plan.js";
 import { Device } from "./space/Device.js";
 
+const LOAD_TIME_0 = 3100;
+
 const Memory = new Device({
   conf: conf,
   plan: planMemory
@@ -34,10 +36,12 @@ figure.sectionNav.plan.addProcessor("click", () => {
   setTimeout(() => {
     removeMainFrame();
     openMemoryFrame();
-  }, 3400)
+  }, LOAD_TIME_0)
 });
 gallery.plan.addProcessor("mouseover", () => {
   if (event.target.parentElement.classList.contains("main__text")) {
+    lookInTexts();
+  } else if (event.target.classList.contains("main__text")) {
     lookInTexts();
   } else if (event.target.classList.contains("main__title-block")) {
     return;
@@ -48,6 +52,8 @@ gallery.plan.addProcessor("mouseover", () => {
 gallery.plan.addProcessor("mouseout", () => {
   if (event.target.parentElement.classList.contains("main__text")) {
     lookOutTexts();
+  } else if (event.target.classList.contains("main__text")) {
+    lookOutTexts();
   } else if (event.target.classList.contains("main__title-block")) {
     return;
   } else {
@@ -57,9 +63,19 @@ gallery.plan.addProcessor("mouseout", () => {
 gallery.plan.addProcessor("click", () => {
   console.log(event.target)
   if (event.target.classList.contains("main__image")) {
-    switchProjectorConf();
+    switchProjectorConfImage();
     updateProjector();
     openWide();
+  } else if (event.target.parentElement.classList.contains("main__text")) {
+    switchProjectorConfText();
+    updateProjector();
+    readText();
+  } else if (event.target.classList.contains("main__text")) {
+    switchProjectorConfText();
+    updateProjector();
+    readText();
+  } else {
+    return;
   }
 });
 gallery.navButton.plan.addProcessor("click", () => {
@@ -68,14 +84,29 @@ gallery.navButton.plan.addProcessor("click", () => {
   openMainFrame();
   header.asideLeft.toggleClass("header__aside_hide");
   header.asideRight.toggleClass("header__aside_hide");
-  figure.shield.toggleClass("figure__shield_hide");
+  setTimeout(() => {
+    figure.shield.toggleClass("figure__shield_hide");
+  }, 500)
 })
 projector.plan.addProcessor("click", () => {
-  if (conf.current.projectorMode !== "about") {
+  if (conf.current.projectorMode === "video") {
+    console.log(conf.memory.videoPlayer.pause);
+    conf.memory.videoPlayer.pause();
+    if (!event.target.classList.contains("cinema-projector")) {
+      gaveAway();
+      conf.current.projectorMode = "about";
+      conf.current.projectorOpened = false;
+      updateProjector();
+    } else {
+      return;
+    }
+  } else if (conf.current.projectorMode !== "about") {
+    gaveAway();
     conf.current.projectorMode = "about";
     conf.current.projectorOpened = false;
-    gaveAway();
     updateProjector();
+  } else {
+    return;
   }
 })
 // document.addEventListener("mousemove", () => {
@@ -111,7 +142,7 @@ function switchAboutConf() {
   conf.current.projectorMode = "about";
   conf.current.projectorOpened = !conf.current.projectorOpened;
 }
-function switchProjectorConf() {
+function switchProjectorConfImage() {
   const image = event.target;
   const imageFrameElement = image.parentElement;
   const imageID = image.getAttribute("id");
@@ -128,6 +159,40 @@ function switchProjectorConf() {
   }
   conf.current.projectorMode = projectorMode;
   return imageID;
+}
+function switchProjectorConfText() {
+  let text = {};
+  let textID = undefined;
+  let textElement = {};
+  let textElementID = undefined;
+  if (event.target.classList.contains("main__text")) {
+    text = event.target;
+    textID = text.getAttribute("id");
+    textElement = text.parentElement;
+    textElementID = textElement.getAttribute("id");
+  } else if (event.target.parentElement.classList.contains("main__text")) {
+    text = event.target.parentElement;
+    textID = text.getAttribute("id");
+    textElement = text.parentElement;
+    textElementID = textElement.getAttribute("id");
+  }
+  conf.memory.textID = textID;
+  conf.memory.textElementID = textElementID;
+  conf.memory.textElement = textElement;
+  
+  let projectorMode = undefined;
+  if (textElementID.startsWith("i")) {
+    projectorMode = "image"
+    conf.current.projectorOpened = true;
+  } else if (textElementID.startsWith("v")) {
+    projectorMode = "video";
+    conf.current.projectorOpened = true;
+  } else if (textElementID.startsWith("t")) {
+    projectorMode = "text";
+    conf.current.projectorOpened = true;
+  }
+  conf.current.projectorMode = projectorMode;
+  return textElementID;
 }
 function switchFrameConf() {
   if (conf.current.frame === "main") {
@@ -164,7 +229,7 @@ function blastMemory() {
       element.style = `animation-delay: ${animationDeleyStyle}`;
       step += 0.1;
     })
-  }, 3400);
+  }, LOAD_TIME_0);
 };
 function collapseMemory() {
   let sectionDecorLit = figure.sectionDecor.matter().reverse();
@@ -254,12 +319,22 @@ function removeMainFrame() {
 };
 function openMemoryFrame() {
   Memory.lock([header.create(), gallery.create(), projector.create()]);
+  const textElement = gallery.block.querySelector(".main__text-element");
+  const texts = Array.from(textElement.children);
+  texts.forEach((element, id) => {
+    if (id % 2 === 1) {
+      element.classList.add("main__text_an-type_element-reverse");
+    } else {
+      element.classList.add("main__text_an-type_element-direct");
+    }
+  })
   header.asideRight.toggleClass("disabled");
   setLanguageButtons();
   if (conf.current.projectorOpened) {
-    projector.toggleClass("footer_opened");
-  }
-
+    if (conf.current.projectorMode === "text") {
+      readText();
+    };
+  };
 };
 function removeMemoryFrame() {
   Memory.remove([header, gallery, projector]);
@@ -285,20 +360,48 @@ function lookOutTexts() {
   textElement.classList.remove("main__text-element_touched");
 };
 function openWide() {
-  const lens = projector.matter()[0];
-  lens.setAttribute("src", popupData[conf.memory.imageID]);
+  if (conf.memory.imageID.startsWith("i")) {
+    const lens = projector.matter()[0];
+    lens.setAttribute("src", popupData[conf.memory.imageID]);
+  } else if (conf.memory.imageID.startsWith("v")) {
+    const lens = projector.matter()[0].firstElementChild;
+    conf.memory.videoPlayer = projector.matter()[0];
+    lens.setAttribute("src", popupData[conf.memory.imageID]);
+  }
   conf.memory.imageElement.classList.remove("main__image-element_touched");
   conf.memory.imageElement.classList.add("main__image-element_opened");
   gallery.title.toggleClass("main__title_hidden");
   gallery.navButton.toggleClass("main__nav-button_hidden");
   projector.toggleClass("footer_projector");
 };
-function gaveAway() {
-  conf.memory.imageElement.classList.remove("main__image-element_opened");
+function readText() {
+  const lens = projector.matter()[0];
+  const textsArray = popupData[conf.memory.textElementID];
+  const text = textsArray[conf.current.lang][conf.memory.textID];
+  text.forEach((string) => {
+    if (string) {
+      const newString = document.createElement("p");
+      newString.textContent = string;
+      lens.append(newString);
+    };
+    return;
+  })
+  conf.memory.textElement.classList.remove("main__image-element_touched");
+  header.asideLeft.toggleClass("header__aside_hide");
   gallery.title.toggleClass("main__title_hidden");
   gallery.navButton.toggleClass("main__nav-button_hidden");
   projector.toggleClass("footer_projector");
-}
+};
+function gaveAway() {
+  if (conf.current.projectorMode !== "text") {
+    conf.memory.imageElement.classList.remove("main__image-element_opened");
+  } else {
+    header.asideLeft.toggleClass("header__aside_hide");
+  };
+  gallery.title.toggleClass("main__title_hidden");
+  gallery.navButton.toggleClass("main__nav-button_hidden");
+  projector.toggleClass("footer_projector");
+};
 
 function update() {
   if (conf.current.frame === "main") {

@@ -35,7 +35,7 @@ class Element {
     if (!this.plan.class.tag) {
       console.log("plan needed", this)
     };
-    const { tag, styleClasses, styleMod, id } = this.plan.class;
+    const { tag, styleClasses, styleMod, id, type, controls } = this.plan.class;
     const structure = document.createElement(tag);
     if (styleClasses) {
       structure.classList.add(...styleClasses);
@@ -45,7 +45,13 @@ class Element {
     };
     if (id) {
       structure.setAttribute("id", id);
-    }
+    };
+    if (controls) {
+      structure.setAttribute("controls", controls);
+    };
+    if (type) {
+      structure.setAttribute("type", type);
+    };
     return structure;
   }
   _addMatter() {
@@ -69,6 +75,7 @@ class Element {
           const matterStyleClasses = item[2];
           const section = document.createElement("section");
           section.classList.add(matterStyleClasses);
+          section.setAttribute("id", i);
           array.forEach((string, i) => {
             if (i === 0) {
               if (!string) {
