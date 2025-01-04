@@ -5,7 +5,7 @@ import conf from "./utils/conf.js";
 import { planMemory, popupData } from "./utils/plan.js";
 import { Device } from "./space/Device.js";
 
-const LOAD_TIME_0 = 3100;
+const LOAD_TIME_0 = 2700;
 
 const Memory = new Device({
   conf: conf,
@@ -16,8 +16,12 @@ console.log(Memory);
 
 const { header, figure, projector, gallery } = Memory;
 header.asideLeft.plan.addProcessor("click", () => {
-  switchLanguagesConf();
-  update();
+  if (event.target.classList.contains("header__button")) {
+    if (!event.target.classList.contains("header__button_active")) {
+      switchLanguagesConf();
+      update();
+    }
+  }
 });
 header.asideRight.plan.addProcessor("click", () => {
   switchAboutConf();
@@ -420,5 +424,7 @@ function updateProjector() {
   Memory.lock([projector.create()]);
 } 
 
-openMainFrame();
-blastMemory();
+(function startProgram() {
+  openMainFrame();
+  blastMemory();
+})();

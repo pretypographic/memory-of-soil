@@ -86,14 +86,12 @@
 
 .footer__button {
   color: white;
-  width: 130px;
-  height: 130px;
   text-shadow: 2px 2px #000;
   position: fixed;
-  top: calc(100vh/12);
-  right: 10%;
+  top: 1.3vh;
+  right: 3vw;
   z-index: 1;
-  font-size: 7em;
+  font-size: 5em;
   text-align: center;
   transform: rotate(45deg);
   transform: all 1s;

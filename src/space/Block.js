@@ -17,25 +17,9 @@ function planBlock(tag, styleClasses = false, confName = false) {
       }
     },
     addProcessor: function (event, callback) {
-      // const action = (event) => {
-      //   if (this._chek(event)) {
-      //     callback();
-      //   };
-      // }
       this.class._processor[event] = callback;
       this.class.leaders.push(event);
-    },
-    // _chek: function (event) {
-    //   console.log("beep", event.target)
-    //   let newChek = this.class.styleClasses.some((string) => {
-    //     return event.target.parentElement.classList.contains(string);
-    //   });
-    //   if (newChek) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // }
+    }
   }
 };
 
