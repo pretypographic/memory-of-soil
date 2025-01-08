@@ -11,6 +11,7 @@ export const BUTTON_ELEMENT = "button";
 export const IMG_ELEMENT = "img";
 export const VIDEO_ELEMENT = "video";
 export const SOURCE_ELEMENT = "source";
+export const PARAGRAPH_ELEMENT = "p";
 
 export const LANG_CONF = "lang";
 export const FRAME_CONF = "frame";

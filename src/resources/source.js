@@ -22,11 +22,22 @@ import fog from "../media/videos/frame-time/fog.mp4";
 import poster_fog from "../media/videos/frame-time/poster_fog.jpg";
 import timelapse from "../media/videos/frame-time/timelapse.mp4";
 import poster_timelapse from "../media/videos/frame-time/poster_timelapse.jpg";
+import phone_bie0m3c0sdoo from "../vendor/icons/phone_bie0m3c0sdoo.svg";
 
 const main = {
   indicator: {
     eng: "loading...",
     rus: "загрузка..."
+  },
+  coreInterfaceLabels: {
+    screen: {
+      eng: "expand/collapse screen",
+      rus: "развернуть/свернуть экран"
+    },
+    sound: {
+      eng: "on/off sound",
+      rus: "вкл/откл звук"
+    }
   },
   languages: ["eng", "rus"],
   navElement: {
@@ -38,6 +49,26 @@ const main = {
     rus: "о проекте"
   }
 };
+
+const intro = {
+  introduction: {
+    rus: "Для лучшего погружения мы рекомендуем использовать ноутбук в полноэкранном режиме и наушники. Вы можете включить/выключить звук в левом нижнем углу.",
+    eng: "For better immersion, we recommend using your laptop in full screen mode and your headphones. You can turn on/off sound in the bottom left corner."
+  },
+  phoneAdvise: {
+    rus: "Пожалуйста, поверните свое устройство",
+    eng: "Please rotate your device"
+  },
+  partingWords: {
+    rus: "Наша история нелинейна. Вы можете просматривать главы (кольца) в любом порядке. Приятного путешествия!",
+    eng: "Our story is nonlinear. You are free to explore the chapters (rings) in any order. Have a nice journey!"
+  },
+  button: {
+    rus: "начать",
+    eng: "begin"
+  },
+  imgSrc: phone_bie0m3c0sdoo
+}
 
 const instruction = {
   column: {
@@ -462,4 +493,4 @@ const data = {
   }
 };
 
-export { main, instruction, data };
+export { main, intro, instruction, data };

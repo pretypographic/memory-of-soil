@@ -2,11 +2,12 @@
   display: flex;
   justify-content: space-between;
   position: relative;
-  z-index: 2;
+  z-index: 4;
 }
 
 .header__aside {
   transition: all 0.4s;
+  will-change: opacity;
 }
 
 .header__aside_hide {

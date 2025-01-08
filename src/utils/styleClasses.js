@@ -1,6 +1,20 @@
 export const styleClasses = {
   body: ["body"],
   indicator: ["indicator"],
+  coreInterface: {
+    parent: ["interface"],
+    flag: ["interface__flag"],
+    screenButton: ["interface__button", "interface__button_for_screen"],
+    soundButton: ["interface__button", "interface__button_for_sound"],
+    label: ["interface__label"]
+  },
+  intro: {
+    parent: ["intro"],
+    text: ["intro__text"],
+    phoneAdviseText: ["intro__text", "intro__text_phone"],
+    img: ["intro__img"],
+    button: ["intro__button"]
+  },
   header: {
     parent: ["header"],
     asideLeft: [

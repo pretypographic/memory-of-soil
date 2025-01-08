@@ -28,6 +28,7 @@
   left: 50%;
   top: calc(100vh / 24);
   transform: translateX(-50%);
+  will-change: opacity;
 }
 
 .main__title_hidden .main__title {
@@ -50,11 +51,11 @@
   flex-shrink: 10;
   transition: flex-shrink 0.4s;
   overflow: hidden;
+  will-change: flex-shrink;
 }
 
 .main__image-element_opened {
   flex-shrink: 0;
-  /* background-color: black; */
 }
 
 .main__image-element_touched {
@@ -67,6 +68,7 @@
   object-fit: cover;
   filter: grayscale(100%);
   transition: filter 0.4s;
+  will-change: filter;
 }
 
 .main__image-element_opened .main__image {
@@ -87,6 +89,7 @@
   position: relative;
   flex-shrink: 10;
   transition: flex-shrink 0.4s;
+  will-change: flex-shrink;
 }
 
 .main__text-element_touched {
@@ -179,7 +182,6 @@
     transform: translate(0vh, 0);
   }
 }
-
 
 @keyframes load {
   0% {

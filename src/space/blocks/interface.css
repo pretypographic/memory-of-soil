@@ -1,0 +1,81 @@
+.interface {
+  height: 130px;
+  width: 150px;
+  display: flex;
+  position: fixed;
+  bottom: 4vh;
+  left: 3vw;
+  z-index: 2;
+}
+
+.interface__flag {
+  height: 40px;
+  width: 40px;
+  background-color: azure;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transition: all 0.4s;
+}
+
+.interface__button {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: all 0.4s;
+}
+
+.interface__label {
+  color: black;
+  height: 20px;
+  width: 200px;
+  margin: 0;
+  background-color: azure;
+  border-radius: 10px;
+  position: absolute;
+  left: 45px;
+  opacity: 0;
+  transition: all 0.4s;
+  transform: scaleX(0) translate(-50%);
+}
+
+.interface__button_for_screen {
+  background: azure url(../../vendor/icons/share_1r3neaddirsq.svg) center / contain;
+}
+
+.interface__button_for_screen:hover .interface__label {
+  opacity: 1;
+  transform: scaleX(1) translate(0%);
+}
+
+.interface__button_for_sound {
+  background: azure url(../../vendor/icons/sound_bn443stqyjdr.svg) center / contain;
+}
+
+.interface__button_for_sound:hover .interface__label {
+  opacity: 1;
+  transform: scaleX(1) translate(0%);
+}
+
+.interface:hover .interface__flag {
+  opacity: 0.7;
+}
+
+.interface:hover .interface__button {
+  opacity: 1;
+}
+
+.interface:hover .interface__button_for_screen {
+  bottom: 45px;
+}
+
+.interface:hover .interface__button_for_sound {
+  bottom: 90px;
+}

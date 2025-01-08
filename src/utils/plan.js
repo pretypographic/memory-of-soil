@@ -21,10 +21,11 @@ import {
   TEXT_TYPE,
   COLUMNS_TYPE,
   IMAGE_TYPE,
-  ELEMENT_TYPE
+  ELEMENT_TYPE,
+  PARAGRAPH_ELEMENT
 } from "./const.js";
 import { styleClasses } from "./styleClasses.js";
-import { main, instruction, data } from "../resources/source.js";
+import { main, intro, instruction, data } from "../resources/source.js";
 import { planDevice } from "../space/Device.js";
 import { planBlock } from "../space/Block.js";
 import { planElement } from "../space/Element.js";
@@ -34,6 +35,16 @@ let popupData = {};
 const indicator = planElement(DIV_ELEMENT, styleClasses.indicator, LANG_CONF);
 indicator.addMatter(TEXT_TYPE, main.indicator);
 const planMemory = planDevice(styleClasses.body, indicator);
+
+const coreInterfacePlan = planBlock(DIV_ELEMENT, styleClasses.coreInterface.parent);
+coreInterfacePlan.addMatter(ELEMENT_TYPE, flagPlan());
+coreInterfacePlan.addMatter("screenButton", screenButtonPlan());
+coreInterfacePlan.addMatter("soundButton", soundButtonPlan());
+planMemory.addFrame("coreInterface", coreInterfacePlan);
+
+const introPlan = planBlock(SECTION_ELEMENT, styleClasses.intro.parent, LANG_CONF);
+introPlan.addMatter(ELEMENT_TYPE, descriptionPlan());
+planMemory.addFrame("intro", introPlan);
 
 const headerPlan = planBlock(HEADER_ELEMENT, styleClasses.header.parent);
 headerPlan.addMatter("asideLeft", asideLeftPlan());
@@ -56,6 +67,44 @@ gallaryPlan.addMatter(ELEMENT_TYPE, formExposition());
 gallaryPlan.addMatter("navButton", frameNavPlan());
 planMemory.addFrame("gallery", gallaryPlan);
 
+function flagPlan() {
+  const flagPlan = planElement(DIV_ELEMENT, styleClasses.coreInterface.flag);
+  return flagPlan;
+}
+function screenButtonPlan() {
+  const screenButtonPlan = planBlock(BUTTON_ELEMENT, styleClasses.coreInterface.screenButton);
+  const labelPlan = planElement(PARAGRAPH_ELEMENT, styleClasses.coreInterface.label, LANG_CONF);
+  labelPlan.addMatter(TEXT_TYPE, main.coreInterfaceLabels.screen);
+  screenButtonPlan.addMatter(ELEMENT_TYPE, labelPlan);
+  return screenButtonPlan;
+}
+function soundButtonPlan() {
+  const soundButtonPlan = planBlock(BUTTON_ELEMENT, styleClasses.coreInterface.soundButton);
+  const labelPlan = planElement(PARAGRAPH_ELEMENT, styleClasses.coreInterface.label, LANG_CONF);
+  labelPlan.addMatter(TEXT_TYPE, main.coreInterfaceLabels.sound);
+  soundButtonPlan.addMatter(ELEMENT_TYPE, labelPlan);
+  return soundButtonPlan;
+}
+function descriptionPlan() {  
+  const description = {
+    rus: descriptionElementsPlan("rus"),
+    eng: descriptionElementsPlan("eng")
+  }
+  return [description];
+}
+function descriptionElementsPlan(lang) {
+  const introductionPlan = planElement(PARAGRAPH_ELEMENT, styleClasses.intro.text);
+  introductionPlan.addMatter(TEXT_TYPE, intro.introduction[lang]);
+  const phoneImgPlan = planElement(IMG_ELEMENT, styleClasses.intro.img);
+  phoneImgPlan.addMatter(IMAGE_TYPE, intro.imgSrc);
+  const phoneAdvisePlan = planElement(PARAGRAPH_ELEMENT, styleClasses.intro.phoneAdviseText);
+  phoneAdvisePlan.addMatter(TEXT_TYPE, intro.phoneAdvise[lang]);
+  const partingWordsPlan = planElement(PARAGRAPH_ELEMENT, styleClasses.intro.text);
+  partingWordsPlan.addMatter(TEXT_TYPE, intro.partingWords[lang]);
+  const buttonPlan = planElement(BUTTON_ELEMENT, styleClasses.intro.button);
+  buttonPlan.addMatter(TEXT_TYPE, intro.button[lang]);
+  return [introductionPlan, phoneImgPlan, phoneAdvisePlan, partingWordsPlan, buttonPlan]
+}
 function asideLeftPlan() {
   const asideLeftPlan = planBlock(ASIDE_ELEMENT, styleClasses.header.asideLeft);
   main.languages.forEach((string, i) => {

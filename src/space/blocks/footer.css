@@ -16,6 +16,7 @@
 
 .footer_opened {
   animation: open 0.4s ease-out forwards;
+  z-index: 3;
 }
 
 .footer_projector {
@@ -108,10 +109,10 @@
 @keyframes open {
   0% {
     opacity: 0;
-    z-index: 1;
+    z-index: 3;
   }
   100% {
     opacity: 1;
-    z-index: 1;
+    z-index: 3;
   }
 }

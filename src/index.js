@@ -6,6 +6,7 @@ import { planMemory, popupData } from "./utils/plan.js";
 import { Device } from "./space/Device.js";
 
 const LOAD_TIME_0 = 2700;
+const LOAD_TIME_1 = 500;
 
 const Memory = new Device({
   conf: conf,
@@ -14,7 +15,15 @@ const Memory = new Device({
 Memory.initiate();
 console.log(Memory);
 
-const { header, figure, projector, gallery } = Memory;
+const { coreInterface, intro, header, figure, projector, gallery } = Memory;
+intro.plan.addProcessor("click", () => {
+  if (event.target.classList.contains("intro__button")) {
+    intro.toggleClass("intro_hidden");
+    setTimeout(() => {
+      startProgram();
+    }, LOAD_TIME_1);
+  }
+});
 header.asideLeft.plan.addProcessor("click", () => {
   if (event.target.classList.contains("header__button")) {
     if (!event.target.classList.contains("header__button_active")) {
@@ -65,7 +74,6 @@ gallery.plan.addProcessor("mouseout", () => {
   }
 });
 gallery.plan.addProcessor("click", () => {
-  console.log(event.target)
   if (event.target.classList.contains("main__image")) {
     switchProjectorConfImage();
     updateProjector();
@@ -94,7 +102,6 @@ gallery.navButton.plan.addProcessor("click", () => {
 })
 projector.plan.addProcessor("click", () => {
   if (conf.current.projectorMode === "video") {
-    console.log(conf.memory.videoPlayer.pause);
     conf.memory.videoPlayer.pause();
     if (!event.target.classList.contains("cinema-projector")) {
       gaveAway();
@@ -262,10 +269,8 @@ function collapseMemory() {
 function reverseLabel() {
   if (conf.current.lang === "eng") {
     if (event.target.textContent === "rings") {
-      console.log(event.target.textContent);
       event.target.textContent = "about";
     } else if (event.target.textContent === "about") {
-      console.log(event.target.textContent);
       event.target.textContent = "rings";
     }
   } else if (conf.current.lang === "rus") {
@@ -422,9 +427,13 @@ function update() {
 function updateProjector() {
   Memory.remove([projector]);
   Memory.lock([projector.create()]);
-} 
-
-(function startProgram() {
+};
+function startProgram() {
+  Memory.remove(intro);
   openMainFrame();
   blastMemory();
+};
+
+(function openIntro() {
+  Memory.lock([coreInterface. create(), intro.create()]);
 })();
