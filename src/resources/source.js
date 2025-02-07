@@ -1,5 +1,6 @@
 "use strict";
 
+// images and videos
 import images from "../media/images/data.js";
 import bloodstone_v2 from "../media/videos/frame-memory/bloodstone_v2.mp4";
 import poster03_blood_stone_v2 from "../media/videos/frame-memory/poster03_blood_stone_v2.jpg";
@@ -24,6 +25,9 @@ import timelapse from "../media/videos/frame-time/timelapse.mp4";
 import poster_timelapse from "../media/videos/frame-time/poster_timelapse.jpg";
 import phone_bie0m3c0sdoo from "../vendor/icons/phone_bie0m3c0sdoo.svg";
 
+// sounds
+import background from "../media/audio/background sound.mp3";
+
 const main = {
   indicator: {
     eng: "loading...",
@@ -47,7 +51,12 @@ const main = {
   about: {      
     eng: "about",
     rus: "о проекте"
-  }
+  },
+  rings: {
+    eng: "rings",
+    rus: "кольца"
+  },
+  audio: background
 };
 
 const intro = {

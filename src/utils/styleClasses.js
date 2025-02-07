@@ -6,10 +6,12 @@ export const styleClasses = {
     flag: ["interface__flag"],
     screenButton: ["interface__button", "interface__button_for_screen"],
     soundButton: ["interface__button", "interface__button_for_sound"],
-    label: ["interface__label"]
+    label: ["interface__label"],
+    audio: ["interface__audio"]
   },
   intro: {
     parent: ["intro"],
+    parent_hidden: ["intro_hidden"],
     text: ["intro__text"],
     phoneAdviseText: ["intro__text", "intro__text_phone"],
     img: ["intro__img"],
@@ -27,10 +29,13 @@ export const styleClasses = {
       "header__aside_hide",
       "header__aside_type_right"
     ],
-    button: ["header__button"]
+    aside_hidden: ["header__aside_hide"],
+    button: ["header__button"],
+    button_active: ["header__button_active"]
   },
   figure: {
     parent: ["figure"],
+    parent_state_off: ["figure_state_off"],
     sectionNav: [
       "figure__section", 
       "figure__section_type_nav"
@@ -49,21 +54,35 @@ export const styleClasses = {
       "figure__img",
       "figure__img_type_lit"
     ],
+    section_blast: ["figure__section_blast"],
+    section_lightOn: ["figure__section_lightOn"],
     shield: ["figure__shield"],
+    shield_hideden: ["figure__shield_hide"],
     button: ["figure__button"],
+    button_focused: ["figure__button_focused"]
   },
   main: {
     parent: ["main"],
     titleBlock: ["main__title-block"],
     title: ["main__title"],
+    title_hidden: ["main__title_hidden"],
     imageElement: ["main__image-element"],
+    imageElement_opened: ["main__image-element_opened"],
+    imageElement_touched: ["main__image-element_touched"],
     image: ["main__image"],
     textElement: ["main__text-element"],
+    textElement_touched: ["main__text-element_touched"],
+    text: ["main__text"],
+    text_anType_direct: ["main__text_an-type_element-direct"],
+    text_anType_reverse: ["main__text_an-type_element-reverse"],
     nav: ["main__nav"],
-    navButton: ["main__nav-button"]
+    navButton: ["main__nav-button"],
+    navButton_hidden: ["main__nav-button_hidden"],
   },
   footer: {
     parent: ["footer"],
+    parent_opened: ["footer_opened"],
+    parent_projector: ["footer_projector"],
     article: ["footer__article"],
     section: [
       "footer__section", 
@@ -73,5 +92,6 @@ export const styleClasses = {
     cinemaProjector: ["cinema-projector"],
     opaqueProjector: ["opaque-projector"],
     button: ["footer__button"],
-  }
+  },
+  disabled: ["disabled"]
 }

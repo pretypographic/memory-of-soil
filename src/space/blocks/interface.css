@@ -79,3 +79,7 @@
 .interface:hover .interface__button_for_sound {
   bottom: 90px;
 }
+
+.interface__audio {
+  display: none;
+}

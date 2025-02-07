@@ -22,7 +22,8 @@ import {
   COLUMNS_TYPE,
   IMAGE_TYPE,
   ELEMENT_TYPE,
-  PARAGRAPH_ELEMENT
+  PARAGRAPH_ELEMENT,
+  AUDIO_ELEMENT
 } from "./const.js";
 import { styleClasses } from "./styleClasses.js";
 import { main, intro, instruction, data } from "../resources/source.js";
@@ -69,6 +70,10 @@ planMemory.addFrame("gallery", gallaryPlan);
 
 function flagPlan() {
   const flagPlan = planElement(DIV_ELEMENT, styleClasses.coreInterface.flag);
+  const audioPlan = planElement(AUDIO_ELEMENT, styleClasses.coreInterface.audio);
+  audioPlan.class.loop = "loop";
+  audioPlan.class.src = main.audio;
+  flagPlan.addMatter(ELEMENT_TYPE, audioPlan);
   return flagPlan;
 }
 function screenButtonPlan() {
