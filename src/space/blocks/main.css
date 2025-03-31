@@ -31,6 +31,11 @@
   will-change: opacity;
 }
 
+.main__title_frame_revelations {
+  font-size: 4.5em;
+  letter-spacing: 0.5em;
+}
+
 .main__title_hidden .main__title {
   opacity: 0;
 }
@@ -60,6 +65,10 @@
 
 .main__image-element_touched {
   flex-shrink: 9;
+}
+
+.main__image-element_video::after {
+  content: "video";
 }
 
 .main__image {
@@ -108,10 +117,18 @@
 .main__text p {
   width: 45vw;
   margin: 0;
-  font-size: 2em;
+  font-size: 1.9em;
   display: flex;
   text-transform: uppercase;
   white-space: pre-line;
+}
+
+.main__text_type_b p {
+  font-size: 2.4em;
+}
+
+.main__text_type_c p {
+  font-size: 2.9em;
 }
 
 .main__text_an-type_element-direct p {

@@ -24,9 +24,19 @@ import poster_fog from "../media/videos/frame-time/poster_fog.jpg";
 import timelapse from "../media/videos/frame-time/timelapse.mp4";
 import poster_timelapse from "../media/videos/frame-time/poster_timelapse.jpg";
 import phone_bie0m3c0sdoo from "../vendor/icons/phone_bie0m3c0sdoo.svg";
+import computer_icn from "../vendor/icons/computer-1294809.svg";
+import laptop_icn from "../vendor/icons/laptop-2243898.svg";
 
 // sounds
-import background from "../media/audio/background sound.mp3";
+import тихий_стрекот from "../media/audio/14.тихий стрекот.mp3";
+import ZOOM0049_LR from "../media/audio/ZOOM0049_LR.wav";
+import птицы from "../media/audio/19.птицы.mp3";
+import колокола from "../media/audio/1.колокола.mp3";
+import стук_по_меди_статуй from "../media/audio/3.стук по меди статуй.mp3";
+import шаги from "../media/audio/8.шаги_человек.mp3";
+import стрекот_цикад_4 from "../media/audio/5.стрекот цикад.mp3";
+import журчание_воды from "../media/audio/16.журчание воды.mp3";
+import стрекот_цикад_5 from "../media/audio/6.стрекот цикад.mp3";
 
 const main = {
   indicator: {
@@ -35,12 +45,12 @@ const main = {
   },
   coreInterfaceLabels: {
     screen: {
-      eng: "expand/collapse screen",
-      rus: "развернуть/свернуть экран"
+      eng: "expand/collapse screen (F)",
+      rus: "развернуть/свернуть экран (F)"
     },
     sound: {
-      eng: "on/off sound",
-      rus: "вкл/откл звук"
+      eng: "on/off sound (M)",
+      rus: "вкл/откл звук (M)"
     }
   },
   languages: ["eng", "rus"],
@@ -56,17 +66,17 @@ const main = {
     eng: "rings",
     rus: "кольца"
   },
-  audio: background
+  audio: тихий_стрекот
 };
 
 const intro = {
   introduction: {
-    rus: "Для лучшего погружения мы рекомендуем использовать ноутбук в полноэкранном режиме и наушники. Вы можете включить/выключить звук в левом нижнем углу.",
-    eng: "For better immersion, we recommend using your laptop in full screen mode and your headphones. You can turn on/off sound in the bottom left corner."
+    rus: "Для лучшего погружения мы рекомендуем использовать ноутбук в полноэкранном режиме и наушники. Вы можете включить/выключить звук и перейти в полноэкранный режим в левом нижнем углу.",
+    eng: "For a better immersion experience, we recommend using a laptop in full-screen mode and headphones. You can turn on/off the sound and switch to fullscreen mode in the lower left corner."
   },
   phoneAdvise: {
-    rus: "Пожалуйста, поверните свое устройство",
-    eng: "Please rotate your device"
+    rus: "Наш сайт доступен только на компьютере. Для полного погружения, пожалуйста, откройте его на ПК или ноутбуке.",
+    eng: "Our website is only available on a desktop. For the best experience, please access it using a computer or laptop."
   },
   partingWords: {
     rus: "Наша история нелинейна. Вы можете просматривать главы (кольца) в любом порядке. Приятного путешествия!",
@@ -76,7 +86,7 @@ const intro = {
     rus: "начать",
     eng: "begin"
   },
-  imgSrc: phone_bie0m3c0sdoo
+  imgSrc: laptop_icn
 }
 
 const instruction = {
@@ -207,11 +217,9 @@ const data = {
         [false, `"The forest is incredibly important. It provides warmth and coziness to our homes, gives us clean air, physical and mental health, adventures, and freedom. In the forest, the Romans were defeated, the German economy was built upon its resources, the Romanticism of the 18th century emerged under its trees, and the environmental movements of the 20th century were born." (extract from the book ‘The Hidden Life of Trees’ by Peter Wohlleben)`],
         [false, `Does the soil remember the horror of war? Does it bear anthropological scars? Or does its fantastic regenerative ability have the power to neutralize the past?`],
       ]
-      // format: 'journals_type_a'
     },
-    // audioArrey: [
-    //   тихий_стрекот,
-    // ]
+    textStyleType: 'a',
+    sound: тихий_стрекот
   },
   illusion: {
     title: {
@@ -245,11 +253,9 @@ const data = {
         [false, `Trusting Google Maps, we boldly set off towards the Tavkavta Waterfall. We walked along scorching asphalt and bare grassy hills, then entered a forested area. We walked for four hours, but to our disappointment, the road ended at a peak where we were greeted by a freshly painted red cross, a fortress, and an unfinished church. We never discovered any nearby waterfall. However, there was excellent cell phone reception there, which was absent for most of the way.`],
         [false, `A woman approached us speaking English and invited us to a table. It felt awkward to refuse, so we went along. When we were asked about our origins and they heard our response, an uncomfortable pause hung in the air, accompanied by a sense of discomfort and disappointment. The man in charge of receiving guests asked me to make a toast in English, despite the fact that everyone at the table clearly spoke only Georgian and Russian. I tried to speak kind words about the culture, nature, and people of Georgia, but I wasn't understood. When I finished the toast, no one raised their glass except for me. (Polina)`],
       ]
-      // format: 'journals_type_c'
     },
-    // audioArrey: [
-    //   ZOOM0049_LR,
-    // ]
+    textStyleType: 'c',
+    sound: ZOOM0049_LR
   },
   revelations: {
     title: {
@@ -283,11 +289,9 @@ const data = {
         `We follow the route`,
         `Through the riot of blossoms`],
       ]
-      // format: 'journals_type_c'
     },
-    // audioArrey: [
-    //   птицы,
-    // ]
+    textStyleType: 'c',
+    sound: птицы
   },
   monument: {
     title: {
@@ -309,11 +313,9 @@ const data = {
         [false, `It is a monument of immense scale. Antiquity, grandeur, and monumentality. A long staircase ascends to the top of the hill. There is a concrete stage with columns that support the void. On the stage, the acoustics creates echoes.`],
         [false, `The Battle of Didgori was a conflict that occurred on August 12, 1121, between the forces of the Georgian Kingdom and the Seljuks. The battle resulted in the defeat of the Seljuk army and the liberation of Tbilisi, which became the capital of the country. From that moment, the "Golden Age" of Georgian history began. The battle is widely mentioned in Georgian folklore and culture.`],
       ]
-      // format: 'journals_type_b'
     },
-    // audioArrey: [
-    //   колокола,
-    // ]
+    textStyleType: 'b',
+    sound: колокола
   },
   war: {
     title: {
@@ -333,11 +335,9 @@ const data = {
         [false, 'Scattered around are bronze abstract and semi-abstract figures. They resemble bone fragments, vertebrae, and femurs. Unburied bones of warriors or horses forced to participate in human battles. There is something foreign in these figures, a different aesthetic, an incomprehensibility, an absurdity, much like the essence of war and conflict itself.'],
         [false, 'The silence was broken by one man who suggested raising a toast ‘to our country, Georgia, its culture, and its history’. Then the other proposed to drink ‘to Georgia, which had achieved many great victories and would continue to do so.’ After that, we were subtly signaled that the ritual was over and we could leave.'],
       ]
-      // format: 'journals_type_b'
     },
-    // audioArrey: [
-    //   стук_по_меди_статуй,
-    // ]
+    textStyleType: 'b',
+    sound: стук_по_меди_статуй
   },
   human: {
     title: {
@@ -367,11 +367,9 @@ const data = {
         [false, `The hike doesn't feel easy, and my body is constantly aching, but without sharp pain.`],
         [false, `During our journey, we didn't encounter any other people (which actually pleased us), but we came across traces of human presence: occasional litter, tire tracks, fire pits, a field sown with potatoes, and ancient stone structures. It was difficult to walk due to the heat and heavy backpacks, but the idea of reaching a waterfall strengthened us.`],
       ]
-      // format: 'journals_type_c'
     },
-    // audioArrey: [
-    //   шаги,
-    // ]
+    textStyleType: 'c',
+    sound: шаги
   },
   conflict: {
     title: {
@@ -412,11 +410,9 @@ const data = {
         [false, `On the third day we played "Battleship."`,
         `I believe that conflict is the foundation of existence. The struggle between light and darkness, as a concept and as a state of opposition in general. This world cannot exist in absolute tranquility. Even if everything is calm in terms of events, there will still be contrast/conflict in color, light, composition, or sound. That "strong element" will inevitably arise. By the way, I won in "Battleship." It should be mentioned though, I was the one who suggested playing it. (Mariam)`],
       ]
-      // format: 'journals_type_a'
     },
-    // audioArrey: [
-    //   стрекот_цикад_4,
-    // ]
+    textStyleType: 'b',
+    sound: стрекот_цикад_4
   },
   movement: {
     title: {
@@ -458,11 +454,9 @@ const data = {
         [false, `For me, the most comprehensible and natural way to communicate/interact with nature is through movement: running, dancing, lying down, crawling, imitating, repeating lines, movements, the character. (Polina)`],
         [false, `Water in different phases of a river falls with different sounds and rhythms.`],
       ]
-      // format: 'journals_type_a'
     },
-    // audioArrey: [
-    //   журчание_воды,
-    // ]
+    textStyleType: 'c',
+    sound: журчание_воды
   },
   time: {
     title: {
@@ -494,11 +488,9 @@ const data = {
         [false, `Petrified wood is fascinating. How many centuries does it span? Mineral mummification of the wood…The plant world was represented through a herbarium, including samples dating back to the late 19th century. The yellowed paper and faded flowers, almost devoid of pigment, made it difficult to recognize the specimens when comparing them to the photographs. It's interesting to think about how these dried flowers in a frame can help people explore biodiversity.`],
         [false, 'Nature represents a wisely organized ecosystem in which everything adheres to a strictly defined logic. One such laws is that everything which is born eventually dies, paying its final tribute to the Earth and launching a new cycle of life for other beings.. Anthropogenic impact has made corrections to many previously established natural traditions, but the law of life and death remains relevant, just as it always has.'],
       ]
-      // format: 'journals_type_a'
     },
-    // audioArrey: [
-    //   стрекот_цикад_5
-    // ]
+    textStyleType: 'b',
+    sound: стрекот_цикад_5
   }
 };
 

@@ -5,7 +5,7 @@ import conf from "./utils/conf.js";
 import { planMemory, popupData } from "./utils/plan.js";
 import { Device } from "./space/Device.js";
 import { styleClasses } from "./utils/styleClasses.js";
-import { main } from "./resources/source.js";
+import { main, data } from "./resources/source.js";
 
 const LOAD_TIME_0 = 2700;
 const LOAD_TIME_1 = 500;
@@ -18,6 +18,13 @@ Memory.initiate();
 console.log(Memory);
 
 const { coreInterface, intro, header, figure, projector, gallery } = Memory;
+document.addEventListener('keydown', (event) => {
+  if (event.code === 'KeyM') {
+    switchSound();
+  } else if (event.code === 'KeyF') {
+    toggleFullScreen();
+  }
+});
 intro.plan.addProcessor("click", () => {
   if (event.target.classList.contains(styleClasses.intro.button)) {
     intro.toggleClass(styleClasses.intro.parent_hidden);
@@ -25,6 +32,12 @@ intro.plan.addProcessor("click", () => {
       startProgram(); 
     }, LOAD_TIME_1);
   }
+});
+coreInterface.screenButton.plan.addProcessor("click", () => {
+  toggleFullScreen();
+});
+coreInterface.soundButton.plan.addProcessor("click", () => {
+  switchSound();
 });
 header.asideLeft.plan.addProcessor("click", () => {
   if (event.target.classList.contains(styleClasses.header.button)) {
@@ -59,6 +72,10 @@ gallery.plan.addProcessor("mouseover", () => {
   } else if (event.target.classList.contains(styleClasses.main.text)) {
     lookInTexts();
   } else if (event.target.classList.contains(styleClasses.main.titleBlock)) {
+    return;
+  } else if (event.target.classList.contains(styleClasses.main.title)) {
+    return;
+  } else if (event.target.classList.contains(styleClasses.main.navButton)) {
     return;
   } else {
     lookInImage();
@@ -99,14 +116,15 @@ gallery.navButton.plan.addProcessor("click", () => {
   header.asideLeft.toggleClass(styleClasses.header.aside_hidden);
   header.asideRight.toggleClass(styleClasses.header.aside_hidden);
   setTimeout(() => {
-    figure.shield.toggleClass(styleClasses.figure.shield_hideden);
+    figure.shield.toggleClass(styleClasses.figure.shield_hidden);
   }, LOAD_TIME_1)
 })
 projector.plan.addProcessor("click", () => {
   if (conf.current.projectorMode === "video") {
-    conf.memory.videoPlayer.pause();
+    pauseSound();
     if (!event.target.classList.contains(styleClasses.footer.cinemaProjector)) {
       gaveAway();
+      playSound();
       conf.current.projectorMode = "about";
       conf.current.projectorOpened = false;
       updateProjector();
@@ -146,6 +164,42 @@ projector.plan.addProcessor("click", () => {
 
 function playSound() {
   coreInterface.matter()[0].firstElementChild.play()
+}
+function pauseSound() {
+  coreInterface.matter()[0].firstElementChild.pause()
+}
+function switchSound() {
+  if (coreInterface.matter()[0].firstElementChild.paused) {
+    playSound();
+  } else {
+    pauseSound();
+  }
+  coreInterface.soundButton.toggleClass(styleClasses.coreInterface.button_pressed);
+}
+function setSoundSource() {
+  const sound = data[conf.current.frame].sound;
+  coreInterface.matter()[0].firstElementChild.setAttribute("src", sound);
+}
+function toggleFullScreen() {
+  const doc = window.document;
+  const docEl = doc.documentElement;
+
+  const requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullScreen;
+
+  if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+    requestFullScreen.call(docEl);
+  } else {
+    if (doc.exitFullscreen) {
+      doc.exitFullscreen();
+    } else if (doc.mozCancelFullScreen) {
+      doc.mozCancelFullScreen();
+    } else if (doc.webkitCancelFullScreen) {
+      doc.webkitCancelFullScreen();
+    } else if (doc.msExitFullscreen) {
+      doc.msExitFullscreen();
+    }
+  }
+  coreInterface.screenButton.toggleClass(styleClasses.coreInterface.button_pressed);
 }
 function switchLanguagesConf() {
   if (event.target.textContent === "eng") {
@@ -239,7 +293,7 @@ function blastMemory() {
     header.asideRight.toggleClass(styleClasses.header.aside_hidden);
     figure.sectionNav.toggleClass(styleClasses.figure.section_blast);
     figure.sectionDecor.toggleClass(styleClasses.figure.section_blast);
-    figure.shield.toggleClass(styleClasses.figure.shield_hideden);
+    figure.shield.toggleClass(styleClasses.figure.shield_hidden);
     sectionDecorLit.forEach((element) => {
       const animationDeleyStyle = `${0 + step}s`;
       element.style = `animation-delay: ${animationDeleyStyle}`;
@@ -265,7 +319,7 @@ function collapseMemory() {
   figure.block.style = `background: rgba(0, 0, 0, 0)`;
   header.asideLeft.toggleClass(styleClasses.header.aside_hidden);
   header.asideRight.toggleClass(styleClasses.header.aside_hidden);
-  figure.shield.toggleClass(styleClasses.figure.shield_hideden);
+  figure.shield.toggleClass(styleClasses.figure.shield_hidden);
   setTimeout(() => {
     figure.sectionNav.toggleClass(styleClasses.figure.section_blast);
     figure.sectionDecor.toggleClass(styleClasses.figure.section_blast);
@@ -345,15 +399,23 @@ function openMemoryFrame() {
       readText();
     };
   };
+  setSoundSource();
+  playSound();
 };
 function removeMemoryFrame() {
+  pauseSound();
   Memory.remove([header, gallery, projector]);
 }
 function lookInImage() {
-  const imageElement = event.target.parentElement;
+  const image = event.target;
+  // const imageID = image.getAttribute("id");
+  const imageElement = image.parentElement;
   if (!imageElement.classList.contains(styleClasses.main.imageElement_opened)) {
     imageElement.classList.add(styleClasses.main.imageElement_touched);
   }
+  // if (imageID.startsWith("v")) {
+  //   // image.setAttribute("src", );
+  // }
 };
 function lookOutImage() {
   const imageElement = event.target.parentElement;
@@ -419,7 +481,7 @@ function update() {
     openMainFrame();
     header.asideLeft.toggleClass(styleClasses.header.aside_hidden);
     header.asideRight.toggleClass(styleClasses.header.aside_hidden);
-    figure.shield.toggleClass(styleClasses.figure.shield_hideden);
+    figure.shield.toggleClass(styleClasses.figure.shield_hidden);
   } else {
     removeMemoryFrame();
     openMemoryFrame();
@@ -433,7 +495,6 @@ function startProgram() {
   Memory.remove(intro);
   openMainFrame();
   blastMemory();
-  playSound();
 };
 
 (function openIntro() {

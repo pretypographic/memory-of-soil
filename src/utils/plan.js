@@ -199,11 +199,18 @@ function opaqueProjectorPlan() {
   const screenPlan = planElement(DIV_ELEMENT, styleClasses.footer.opaqueProjector);
   return screenPlan;
 }
+function frameTitleCheck(item) {
+  if (item.title.eng === "revelations") {
+    return styleClasses.main.title_frame_revelations;
+  } else {
+    return styleClasses.main.title;
+  }
+}
 function frameTitlePlan() {
   const mainTitleBlockPlan = planBlock(DIV_ELEMENT, styleClasses.main.titleBlock, FRAME_CONF);
   const dataArray = Object.values(data);
   const frameConfArray = [dataArray.reduce((acc, item) => {
-    const mainTitle = planElement(TITLE_ELEMENT, styleClasses.main.title, LANG_CONF);
+    const mainTitle = planElement(TITLE_ELEMENT, frameTitleCheck(item), LANG_CONF);
     mainTitle.addMatter(TEXT_TYPE, item.title);
     return {
       ...acc,
@@ -222,6 +229,15 @@ function formExposition() {
     }
   }, {});
   return [exposition];
+}
+function textTypeCheck(data) {
+  if (data.textStyleType === "a") {
+    return styleClasses.main.text;
+  } else if (data.textStyleType === "b") {
+    return styleClasses.main.text_type_b;
+  } else if (data.textStyleType === "c") {
+    return styleClasses.main.text_type_c;
+  }
 }
 function formFrameExposition(string) {
   let array = [];
@@ -249,8 +265,7 @@ function formFrameExposition(string) {
   };
   if (data[string].texts) {
     const elementTextPlan = planElement(DIV_ELEMENT, styleClasses.main.textElement, LANG_CONF);
-    const TEXT_STYLE = "main__text";
-    elementTextPlan.addMatter(COLUMNS_TYPE, data[string].texts, TEXT_STYLE);
+    elementTextPlan.addMatter(COLUMNS_TYPE, data[string].texts, textTypeCheck(data[string]));
     elementTextPlan.class.id = `t${Math.round(Math.random() * 1000000)}`;
     array.push(elementTextPlan);
     popupData = { ...popupData, [elementTextPlan.class.id]: data[string].texts }

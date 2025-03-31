@@ -1,1 +1,10 @@
-<!-- icon666.com - MILLIONS vector ICONS FREE --><svg enable-background="new 0 0 64 64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g id="Share"><g><path d="m53 28c-.55 0-1 .45-1 1v22c0 .55-.45 1-1 1h-38c-.55 0-1-.45-1-1v-38c0-.55.45-1 1-1h22c.55 0 1-.45 1-1s-.45-1-1-1h-22c-1.65 0-3 1.35-3 3v38c0 1.65 1.35 3 3 3h38c1.65 0 3-1.35 3-3v-22c0-.55-.45-1-1-1z"></path><path d="m53 10h-13c-.55 0-1 .45-1 1s.45 1 1 1h10.59l-19.3 19.29c-.39.39-.39 1.02 0 1.41.2.2.45.3.71.3s.51-.1.71-.29l19.29-19.3v10.59c0 .55.45 1 1 1s1-.45 1-1v-13c0-.55-.45-1-1-1z"></path></g></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="Share" transform="matrix(0.748896,0,0,0.748896,8.03534,8.03534)">
+        <g>
+            <path d="M53,28C52.45,28 52,28.45 52,29L52,51C52,51.55 51.55,52 51,52L13,52C12.45,52 12,51.55 12,51L12,13C12,12.45 12.45,12 13,12L35,12C35.55,12 36,11.55 36,11C36,10.45 35.55,10 35,10L13,10C11.35,10 10,11.35 10,13L10,51C10,52.65 11.35,54 13,54L51,54C52.65,54 54,52.65 54,51L54,29C54,28.45 53.55,28 53,28Z" style="fill-rule:nonzero;"/>
+            <path d="M53,10L40,10C39.45,10 39,10.45 39,11C39,11.55 39.45,12 40,12L50.59,12L31.29,31.29C30.9,31.68 30.9,32.31 31.29,32.7C31.49,32.9 31.74,33 32,33C32.26,33 32.51,32.9 32.71,32.71L52,13.41L52,24C52,24.55 52.45,25 53,25C53.55,25 54,24.55 54,24L54,11C54,10.45 53.55,10 53,10Z" style="fill-rule:nonzero;"/>
+        </g>
+    </g>
+</svg>

@@ -80,7 +80,13 @@ class Element {
         data.forEach((array, i) => {
           const matterStyleClasses = item[2];
           const section = document.createElement("section");
-          section.classList.add(matterStyleClasses);
+          if (Array.isArray(matterStyleClasses)) {
+            matterStyleClasses.forEach((string) => {
+              section.classList.add(string);
+            })
+          } else {
+            section.classList.add(matterStyleClasses);
+          }
           section.setAttribute("id", i);
           array.forEach((string, i) => {
             if (i === 0) {
