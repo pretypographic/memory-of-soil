@@ -15,7 +15,6 @@ const Memory = new Device({
   plan: planMemory
 });
 Memory.initiate();
-console.log(Memory);
 
 const { coreInterface, intro, header, figure, projector, gallery } = Memory;
 document.addEventListener('keydown', (event) => {
@@ -27,6 +26,8 @@ document.addEventListener('keydown', (event) => {
 });
 intro.plan.addProcessor("click", () => {
   if (event.target.classList.contains(styleClasses.intro.button)) {
+    switchFrameConf();
+    header.asideLeft.toggleClass(styleClasses.header.aside_hidden);
     intro.toggleClass(styleClasses.intro.parent_hidden);
     setTimeout(() => {
       startProgram(); 
@@ -41,9 +42,16 @@ coreInterface.soundButton.plan.addProcessor("click", () => {
 });
 header.asideLeft.plan.addProcessor("click", () => {
   if (event.target.classList.contains(styleClasses.header.button)) {
-    if (!event.target.classList.contains(styleClasses.header.button_active)) {
-      switchLanguagesConf();
-      update();
+    if (conf.current.frame === "intro") {
+      if (!event.target.classList.contains(styleClasses.header.button_active)) {
+        switchLanguagesConf();
+        updateIntro();
+      }
+    } else {
+      if (!event.target.classList.contains(styleClasses.header.button_active)) {
+        switchLanguagesConf();
+        update();
+      }
     }
   }
 });
@@ -77,6 +85,8 @@ gallery.plan.addProcessor("mouseover", () => {
     return;
   } else if (event.target.classList.contains(styleClasses.main.navButton)) {
     return;
+  } else if (event.target.classList.contains(styleClasses.main.videoIcn)) {
+    lookInImage();
   } else {
     lookInImage();
   }
@@ -118,13 +128,17 @@ gallery.navButton.plan.addProcessor("click", () => {
   setTimeout(() => {
     figure.shield.toggleClass(styleClasses.figure.shield_hidden);
   }, LOAD_TIME_1)
-})
+});
 projector.plan.addProcessor("click", () => {
   if (conf.current.projectorMode === "video") {
-    pauseSound();
+    if (conf.current.sound === "on") {
+      pauseSound();
+    }
     if (!event.target.classList.contains(styleClasses.footer.cinemaProjector)) {
       gaveAway();
-      playSound();
+      if (conf.current.sound === "on") {
+        playSound();
+      };
       conf.current.projectorMode = "about";
       conf.current.projectorOpened = false;
       updateProjector();
@@ -139,47 +153,36 @@ projector.plan.addProcessor("click", () => {
   } else {
     return;
   }
-})
-// document.addEventListener("mousemove", () => {
-//   handleMouseMove();
-// })
-// function handleMouseMove() {
-//   let X = event.screenX / window.screen.width * 100;
-//   let Y = event.screenY / window.screen.height * 100;
-//   let shiftX;
-//   let shiftY;
-//   if (X > 50) {
-//     shiftX = `${-(X - 50)}px`;
-//   } else {
-//     shiftX = `${50 - X}px`;
-//   };
-//   if (Y > 50) {
-//     shiftY = `${-(Y - 50)}px`;
-//   } else {
-//     shiftY = `${50 - Y}px`;
-//   };
-//   const styleMod = `top: calc(${shiftY} / 6); left: calc(50% + ${shiftX} / 6);`;
-//   figure.block.style = styleMod;
-// };
+});
 
 function playSound() {
   coreInterface.matter()[0].firstElementChild.play()
-}
+};
 function pauseSound() {
   coreInterface.matter()[0].firstElementChild.pause()
-}
+};
 function switchSound() {
-  if (coreInterface.matter()[0].firstElementChild.paused) {
+  if (conf.current.sound === "hold") {
+    conf.current.sound = "on";
     playSound();
-  } else {
+    coreInterface.soundButton.toggleClass(styleClasses.coreInterface.button_pressed);
+    setTimeout(() => {
+      coreInterface.soundButton.toggleClass(styleClasses.coreInterface.button_pressed);
+    }, 500)
+  } else if (conf.current.sound === "on") {
+    conf.current.sound = "off";
     pauseSound();
+    coreInterface.soundButton.toggleClass(styleClasses.coreInterface.button_pressed);
+  } else if (conf.current.sound === "off") {
+    conf.current.sound = "on";
+    playSound();
+    coreInterface.soundButton.toggleClass(styleClasses.coreInterface.button_pressed);
   }
-  coreInterface.soundButton.toggleClass(styleClasses.coreInterface.button_pressed);
-}
+};
 function setSoundSource() {
   const sound = data[conf.current.frame].sound;
   coreInterface.matter()[0].firstElementChild.setAttribute("src", sound);
-}
+};
 function toggleFullScreen() {
   const doc = window.document;
   const docEl = doc.documentElement;
@@ -200,18 +203,18 @@ function toggleFullScreen() {
     }
   }
   coreInterface.screenButton.toggleClass(styleClasses.coreInterface.button_pressed);
-}
+};
 function switchLanguagesConf() {
   if (event.target.textContent === "eng") {
     conf.current.lang = "eng";
   } else if (event.target.textContent === "rus") {
     conf.current.lang = "rus";
   };
-}
+};
 function switchAboutConf() {
   conf.current.projectorMode = "about";
   conf.current.projectorOpened = !conf.current.projectorOpened;
-}
+};
 function switchProjectorConfImage() {
   const image = event.target;
   const imageFrameElement = image.parentElement;
@@ -229,7 +232,7 @@ function switchProjectorConfImage() {
   }
   conf.current.projectorMode = projectorMode;
   return imageID;
-}
+};
 function switchProjectorConfText() {
   let text = {};
   let textID = undefined;
@@ -263,12 +266,15 @@ function switchProjectorConfText() {
   }
   conf.current.projectorMode = projectorMode;
   return textElementID;
-}
+};
 function switchFrameConf() {
+  console.log(conf.current.frame);
   if (conf.current.frame === "main") {
     conf.current.frame = event.target.textContent;
-  }
-}
+  } else {
+    conf.current.frame = "main";
+  };
+};
 
 function blastMemory() {
   let sectionNavButtons = figure.sectionNav.matter();
@@ -324,7 +330,7 @@ function collapseMemory() {
     figure.sectionNav.toggleClass(styleClasses.figure.section_blast);
     figure.sectionDecor.toggleClass(styleClasses.figure.section_blast);
   }, 100);
-}
+};
 function toggleLabel() {
   const currentLang = conf.current.lang;
   const button = header.asideRight.matter()[0];
@@ -335,25 +341,25 @@ function toggleLabel() {
   } else if (currentLang === "rus") {
     button.textContent = label === main.rings.rus ? main.about.rus : main.rings.rus;
   }
-}
+};
 function toggleInstruction() {
   projector.toggleClass(styleClasses.footer.parent_opened);
   figure.toggleClass(styleClasses.figure.parent_state_off);  
-}
+};
 function triggerShining() {
   if (event.target.classList.contains(styleClasses.figure.button)) {
     const button = event.target;
     button.classList.add(styleClasses.figure.button_focused);
     figure.sectionDecor.toggleClass(styleClasses.figure.section_lightOn);
   }
-}
+};
 function quitShining() {
   if (event.target.classList.contains(styleClasses.figure.button)) {
     const button = event.target;
     button.classList.remove(styleClasses.figure.button_focused);
     figure.sectionDecor.toggleClass(styleClasses.figure.section_lightOn);
   }
-}
+};
 function setLanguageButtons() {
   const matter = header.asideLeft.matter();
   const engButton = matter.find((element) => {
@@ -369,7 +375,7 @@ function setLanguageButtons() {
       rusButton.classList.add(styleClasses.header.button_active);
     }
   });
-}
+};
 function openMainFrame() {
   Memory.lock([header.create(), figure.create(), projector.create()]);
   setLanguageButtons();
@@ -400,22 +406,20 @@ function openMemoryFrame() {
     };
   };
   setSoundSource();
-  playSound();
+  if (conf.current.sound === "on" || conf.current.sound === "hold") {
+    playSound();
+  };
 };
 function removeMemoryFrame() {
   pauseSound();
   Memory.remove([header, gallery, projector]);
-}
+};
 function lookInImage() {
   const image = event.target;
-  // const imageID = image.getAttribute("id");
   const imageElement = image.parentElement;
   if (!imageElement.classList.contains(styleClasses.main.imageElement_opened)) {
     imageElement.classList.add(styleClasses.main.imageElement_touched);
   }
-  // if (imageID.startsWith("v")) {
-  //   // image.setAttribute("src", );
-  // }
 };
 function lookOutImage() {
   const imageElement = event.target.parentElement;
@@ -479,24 +483,42 @@ function update() {
   if (conf.current.frame === "main") {
     removeMainFrame();
     openMainFrame();
+    updateCoreInterface();
     header.asideLeft.toggleClass(styleClasses.header.aside_hidden);
     header.asideRight.toggleClass(styleClasses.header.aside_hidden);
     figure.shield.toggleClass(styleClasses.figure.shield_hidden);
   } else {
     removeMemoryFrame();
     openMemoryFrame();
+    updateCoreInterface();
   }
 };
+function updateCoreInterface() {
+  coreInterface.screenButton.remove();
+  coreInterface.soundButton.remove();
+  coreInterface.lock([coreInterface.screenButton.create(), coreInterface.soundButton.create()]);
+}
+function updateIntro() {
+  Memory.remove([header, intro]);
+  Memory.lock([header.create(), intro.create()]);
+  header.asideLeft.toggleClass(styleClasses.header.aside_hidden);
+  header.asideRight.toggleClass(styleClasses.disabled);
+  setLanguageButtons();
+  updateCoreInterface();
+}
 function updateProjector() {
   Memory.remove([projector]);
   Memory.lock([projector.create()]);
 };
 function startProgram() {
-  Memory.remove(intro);
+  Memory.remove([header, intro]);
   openMainFrame();
   blastMemory();
 };
 
 (function openIntro() {
-  Memory.lock([coreInterface. create(), intro.create()]);
+  Memory.lock([header.create(), coreInterface.create(), intro.create()]);
+  header.asideLeft.toggleClass(styleClasses.header.aside_hidden);
+  header.asideRight.toggleClass(styleClasses.disabled);
+  setLanguageButtons();
 })();

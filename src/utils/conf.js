@@ -7,7 +7,9 @@ const conf = {
   current: {
     load: false,
     lang: "eng",
-    frame: "main",
+    frame: "intro",
+    // off, on, hold
+    sound: "hold",
     // projector: { opened: false, mode: "instruction" },
     projectorOpened: false,
     projectorMode: "about"

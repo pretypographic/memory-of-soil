@@ -71,7 +71,7 @@ export const styleClasses = {
     imageElement: ["main__image-element"],
     imageElement_opened: ["main__image-element_opened"],
     imageElement_touched: ["main__image-element_touched"],
-    imageElement_video: ["main__image-element_video"],
+    videoIcn: ["main__video-icn"],
     image: ["main__image"],
     textElement: ["main__text-element"],
     textElement_touched: ["main__text-element_touched"],

@@ -1,7 +1,7 @@
 "use strict";
 
 import conf from "./conf.js";
-import { 
+import {
   ARTICLE_ELEMENT, 
   ASIDE_ELEMENT, 
   BUTTON_ELEMENT, 
@@ -75,28 +75,28 @@ function flagPlan() {
   audioPlan.class.src = main.audio;
   flagPlan.addMatter(ELEMENT_TYPE, audioPlan);
   return flagPlan;
-}
+};
 function screenButtonPlan() {
   const screenButtonPlan = planBlock(BUTTON_ELEMENT, styleClasses.coreInterface.screenButton);
   const labelPlan = planElement(PARAGRAPH_ELEMENT, styleClasses.coreInterface.label, LANG_CONF);
   labelPlan.addMatter(TEXT_TYPE, main.coreInterfaceLabels.screen);
   screenButtonPlan.addMatter(ELEMENT_TYPE, labelPlan);
   return screenButtonPlan;
-}
+};
 function soundButtonPlan() {
   const soundButtonPlan = planBlock(BUTTON_ELEMENT, styleClasses.coreInterface.soundButton);
   const labelPlan = planElement(PARAGRAPH_ELEMENT, styleClasses.coreInterface.label, LANG_CONF);
   labelPlan.addMatter(TEXT_TYPE, main.coreInterfaceLabels.sound);
   soundButtonPlan.addMatter(ELEMENT_TYPE, labelPlan);
   return soundButtonPlan;
-}
+};
 function descriptionPlan() {  
   const description = {
     rus: descriptionElementsPlan("rus"),
     eng: descriptionElementsPlan("eng")
   }
   return [description];
-}
+};
 function descriptionElementsPlan(lang) {
   const introductionPlan = planElement(PARAGRAPH_ELEMENT, styleClasses.intro.text);
   introductionPlan.addMatter(TEXT_TYPE, intro.introduction[lang]);
@@ -109,7 +109,7 @@ function descriptionElementsPlan(lang) {
   const buttonPlan = planElement(BUTTON_ELEMENT, styleClasses.intro.button);
   buttonPlan.addMatter(TEXT_TYPE, intro.button[lang]);
   return [introductionPlan, phoneImgPlan, phoneAdvisePlan, partingWordsPlan, buttonPlan]
-}
+};
 function asideLeftPlan() {
   const asideLeftPlan = planBlock(ASIDE_ELEMENT, styleClasses.header.asideLeft);
   main.languages.forEach((string, i) => {
@@ -118,14 +118,14 @@ function asideLeftPlan() {
     asideLeftPlan.addMatter(ELEMENT_TYPE, languageButtonPlan);
   });
   return asideLeftPlan;
-}
+};
 function asideRightPlan() {
   const asideRightPlan = planBlock(ASIDE_ELEMENT, styleClasses.header.asideRight);
   const buttonPlan = planElement(BUTTON_ELEMENT, styleClasses.header.button, LANG_CONF);
   buttonPlan.addMatter(TEXT_TYPE, main.about);
   asideRightPlan.addMatter(ELEMENT_TYPE, buttonPlan);
   return asideRightPlan;
-}
+};
 function sectionNavPlan() {
   const sectionNavPlan = planBlock(SECTION_ELEMENT, styleClasses.figure.sectionNav);
   conf._navRingsImg().forEach((images, i) => {
@@ -142,7 +142,7 @@ function sectionNavPlan() {
     sectionNavPlan.addMatter(ELEMENT_TYPE, buttonPlan);
   });
   return sectionNavPlan;
-}
+};
 function sectionDecorPlan() {
   const sectionDecorPlan = planBlock(SECTION_ELEMENT, styleClasses.figure.sectionDecor);
   conf._decorRingsImg().forEach((string, i) => {
@@ -152,11 +152,11 @@ function sectionDecorPlan() {
     sectionDecorPlan.addMatter(ELEMENT_TYPE, imagePlan);
   });
   return sectionDecorPlan;
-}
+};
 function shieldPlan() {
   const shieldPlan = planBlock(DIV_ELEMENT, styleClasses.figure.shield);
   return shieldPlan;
-}
+};
 function setProjector() {
   let projectorModes = {
     about: [articlePlan(), sectionPlan()],
@@ -165,28 +165,28 @@ function setProjector() {
     text: [opaqueProjectorPlan(), closeButtonPlan()]
   }
   return [projectorModes];
-}
+};
 function articlePlan() {
   const articlePlan = planElement(ARTICLE_ELEMENT, styleClasses.footer.article, LANG_CONF);
   const SECTION_STYLE_CLASS = "footer__section";
   articlePlan.addMatter(COLUMNS_TYPE, instruction.column, SECTION_STYLE_CLASS);
   return articlePlan;
-}
+};
 function sectionPlan() {
   const sectionPlan = planElement(SECTION_ELEMENT, styleClasses.footer.section, LANG_CONF);
   const NAME_BLOCK_STYLE_CLASS = "footer__name-block";
   sectionPlan.addMatter(COLUMNS_TYPE, instruction.names, NAME_BLOCK_STYLE_CLASS)
   return sectionPlan;
-}
+};
 function closeButtonPlan() {
   const closeButtonPlan = planElement(BUTTON_ELEMENT, styleClasses.footer.button);
   closeButtonPlan.addMatter(TEXT_TYPE, "+");
   return closeButtonPlan;
-}
+};
 function slideProjectorPlan() {
   const screenPlan = planElement(IMG_ELEMENT, styleClasses.footer.slideProjector);
   return screenPlan;
-}
+};
 function cinemaProjectorPlan() {
   const screenPlan = planElement(VIDEO_ELEMENT, styleClasses.footer.cinemaProjector);
   screenPlan.class.controls = true;
@@ -194,18 +194,18 @@ function cinemaProjectorPlan() {
   screenSourcePlan.class.type = "video/mp4";
   screenPlan.addMatter(ELEMENT_TYPE, screenSourcePlan);
   return screenPlan;
-}
+};
 function opaqueProjectorPlan() {
   const screenPlan = planElement(DIV_ELEMENT, styleClasses.footer.opaqueProjector);
   return screenPlan;
-}
+};
 function frameTitleCheck(item) {
   if (item.title.eng === "revelations") {
     return styleClasses.main.title_frame_revelations;
   } else {
     return styleClasses.main.title;
   }
-}
+};
 function frameTitlePlan() {
   const mainTitleBlockPlan = planBlock(DIV_ELEMENT, styleClasses.main.titleBlock, FRAME_CONF);
   const dataArray = Object.values(data);
@@ -219,7 +219,7 @@ function frameTitlePlan() {
   }, {})];
   mainTitleBlockPlan.addMatter(ELEMENT_TYPE, frameConfArray);
   return mainTitleBlockPlan;
-}
+};
 function formExposition() {
   const framesTitle = Object.keys(data);
   const exposition = framesTitle.reduce((conf, string) => {
@@ -229,7 +229,7 @@ function formExposition() {
     }
   }, {});
   return [exposition];
-}
+};
 function textTypeCheck(data) {
   if (data.textStyleType === "a") {
     return styleClasses.main.text;
@@ -238,7 +238,7 @@ function textTypeCheck(data) {
   } else if (data.textStyleType === "c") {
     return styleClasses.main.text_type_c;
   }
-}
+};
 function formFrameExposition(string) {
   let array = [];
   if (data[string].video) {
@@ -247,6 +247,8 @@ function formFrameExposition(string) {
       const imagePlan = planElement(IMG_ELEMENT, styleClasses.main.image);
       imagePlan.class.id = `v${Math.round(Math.random() * 1000000)}`;
       imagePlan.addMatter(IMAGE_TYPE, object.image);
+      const videoIcnPlan = planElement(DIV_ELEMENT, styleClasses.main.videoIcn);
+      elementImagePlan.addMatter(ELEMENT_TYPE, videoIcnPlan);
       elementImagePlan.addMatter(ELEMENT_TYPE, imagePlan);
       array.push(elementImagePlan);
       popupData = { ...popupData, [imagePlan.class.id]: object.video }
@@ -271,13 +273,13 @@ function formFrameExposition(string) {
     popupData = { ...popupData, [elementTextPlan.class.id]: data[string].texts }
   }
   return array;
-}
+};
 function frameNavPlan() {
   const headerNav = planBlock(SECTION_ELEMENT, styleClasses.main.nav);
   const headerNavButton = planElement(BUTTON_ELEMENT, styleClasses.main.navButton, LANG_CONF);
   headerNavButton.addMatter(TEXT_TYPE, main.navElement)
   headerNav.addMatter(ELEMENT_TYPE, headerNavButton);
   return headerNav;
-}
+};
 
 export { planMemory, popupData };

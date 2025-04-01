@@ -4,7 +4,6 @@
 import images from "../media/images/data.js";
 import bloodstone_v2 from "../media/videos/frame-memory/bloodstone_v2.mp4";
 import poster03_blood_stone_v2 from "../media/videos/frame-memory/poster03_blood_stone_v2.jpg";
-import poster03_blood_stone_v2gif from "../media/videos/frame-memory/MEMORY_blood stone_v2.gif";
 import flower_2 from "../media/videos/frame-illusion/flower 2.mp4";
 import poster_flower2 from "../media/videos/frame-illusion/poster_flower2.jpg";
 import Polina_1 from "../media/videos/frame-human/Polina_1.mp4";
@@ -23,8 +22,6 @@ import fog from "../media/videos/frame-time/fog.mp4";
 import poster_fog from "../media/videos/frame-time/poster_fog.jpg";
 import timelapse from "../media/videos/frame-time/timelapse.mp4";
 import poster_timelapse from "../media/videos/frame-time/poster_timelapse.jpg";
-import phone_bie0m3c0sdoo from "../vendor/icons/phone_bie0m3c0sdoo.svg";
-import computer_icn from "../vendor/icons/computer-1294809.svg";
 import laptop_icn from "../vendor/icons/laptop-2243898.svg";
 
 // sounds
@@ -50,7 +47,7 @@ const main = {
     },
     sound: {
       eng: "on/off sound (M)",
-      rus: "вкл/откл звук (M)"
+      rus: "вкл./откл. звук (M)"
     }
   },
   languages: ["eng", "rus"],
@@ -87,7 +84,7 @@ const intro = {
     eng: "begin"
   },
   imgSrc: laptop_icn
-}
+};
 
 const instruction = {
   column: {
@@ -186,7 +183,7 @@ const instruction = {
       ]
     ]
   }
-}
+};
 
 const data = {
   memory: {
